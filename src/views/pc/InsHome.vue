@@ -1,0 +1,426 @@
+<template>
+  <div class="home" v-cloak>
+    <HomeBanner :page="'Home'" />
+    <HkPromotion />
+    <HkBranch />
+    <HkLiveBox v-if="$Settings.siteVersion !== 1" />
+
+    <div class="activity" v-if="$Settings.siteVersion !== 1 && $Settings.calendar">
+      <div class="TitleBg"><div class="innerBox">{{$t('home.Activity')}}</div></div>
+      <ins-full-calendar />
+      <!-- <ins-calendar /> -->
+    </div>
+
+    <InsBaiduMap :lng="113.090191" :lat="22.601079" markText="markText" v-if="AreaCode === 'CN'" />
+
+    <div class="map-main googleMap" v-else>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3690.524633715289!2d114.15097431550411!3d22.333810985306158!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x340400ad2b69d883%3A0x7c2d810e7fef31f0!2sIntimex+Business+Solutions+Co.%2C+Ltd.!5e0!3m2!1sen!2shk!4v1476954339617" width="100%" height="500" frameborder="0" style="border:0" allowfullscreen=""></iframe>
+    </div>
+  </div>
+</template>
+
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator';
+@Component({
+  components: {
+    HomeBanner: () => import('@/components/base/pc/InsBanner.vue'),
+    HkPromotion: () => import('@/components/hkTasteBusiness/pc/home/HkPromotion.vue'),
+    HkBranch: () => import('@/components/hkTasteBusiness/pc/home/HkBranch.vue'),
+    HkLiveBox: () => import('@/components/hkTasteBusiness/pc/home/HkLiveBox.vue'),
+    InsFullCalendar: () => import('@/components/business/pc/home/InsFullCalendar.vue'),
+    InsCalendar: () => import('@/components/business/pc/home/InsCalendar.vue'),
+    InsBaiduMap: () => import('@/components/business/pc/promotion/InsBaiduMap.vue')
+  }
+})
+export default class InsHome extends Vue {
+  swiperOption: object = {
+    autoplay: {
+      disableOnInteraction: false
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true
+    }
+  };
+
+  get AreaCode () {
+    return localStorage.getItem('AreaCode') || '';
+  }
+
+  mounted () { }
+}
+</script>
+
+<style lang="less" scoped>
+v-cloak{
+  display: none;
+}
+
+/deep/ .banner {
+  .swiper-pagination-bullet{
+    width: 12px!important;
+    height: 12px!important;
+    background: #fff;
+    opacity: 1;
+  }
+
+  .swiper-pagination-bullet-active{
+    background: #666666!important;
+  }
+}
+
+.about-main {
+  width: 100%;
+  margin: 0 auto;
+  display: inline-block;
+
+  .index-content-box {
+    box-sizing: border-box;
+    width: 50%;
+    margin: 0 auto;
+    margin-top: -100px;
+    z-index: 3;
+    position: relative;
+
+    .pc-aboutus {
+      background: #fff;
+      border-radius: 20px 20px 0px 0px;
+      box-shadow: darkgrey 0px 0px 10px 0px;
+
+      .p-message-conct {
+        height: 421px;
+        margin: 0 auto;
+        padding: 0 5%;
+
+        .title {
+          color: #000000;
+          font-size: 23px;
+          display: block;
+          text-align: center;
+          padding-top: 23px;
+
+          span {
+            color: #000;
+            font-size: 35px;
+            float: left;
+          }
+
+          .more {
+            float: right;
+
+            img {
+              width: 42px;
+            }
+          }
+        }
+
+        .plconct {
+          height: 275px;
+          margin: 0 auto;
+          padding-top: 30px;
+          overflow: hidden;
+
+          p {
+            font-size: 16px;
+            line-height: 38px;
+          }
+
+          span {
+            font-size: 14px;
+            margin-left: 0px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.category-product-bg {
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  margin-top: 30px;
+
+  .title {
+    width: 100%;
+    height: 100px;
+    position: relative;
+
+    .title_back {
+      width: 80%;
+      height: 100%;
+      float: left;
+    }
+
+    .title_box {
+      height: 100%;
+      width: 78%;
+      position: absolute;
+      top: 0;
+
+      .title_content {
+        width: 1080px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        position: relative;
+        float: right;
+        max-width: 96%;
+
+        p {
+          color: #fff;
+          font-size: 28px;
+          width: 525px;
+          height: 65%;
+          display: flex;
+          align-items: center;
+          background-color: #000;
+          padding-left: 25px;
+          border-radius: 5px 60px 5px 5px;
+        }
+
+        .more {
+          position: absolute;
+          right: 0;
+        }
+      }
+    }
+  }
+
+  .picimg {
+    width: 1100px;
+    margin: 0 auto;
+
+    .product-list-box {
+      min-height: unset;
+      margin: 45px 0;
+      position: relative;
+
+      .product-list-one_1 {
+        height: 456px;
+        margin-bottom: 35px;
+        width: 30%;
+        margin-right: 3%;
+        box-shadow: #d8d8d8 0px 0px 10px 0px;
+        overflow: hidden;
+        position: relative;
+        float: left;
+        margin-left: 5px;
+
+        .ban-setting {
+          display: block;
+          position: relative;
+          overflow: hidden;
+        }
+
+        a img {
+          display: block;
+          border: 1px solid #ededed;
+          width: 99%;
+          margin: 0 auto;
+          -webkit-transition: border 0.5s;
+          transition: border 0.5s;
+        }
+
+        &:hover a img {
+          border: 1px solid #000;
+        }
+
+        &:nth-child(3n) {
+          margin-right: 0;
+        }
+
+        .captn {
+          .p-name {
+            color: #000000;
+            font-size: 14px;
+            text-align: center;
+            margin-top: 14px;
+            line-height: 20px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            word-wrap: break-word;
+          }
+
+          .p-price-box {
+            text-align: center;
+            margin-top: 12px;
+
+            p {
+              display: inline-block;
+            }
+
+            .p-price-discount {
+              color: #ff0000;
+              font-size: 18px;
+              vertical-align: top;
+            }
+          }
+
+          .p-addtocart {
+            display: block;
+            margin: 0 auto;
+            line-height: 30px;
+            text-align: center;
+            background-color: #2e2e2e;
+            color: #fff;
+            width: 50%;
+            height: 30px;
+            margin-top: 12px;
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.index_more {
+  background: url(../../assets/Images/PC_more_bg.png) top right no-repeat;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  margin-bottom: 20px;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  justify-content: center;
+  align-items: center;
+  background-size: 82% 100%;
+
+  .btn {
+    display: flex;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    color: #fff;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    font-size: 15px;
+    width: 186px;
+    height: 55px;
+    background: #000;
+    border-radius: 10px;
+  }
+}
+
+.about-content {
+  background: linear-gradient(to bottom, #f0f0e6 62%, #ffffff 48%);
+
+  .p-message-content {
+    margin: 0 auto;
+    padding-top: 65px;
+    width: 1100px;
+
+    .pl {
+      width: 640px;
+      float: left;
+    }
+
+    .pr {
+      float: left;
+      margin-left: 10px;
+      margin-top: -30px;
+      width: 103px;
+    }
+  }
+}
+
+.whole_img {
+  width: 100%;
+}
+
+.feedback-main {
+  width: 100%;
+  margin: 0 auto;
+  display: inline-block;
+
+  .feedback-message {
+    width: 1100px;
+    height: 272px;
+    margin: 0 auto;
+    position: relative;
+
+    .fb-page_fb {
+      width: 460px;
+      float: right;
+      margin-top: -270px;
+    }
+
+    .ico {
+      width: 106px;
+      position: absolute;
+      bottom: 0;
+      right: 470px;
+    }
+  }
+}
+
+.contactUs {
+  width: 724px;
+  margin: 70px auto 0;
+  border-radius: 20px 20px 0px 0px;
+  box-shadow: darkgrey 0px 0px 10px 0px;
+
+  .contact_bg {
+    background: url(../../assets/Images/map_bg.png) top no-repeat;
+    width: 100%;
+    background-size: cover;
+    height: 308px;
+    text-align: center;
+
+    .contactUs_Content {
+      padding: 45px 126px;
+
+      .title {
+        height: 40px;
+        line-height: 45px;
+        font-size: 18px;
+      }
+
+      p {
+        padding: 30px 0;
+        font-size: 15px;
+        line-height: 28px;
+      }
+    }
+  }
+}
+
+.activity {
+  margin: 100px auto;
+
+  .TitleBg{
+    width: 500px;
+    height: 70px;
+    border:1px solid #4d4d4d;
+    margin: 0 auto;
+    padding: 10px;
+    margin-bottom: 100px;
+    .innerBox{
+      width: 100%;
+      height: 100%;
+      background:#4d4d4d;
+      color: #FFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      font-weight: 700;
+      font-family: 'Arial';
+    }
+  }
+}
+
+.ins-fullCalendar {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.ins-calendar {
+  margin: 50px auto;
+}
+</style>
