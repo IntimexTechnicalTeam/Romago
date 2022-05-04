@@ -32,6 +32,9 @@ export default new Vuex.Store({
     pickupAddress: new PickupAddress(),
     searchKey: '',
     isShowMenu: false,
+    isShowSearch: false,
+    isShowLangSwitch: false,
+    isShowCodeSelect: false,
     isClick: false,
     isActive: false,
     isSearchBar: false,
@@ -103,6 +106,15 @@ export default new Vuex.Store({
     },
     isShowMenu (state, isShowMenu) {
       state.isShowMenu = isShowMenu;
+    },
+    isShowSearch (state, isShowSearch) {
+      state.isShowSearch = isShowSearch;
+    },
+    isShowLangSwitch (state, isShowLangSwitch) {
+      state.isShowLangSwitch = isShowLangSwitch;
+    },
+    isShowCodeSelect (state, isShowCodeSelect) {
+      state.isShowCodeSelect = isShowCodeSelect;
     },
     isClick (state, isClick) {
       state.isClick = isClick;
@@ -240,6 +252,15 @@ export default new Vuex.Store({
     },
     isShowMenu: ({ commit }, isShowMenu) => {
       commit('isShowMenu', isShowMenu);
+    },
+    isShowSearch: ({ commit }, isShowSearch) => {
+      commit('isShowSearch', isShowSearch);
+    },
+    isShowLangSwitch: ({ commit }, isShowLangSwitch) => {
+      commit('isShowLangSwitch', isShowLangSwitch);
+    },
+    isShowCodeSelect: ({ commit }, isShowCodeSelect) => {
+      commit('isShowCodeSelect', isShowCodeSelect);
     },
     isClick: ({ commit }, isClick) => {
       commit('isClick', isClick);

@@ -43,7 +43,7 @@ export default class InsSlideMenu extends Vue {
   // width: 100%;
   position: fixed;
   background-color: #8fc21e;
-  z-index: 1000;
+  z-index: 100000;
 
   &.left {
     top: 0;

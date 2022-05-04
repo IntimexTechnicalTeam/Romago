@@ -31,10 +31,10 @@ export default {
   // 手機版側欄滑動菜單設置
   slideMenu: {
     direction: 'right', // 菜單滑出方向 => 默認值 'top', 可選值 'top', 'left', 'right'
-    width: '80%', // 菜單寬度 => 默認值'100%'，僅在position值為非'top'的情況生效
+    width: '100%', // 菜單寬度 => 默認值'100%'，僅在position值為非'top'的情況生效
     height: '100%', // 菜單高度 => 默認值'100%'，僅在position值為'top'的情況生效
-    Embedded: true, // 菜單是否內嵌 => 默認值 false ，僅在position值為非'top'的情況生效
+    Embedded: false, // 菜單是否內嵌 => 默認值 false ，僅在position值為非'top'的情況生效
     maskBg: '#000', // 側欄菜單遮罩顏色
-    maskOpacity: '.3' // 側欄菜單遮罩顏色透明度
+    maskOpacity: '.7' // 側欄菜單遮罩顏色透明度
   }
 };

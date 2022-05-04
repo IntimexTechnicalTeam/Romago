@@ -1,13 +1,12 @@
 <template>
     <div>
-        <div class="drawer-bg" :style="{backgroundColor: $Settings.slideMenu.maskBg, Opacity: $Settings.slideMenu.maskOpacity}" v-show="showMenu" @click="handleClickOutside"/>
+        <div class="drawer-bg" :style="{backgroundColor: $Settings.slideMenu.maskBg, Opacity: $Settings.slideMenu.maskOpacity}" v-show="ShowCodeSelect" @click="handleClickOutside"/>
 
-        <div class="sidebar-container" :class="{'hiddenMenu': !showMenu,'left': direction == 'left','top': direction == 'top', 'right': direction == 'right'}" :style="{width: width, height: height}">
+        <div class="sidebar-container" :class="{'hiddenMenu': !ShowCodeSelect,'left': direction == 'left','top': direction == 'top', 'right': direction == 'right'}" :style="{width: width, height: height}">
             <el-scrollbar wrap-class="scrollbar-wrapper">
-                <slot />
+                <ins-code-select />
 
             </el-scrollbar>
-
         </div>
     </div>
 </template>
@@ -15,7 +14,11 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 
-@Component
+@Component({
+  components: {
+    InsCodeSelect: () => import('@/components/business/mobile/header/InsCodeSelect.vue')
+  }
+})
 export default class InsSlideMenu extends Vue {
   // @Prop({ default: 'left' }) private direction !: string;
   private direction: string = ''; // 菜單滑出方向: 'top', 'left', 'right'
@@ -29,12 +32,12 @@ export default class InsSlideMenu extends Vue {
   }
 
   // 是否顯示滑動側欄菜單
-  get showMenu () {
-    return this.$store.state.isShowMenu;
+  get ShowCodeSelect () {
+    return this.$store.state.isShowCodeSelect;
   }
 
   handleClickOutside () {
-    this.$store.dispatch('isShowMenu', false);
+    this.$store.dispatch('isShowCodeSelect', false);
   }
 
   created () {
@@ -58,8 +61,8 @@ export default class InsSlideMenu extends Vue {
 
   }
 
-  @Watch('showMenu', { deep: true })
-  onShowMenu (val) {
+  @Watch('ShowCodeSelect', { deep: true })
+  onShowCodeSelect(val) {
     if (val) {
       document.body.style.overflow = 'hidden';
 

@@ -4,6 +4,9 @@
     <router-view></router-view>
     <ins-footer  v-show="routerPath!=='/building'" />
     <ins-sidebar />
+    <ins-slide-search :direction="'right'"></ins-slide-search>
+    <ins-slide-code-select :direction="'right'"></ins-slide-code-select>
+    <ins-slide-lang :direction="'right'"></ins-slide-lang>
     <ins-slide-menu :direction="'right'">
       <ins-menu-layout />
     </ins-slide-menu>
@@ -19,6 +22,9 @@ import Cookie from 'js-cookie';
     InsHeader: () => import('@/components/business/mobile/header/InsHeader.vue'),
     InsFooter: () => import('@/components/business/mobile/footer/InsFooter.vue'),
     InsSlideMenu: () => import('@/components/business/mobile/header/InsSlideMenu.vue'),
+    InsSlideSearch: () => import('@/components/business/mobile/header/InsSlideSearch.vue'),
+    InsSlideCodeSelect: () => import('@/components/business/mobile/header/InsSlideCodeSelect.vue'),
+    InsSlideLang: () => import('@/components/business/mobile/header/InsSlideLang.vue'),
     InsMenuLayout: () => import('@/components/hkTasteBusiness/mobile/header/InsMenuLayout.vue'),
     InsSidebar: () => import('@/components/business/pc/header/InsSidebar.vue')
   }

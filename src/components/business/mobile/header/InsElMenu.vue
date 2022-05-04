@@ -1,5 +1,5 @@
 <template>
-    <el-menu :default-active="defaultActive ? MenuList[0] ? MenuList[0].Name : '' : ''" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :mode="mode" :background-color="backColor" :text-color="textColor" :active-text-color="activeTextColor"  :unique-opened="uniqueOpened">
+    <el-menu :default-active="defaultActive ? MenuList[0] ? MenuList[0].Name : '' : ''"  ref="menu"  class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :mode="mode" :background-color="backColor" :text-color="textColor" :active-text-color="activeTextColor"  :unique-opened="uniqueOpened">
       <!-- 递归子组件 -->
       <menuItem v-for="(item,index) in MenuList" :key="index" :item="item" :textColor="textColor" />
     </el-menu>
@@ -20,7 +20,7 @@ export default class InsElMenu extends Vue {
   @Prop({ default: false }) private defaultActive!: boolean; // 当前激活菜单的 index
   @Prop({ default: false }) private uniqueOpened!: boolean; // 是否只保持一个子菜单的展开
   @Prop({ default: 'header' }) private type!: string; // 菜单数据类型（头部/脚部）
-
+  @Prop({ default: false }) private collapse!: boolean; // 当前激活菜单的 index
   handleOpen (key, keyPath) {
   }
   handleClose (key, keyPath) {
@@ -32,6 +32,8 @@ export default class InsElMenu extends Vue {
     } else {
       return this.$store.state.footerMenus;
     }
+  }
+  created() {
   }
 }
 </script>

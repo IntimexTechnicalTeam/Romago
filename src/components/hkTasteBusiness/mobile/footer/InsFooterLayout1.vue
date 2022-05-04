@@ -1,52 +1,33 @@
 <template>
  <div id="footer">
-    <div class="footer-box">
-          <p><img src="/images/mobile/logo_white.png"></p>
-          <!-- <div class="contactBox">
-              <div class="w50">
-                  <p>whatsapp&nbsp;{{$t('home.Order')}}</p>
-                  <p>6289 1789</p>
-              </div>
-              <div class="w50">
-                  <p>{{$t('home.TelSearch')}}</p>
-                  <p>6289 1789</p>
-              </div>
-          </div> -->
-          <div class="footerNav">
-                  <ul>
-                      <li v-for="(item,index) in footerMenus" :key="index" class="indexMeun">
-                          <a href="javascript:;">{{item.Name}}<i class="downIcon" @click="showMeun(item,index)"></i></a>
-                          <ul v-if="item.Childs && item.Childs.length"  class="submeunMain" :class="'sub'+index">
-                              <li v-for="(child,index2) in item.Childs" :key="index2">
-                                  <router-link :to="To(child)">{{child.Name}}</router-link>
-                                  <!-- <router-link  @click.native="closeSlideMenu(item.Childs)" :to="To(item.Childs)" slot="title">
-                                      <b>{{child.Name}}</b>
-                                  </router-link> -->
-                              </li>
-                          </ul>
-                      </li>
-                  </ul>
-              </div>
-          <div class="footerAccept">
-            <p>{{$t('home.Weaccept')}}</p>
-            <div>
-              <img src="/images/payment/stripe.png" />
-              <img src="/images/payment/WeChatPay.png" />
-              <img src="/images/payment/Alipay.png" />
-              <img src="/images/payment/PayMe.png" />
-              <img src="/images/payment/Paypal.png" />
-              <img src="/images/payment/MasterCard.png" />
-              <img src="/images/payment/VISA.png" />
-            </div>
-          </div>
-          <div class="footerCpy">
-            <p>Copyright © {{currentYear}} NStore<br>powered by Eventizer
-            <a href="https://eventizer.hk/" target="_blank">
-              <img src="/images/mobile/footerlogo.png">
-            </a>
-            </p>
-          </div>
-    </div>
+   <div class="InnerBox">
+     <div class="MeunMain">
+       <Menu :backColor="'@base_color'" :textColor="'#fff'" :uniqueOpened="true" :type="'footer'" />
+     </div>
+      <p class="NormalTitle">SOCIAL MEDIA</p>
+      <p class="NormalImg">
+          <a href="#" target="_blank"><img src="/images/mobile/mpic_11.png"></a>
+          <a href="#" target="_blank"><img src="/images/mobile/mpic_12.png"></a>
+          <a href="#" target="_blank"><img src="/images/mobile/mpic_13.png"></a>
+          <a href="#" target="_blank"><img src="/images/mobile/mpic_14.png"></a>
+          <a href="#" target="_blank"><img src="/images/mobile/mpic_15.png"></a>
+          <a href="#" target="_blank"><img src="/images/mobile/mpic_16.png"></a>
+          <a href="#" target="_blank"><img src="/images/mobile/mpic_17.png"></a>
+      </p>
+      <p class="NormalTitle">Payment methods</p>
+      <p class="NormalImg">
+          <img src="/images/mobile/mpic_04.png" class="payImg">
+      </p>
+      <p class="NormalTitle">NEWSLETTER</p>
+      <div class="RegnpayForm">
+          <div v-html="htmlString" class="to_vertical" id="content"></div>
+          <div id="preview" display="none"></div>
+      </div>
+      <p class="copyRight">
+         <span>© Copyright 2022 Wise Leader Limited All Rights Reserved.</span>
+         <span>Powered by Nstore<img src="/images/mobile/nstore.png"></span>
+      </p>
+   </div>
 </div>
 </template>
 
@@ -54,172 +35,286 @@
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 
 @Component({
-  components: {}
+  components: {
+        Menu: () => import('@/components/business/mobile/header/InsMenu.vue')
+  }
 })
 export default class InsFooter extends Vue {
   currentYear: number = 0;
-  clickIndex: number = 0;
-  footerMenus: any[] = [];
-  showMeun (item, index) {
-    $('.sub' + index).slideToggle();
-  }
-  closeSlideMenu (n) {
-    this.$store.dispatch('isShowMenu', false);
-  }
-  To (n) {
-    return n.Type === 1 ? '/cms/catDetail/' + n.Value.Id : n.Type === 2 ? '/CMS/content/' + n.Value.Id : n.Type === 3 ? '/RegNPay/Form/' + n.Value.Id : n.Type === 4 && !this.$store.state.catMenuType ? '/product/cat/' + n.Value.Id : n.Type === 4 && this.$store.state.catMenuType ? '/product/search/-?catalogs=' + JSON.stringify([parseInt(n.Value.Id)]) + '&type=0' : n.Type === 5 ? '/product/search/-?attrs=' + JSON.stringify([{ Id: parseInt(n.Value.Id), Vals: [] }]) + '&type=0' : '/product/search/-?attrs=' + JSON.stringify([{ Id: parseInt(n.ParentId), Vals: [parseInt(n.Value.Id)] }]) + '&type=0';
-  }
-  getMenu () {
-    this.$Api.promotion.getMenu().then((result) => {
-      this.footerMenus = result.ReturnValue.FooterMenus;
-    });
-  }
-  created () {
-    var date = new Date();
-    this.currentYear = date.getFullYear();
-    this.getMenu();
-  }
+  private htmlString: string = '';
+  Signer: any = null;
+
+    getForm () {
+      this.$Api.regAndPay.genForm('NewsLetter', this.lang, true).then(result => {
+        // RNPay登陆權限验证
+        if (result.IsLogin && !this.$Storage.get('isLogin')) {
+          this.$router.push('/account/login?returnurl=' + this.$route.path);
+          return;
+        }
+
+        this.htmlString = result.ReturnValue.HtmlString;
+
+        this.$nextTick(() => {
+          if (document.querySelectorAll('#Sign').length > 0) {
+            this.Signer = new intimex.CanvasSigner('#NewSignCanvas', '#Signature', {
+              color: '#58B63A',
+              width: 5
+            });
+            this.Signer.initCanvas();
+
+            window['Signer'] = this.Signer;
+          }
+
+          if (result.ReturnValue.Title) document.title = result.ReturnValue.Title;
+        });
+      });
+    }
+
+    created () {
+      var date = new Date();
+      this.currentYear = date.getFullYear();
+      window['jsData'] = {
+        HasPreview: true,
+        UploadButtonText: this.$t('RegNPay.UploadButtonText'),
+        UploadingText: this.$t('RegNPay.UploadingText'),
+        UploadSuccessfulText: this.$t('RegNPay.UploadSuccessfulText'),
+        UploadFailText: this.$t('RegNPay.UploadFailText'),
+        NoFileText: this.$t('RegNPay.NoFileText'),
+        UploadLengthText: this.$t('RegNPay.UploadLengthText'),
+        UploadSizeText: this.$t('RegNPay.UploadSizeText'),
+        BackText: this.$t('RegNPay.BackText'),
+        ConfirmText: this.$t('RegNPay.ConfirmText'),
+        PleaseSelect: this.$t('RegNPay.PleaseSelect'),
+        PreviewTitleText: this.$t('RegNPay.PreviewTitleText'),
+        RequiredText: this.$t('RegNPay.RequiredText'),
+        FormatErrorText: this.$t('RegNPay.FormatErrorText'),
+        Version: '2.0',
+        HasRNPConfirm: false
+      };
+      this.$LoadScript('/static/js/CanvasSigner.js');
+      this.$LoadScript('/static/js/ajaxFileUpload.js');
+
+      document.dispatchEvent(new Event('rnpFinshed'));
+
+      // RNP Form后台预览跳转语言判断
+      if (this.queryLang) {
+        this.$Api.member.setUILanguage(this.queryLang).then((result) => {
+          this.$i18n.locale = this.queryLang as string;
+          localStorage.setItem('locale', this.queryLang as string);
+          this.getForm();
+        }).catch((error) => {
+          console.log(error);
+        });
+      } else {
+        this.getForm();
+      }
+    }
+    get id () {
+      return this.$route.params.id;
+    }
+
+    get lang () {
+      return this.$Storage.get('locale');
+    }
+
+    get queryLang () {
+      return this.$route.query.Lang || '';
+    }
+
+    mounted () {
+      window['regAndPay'] = this.$Api.regAndPay;
+      window['router'] = this.$router;
+      // window['getPanel'] = this.$Api.getPanel;
+
+      window['Elalert'] = this.$alert;
+    }
   @Watch('$route', { deep: true })
   onIdChange () {
-    $('.submeunMain').hide();
   }
 }
 </script>
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
-.submeunMain{
-  display: none;
-}
-.SubMeun0{
-  display: none;
-}
-.SubMeun1{
-  display: none;
-}
-#footer{
+#footer {
   width: 100%;
-  // background: url('/images/mobile/MobileIndex_04.jpg') no-repeat center center;
-  // background-size: cover;
-  display: inline-block;
-  background-color: #4d4d4d;
-  .footer-box{
+  display: flex;
+  flex-wrap: wrap;
+  background: url('/images/mobile/mpic_05.jpg') no-repeat center center;
+  background-size: 100% 100%;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+   /deep/ .nav_menu {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+     > ul {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      position: relative;
+      top: 0;
+      left: 0;
+      >li {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        text-align: left;
+        >ul {
+          position: relative;
+          left:0;
+          top: 0;
+          display: block;
+          width: 100%;
+          border: 0px;
+          li {
+            background: transparent;
+            border: 0px;
+            >a {
+            color:#999;
+            padding: 0px;
+            font-size: 1.2rem;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            text-transform: uppercase;
+            }
+          }
+        }
+        >a {
+          color:#c6b17b;
+          padding: 0px;
+          font-size: 1.2rem;
+          padding-top: 1rem;
+          padding-bottom: 1rem;
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+  .InnerBox {
     width: 90%;
     margin: 0 auto;
-    padding-top: 3rem;
-    padding-bottom: 1rem;
-    .footerCpy{
+    display: flex;
+    flex-wrap: wrap;
+    .RegnpayForm {
       width: 100%;
-      display: inline-block;
-      margin-top: 2rem;
-      >p{
-        color:#FFF;
-        font-size: 1.2rem;
-        text-align: center;
-        img{
-          height: 2rem;
-          display: inline-block;
-          margin-left: 1rem;
-          vertical-align: middle;
+      display: flex;
+      flex-wrap: wrap;
+      #content {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        /deep/ .content {
+          width: 100%;
+          display: flex;
+          flex-wrap: wrap;
+          form {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            position: relative;
+            .save {
+              position: absolute;
+              right: 0;
+              top:0;
+              width: 15%;
+              height: 3rem;
+              padding: 0px;
+              margin: 0;
+              box-sizing: border-box;
+              background: #c6b17b;
+              font-size: 1.2rem;
+              border: 2px solid #c6b17b;
+              color: #fff;
+            }
+            #Anwers {
+              width: 100%;
+              display: flex;
+              flex-wrap: wrap;
+              .form-group {
+                width: 85%;
+                display: flex;
+                flex-wrap: wrap;
+                .fieldset  {
+                    border: 0px;
+                    padding: 0px;
+                    margin: 0px;
+                    box-sizing: border-box;
+                    width: 100%;
+                  input[type="email"] {
+                    width: 100%;
+                    border: 0px;
+                    padding: 0px;
+                    box-sizing: border-box;
+                    height: 3rem;
+                    outline: 0;
+                    border-radius: 0px;
+                    padding-left: 10px;
+                    background: transparent;
+                    border: 1px solid #c6b17b;
+                    color: #fff;
+                    &::placeholder{
+                      counter-reset: #fff;
+                    }
+                  }
+                }
+              }
+              .control-label {
+                display: none;
+              }
+            }
+          }
         }
-      }
-    }
-    .footerAccept{
-      width: 100%;
-      >p{
-        font-size: 1.4rem;
-        color:#fff;
-        text-align: center;
-        margin-bottom: 1rem;
       }
 
-      >div {
-        text-align: center;
+    }
+    .MeunMain {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .NormalTitle {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      font-size: 1.2rem;
+      color: #c6b17b;
+      text-transform: uppercase;
+      padding-bottom: .5rem;
+      padding-top: 1rem;
+    }
+    .NormalImg {
+      padding-bottom: 0.5rem;
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      a {
+        height: 2.5rem;
+        display: inline-block;
+        margin-right: .5rem;
         img {
-          height: 2.5rem;
-          margin: 0.3rem 0.5rem;
+          height: 100%;
         }
       }
+      .payImg {
+        height: 2.5rem;
+      }
     }
-    .footerNav{
-      width: 80%;
-      margin: 0 auto;
+    .copyRight {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
       margin-top: 2rem;
-      margin-bottom: 2rem;
-      >ul>li{
+      span {
         width: 100%;
-        display: inline-block;
-        line-height: 4rem;
-        text-align: center;
-        margin-bottom: 1rem;
-        position: relative;
-        >ul{
-          position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #999999;
+        img {
+          width: 50px;
         }
-        >ul>li{
-        width: 100%;
-        display: inline-block;
-        background: transparent;
-        border-radius: 10px;
-        height: 3.5rem;
-        line-height: 3.5rem;
-        text-align: center;
-        margin-bottom: .5rem;
-          >a{
-            font-size: 1.6rem;
-            color:#fff;
-            font-weight: 500;
-            text-decoration: none;
-          }
-        }
-        >a{
-          font-size: 1.8rem;
-          color:#333333;
-          font-weight: 500;
-          text-decoration: none;
-          position: relative;
-          display: block;
-          background: #ffffff;
-          border-radius: 5px;
-          margin-bottom: .5rem;
-          i{
-               background: url('/Images/mobile/downicon.png') no-repeat center center;
-               background-size: contain;
-               width: 1.2rem;
-               height: 1.2rem;
-               display: inline-block;
-               position: absolute;
-               right: 1rem;
-               top: 1.4rem;
-          }
-        }
-      }
-    }
-    .contactBox{
-    width: 100%;
-    display: inline-block;
-    margin-top: 2rem;
-      .w50{
-        width: 50%;
-        float: left;
-        >p:nth-child(1){
-          font-size: 1.4rem;
-          text-align: center;
-          color: #FFF;
-          padding-bottom: .5rem;
-        }
-        >p:nth-child(2){
-            font-size:2.2rem;
-            text-align: center;
-            color: #FFF;
-        }
-      }
-    }
-    >p{
-      width:70%;
-      margin: 0 auto;
-      img{
-        width: 100%;
       }
     }
   }

@@ -1,10 +1,9 @@
 <template>
   <div class="main-code">
-    <select id="code-select" v-model="codeId" @change="changeCurrency(codeId)">
-      <option value="1">HKD</option>
-      <option value="2">USD</option>
-      <option value="3">RMB</option>
-    </select>
+        <p class="back" @click="backMeun()"><i class="el-icon-arrow-left"></i></p>
+        <p @click="changeCurrency('2')" :class="{'active': currency === 2}"  class="code">美元 | USD</p>
+        <p @click="changeCurrency('1')" :class="{'active': currency === 1}" class="code">港元 | HKD</p>
+        <p @click="changeCurrency('3')" :class="{'active': currency === 3}" class="code">人民幣 | RMB</p>
   </div>
 </template>
 
@@ -19,18 +18,22 @@ export default class InsCodeSelect extends Vue {
         message: this.$t('changeCurSuccess') as string,
         type: 'success'
       });
-
       this.$Storage.set('currency', result.Currency.Id);
       this.Reload();
     }).catch((error) => {
       console.log(error);
     });
   }
-
+  get currency () {
+     return this.$Storage.get('currency');
+  }
   created() {
     this.codeId = this.$Storage.get('currency');
   }
-
+  backMeun () {
+    this.$store.dispatch('isShowCodeSelect', false);
+    this.$store.dispatch('isShowMenu', true);
+  }
   mounted () {
 
   }
@@ -43,26 +46,28 @@ export default class InsCodeSelect extends Vue {
 </style>
 <style scoped lang="less">
 .main-code {
-  display: inline-block;
-
-  select {
-      width: 100%;
-      background: transparent url('/images/mobile/arrow-down-back.png')  80% 50% no-repeat;
-      background-size: 1rem;
-      border:none;
-      box-sizing: border-box;
-      text-align: center;
-      color:#666666;
-      appearance: none;
-      -moz-appearance: none;
-      -webkit-appearance: none;
-      padding-left: .8rem;
-      font-size: 1.4rem;
-      outline: none;
-      option{
-        color:#666666;
-        outline: none;
-      }
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  p {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    color: #fff;
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+  }
+  .back {
+    i {
+      font-size: 1.6rem;
+    }
+  }
+  .code {
+    padding-left: 2rem;
+  }
+  .active {
+    color: #c6b17b!important;
   }
 }
 </style>

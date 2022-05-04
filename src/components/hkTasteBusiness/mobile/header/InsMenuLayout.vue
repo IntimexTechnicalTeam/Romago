@@ -1,40 +1,23 @@
 <template>
-    <div>
-        <div class="header_logo" v-if="!this.$Settings.slideMenu.Embedded">
-            <i class="el-icon-close" @click="closeSlideMenu"></i>
-        </div>
-
-        <div class="search-box">
-            <el-select v-model="searchType" placeholder="please select">
-                <el-option
-                v-for="item in typeList"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-                </el-option>
-            </el-select>
-
-            <div class="search-input">
-                <input type="text" v-model="key" @keyup.enter="search" />
-                <span class="searchBtn" @click="search"><img src="/images/mobile/searchbtn.png"></span>
+    <div class="MeunMain">
+      <div class="MenuContainer">
+          <div class="topbar">
+            <div class="closeBtn" @click="closeSlideMenu"><img src="/images/mobile/mpic_19.png"></div>
+            <div class="functionBtn">
+              <span class="fav" @click="goFav()"><img src="/images/mobile/mpic_21.png"></span>
+              <span class="code" @click="showSlideCode()"><img src="/images/mobile/mpic_22.png"></span>
+              <span class="lang" @click="showSlideLang()"><img src="/images/mobile/mpic_23.png"></span>
             </div>
-        </div>
-
-        <div id="menu">
-            <Menu :backColor="'@base_color'" :textColor="'#fff'" :uniqueOpened="true" />
-        </div>
-        <div class="menu_footer">
-            <div class="innerShare">
-                <a href="https://www.facebook.com/hktastefood/" class="nav" target="_blank"><img src="/images/mobile/facebook.png"/></a>
-                <a href="https://www.facebook.com/hktastefood/" class="nav" target="_blank"><img src="/images/mobile/ig.png"/></a>
-                <a href="https://www.youtube.com/embed/videoseries?list=PLeU-XfKN4KcjVolI4daTvRI2oNOSLCILM"  class="nav" target="_blank"><img src="/images/mobile/youtube.png" /></a>
-            </div>
+          </div>
+          <div id="menu">
+              <Menu :backColor="'@base_color'" :textColor="'#fff'" :uniqueOpened="false" />
+          </div>
         </div>
     </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 
 @Component({
   components: {
@@ -47,16 +30,18 @@ export default class InsMenuLayout extends Vue {
   showMemNav: boolean = false;
   private key: string = '';
 
-  private typeList: any[] = [{
-    value: 0,
-    label: 'Product'
-  }, {
-    value: 1,
-    label: 'CMS'
-  }];
-
-  private searchType: number = 0;
-
+  showSlideCode () {
+    this.$store.dispatch('isShowCodeSelect', true);
+    this.$store.dispatch('isShowMenu', false);
+    this.$store.dispatch('isShowLangSwitch', false);
+    this.$store.dispatch('isShowSearch', false);
+  }
+  showSlideLang () {
+    this.$store.dispatch('isShowLangSwitch', true);
+    this.$store.dispatch('isShowMenu', false);
+    this.$store.dispatch('isShowCodeSelect', false);
+    this.$store.dispatch('isShowSearch', false);
+  }
   handleOpen (key, keyPath) {
     console.log(key, keyPath);
   }
@@ -68,60 +53,25 @@ export default class InsMenuLayout extends Vue {
     this.$store.dispatch('isShowMenu', false);
   }
 
-  search () {
-    switch (this.searchType) {
-      case 0:
-        this.searchPro();
-        break;
-      case 1:
-        this.searchCms();
-        break;
-    }
-  }
-
-  searchPro () {
-    this.$store.dispatch('setSearchKey', this.key);
-    this.$store.dispatch('isShowMenu', false);
-    if (this.key !== '') {
-      this.$router.push({
-        path: '/product/search',
-        name: 'productSearch',
-        params: {
-          key: this.key
-        }
-      });
-    } else {
-        this.$store.dispatch('isShowMenu', false);
-      this.$router.push({
-        path: '/product/search/-'
-      });
-    }
-  }
-
-  searchCms () {
-    this.$store.dispatch('isShowMenu', false);
-    this.$router.push({
-      path: '/cms/search',
-      name: 'cmsSearch',
-      params: {
-        key: this.key
-      }
-    });
-  }
-
   get user () {
     return this.$store.state.user;
   }
-
+  goFav () {
+    this.$router.push('/account/myFavorite');
+  }
   get isLogin () {
     return this.$store.state.isLogin;
   }
+  @Watch('$route', { deep: true })
+    onRouteChange (n, o) {
+       this.$store.dispatch('isShowMenu', false);
+    }
 }
 </script>
 
 <style lang="less">
 .sidebar-container {
-    background-color: #fff !important;
+    background:rgba(0,0,0,.7) !important;
 }
 .menu_footer span{
     display: flex;
@@ -223,15 +173,17 @@ export default class InsMenuLayout extends Vue {
     }
 
     .el-submenu__title {
-        padding-top: 0.375rem;
-        padding-bottom: 0.375rem;
-        border: 1px solid #666;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        padding-left: 0px!important;
         height: auto!important;
         line-height: unset;
-        background-color:#fff!important;
+        background-color:transparent!important;
         .name{
-            font-size: 1.6rem!important;
-            color:#666;
+            font-size: 1.4rem!important;
+            color:#fff;
+            height: auto!important;
+            line-height: unset!important;
         }
     }
 
@@ -240,28 +192,23 @@ export default class InsMenuLayout extends Vue {
         margin: 0 auto;
         background-color: transparent;
         border: 0;
-        margin-bottom: 1rem;
-        margin-top: 1rem;
         .el-submenu__icon-arrow {
             display: block;
-            font-size: 1.6rem;
+            font-size: 1.4rem;
         }
 
         > li {
             height: auto;
             line-height: unset;
-            text-align: center;
-            margin-bottom: 1rem;
+            text-align: left;
              >a {
                  color:#666666;
-                 background: #fff;
                  background-size: 100% 100%;
                  display:block;
                  width: 100%;
-                 padding-top: .8rem;
-                 padding-bottom: .8rem;
+                 padding-top: .5rem;
+                 padding-bottom: .5rem;
                  margin: 0 auto;
-                 border:1px solid #666666;
                  font-weight: 500;
                  b{
                      color:#FFF;
@@ -269,12 +216,12 @@ export default class InsMenuLayout extends Vue {
                      width: 100%;
                      font-weight: 500;
                      &:nth-child(1){
-                        color:#666666;
+                        color:#fff;
                         font-weight: 500;
-                        font-size: 1.6rem;
+                        font-size: 1.4rem;
                      }
                      &:nth-child(2){
-                         color:#262626;
+                         color:#fff;
                          font-size: 1.2rem;
                      }
                  }
@@ -293,7 +240,7 @@ export default class InsMenuLayout extends Vue {
     }
 }
 #menu .is-opened > .el-submenu__title{
-    background: #666!important;
+    background:transparent!important;
     color:#fff!important;
     .name{
         color:#FFF!important;
@@ -305,44 +252,30 @@ export default class InsMenuLayout extends Vue {
 </style>
 
 <style scoped lang="less">
-.header_logo {
-    height: 7rem;
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 1rem 0 1.5rem;
-    border-bottom: 4px solid #acbd30;
-    background-color: #fff;
-
-    .el-icon-close {
-        color: #777777;
-        font-size: 2.8rem;
+.topbar {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+  .closeBtn {
+    width:2.5rem;
+    img {
+      width: 100%;
     }
-
-    a {
-        width: 12rem;
+  }
+  .functionBtn {
+    span{
+      width: 2.5rem;
+      display: inline-block;
+      margin-left: 1rem;
+      img {
+        width: 100%;
+      }
     }
-
-    .slide-menu {
-        cursor: pointer;
-    }
-}
-
-/deep/ .langSwitch {
-    font-size: 1.5rem;
-    color: #106919;
-    text-align: center;
-    p {
-        font-size: 1.5rem;
-        display: inline-block;
-        color: #fff;
-        margin: 0 0.8rem;
-
-        &.active {
-            color: #127437;
-            font-weight: bold;
-        }
-    }
+  }
 }
 </style>

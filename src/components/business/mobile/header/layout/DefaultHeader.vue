@@ -7,11 +7,7 @@
            <ins-logo />
           <div class="rightSide">
               <div class="searchMain">
-                  <a href="javascript:;" class="searchImg" @click="search=!search"></a>
-                    <div class="search-box" v-show="search">
-                      <input type="text" v-model="key" class="inputBox" :placeholder="$t('Message.PleaseEnterKeyWords')" />
-                      <span class="searchBtn" @click="searchFun(key)"></span>
-                    </div>
+                  <a href="javascript:;" class="searchImg" @click="showsearch"></a>
               </div>
               <ins-login />
               <shopcart class="shoppingcart" />
@@ -25,11 +21,7 @@
            <ins-logo />
           <div class="rightSide">
               <div class="searchMain">
-                  <a href="javascript:;" class="searchImg" @click="search=!search"></a>
-                    <div class="search-box" v-show="search">
-                      <input type="text" v-model="key" class="inputBox" :placeholder="$t('Message.PleaseEnterKeyWords')" />
-                      <span class="searchBtn" @click="searchFun(key)"></span>
-                    </div>
+                  <a href="javascript:;" class="searchImg" @click="showsearch"></a>
               </div>
               <ins-login />
               <shopcart class="shoppingcart" />
@@ -58,21 +50,8 @@ export default class DefaultHeader extends Vue {
     let isShow = !JSON.parse(JSON.stringify(this.menuShow));
     this.$store.dispatch('isShowMenu', isShow);
   }
-  searchFun (key) {
-    this.$store.dispatch('setSearchKey', key);
-    if (key !== '') {
-      this.$router.push({
-        path: '/product/search',
-        name: 'productSearch',
-        params: {
-          key: key
-        }
-      });
-    } else {
-      this.$router.push({
-        path: '/product/search/-'
-      });
-    }
+  showsearch () {
+    this.$store.dispatch('isShowSearch', true);
   }
   get showHomePage () {
     return this.$route.path;
@@ -121,48 +100,15 @@ export default class DefaultHeader extends Vue {
     float: left;
     align-items: center;
   }
-    .searchImg {
+  .searchImg {
         background: url('/images/mobile/mpic_08.png') no-repeat center center;
         display: inline-block;
         width: 2rem;
         height: 2rem;
         background-size: contain;
     }
-    .search-box {
-      position: absolute;
-      top: 4.5rem;
-      width: 100%;
-      height: 40px;
-      z-index: 999;
-      border: none;
-      display: flex;
-      box-shadow: 0 0 10px 0 #d4d5d1;
-      background: #fff;
-      align-items: center;
-      justify-content: center;
-      left:0;
-          .searchBtn{
-            width: 40px;
-            height: 40px;
-            display: inline-block;
-            background: @base_color url('/images/pc/searchBtn.png') no-repeat center center;
-            background-size: 20px;
-            cursor: pointer;
-        }
-      .inputBox {
-          width: calc(100% - 50px);
-          float: left;
-          border:none;
-          line-height: 38px;
-          text-indent: 10px;
-          height: 38px;
-          outline: 0;
-          background: #ffffff;
-          border-top-left-radius: 3px;
-          border-bottom-left-radius: 3px;
-      }
-    }
     .header-box {
+      background: #000;
       .flex-box {
         height: 7rem;
         background-color: #000;
@@ -196,6 +142,7 @@ export default class DefaultHeader extends Vue {
   justify-content: space-between;
   align-items: center;
   padding-top: .5rem;
+  padding-bottom: .5rem;
   .rightSide {
     float: left;
     display: flex;

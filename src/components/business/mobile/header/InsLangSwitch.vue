@@ -1,13 +1,9 @@
 <template>
     <div class="langSwitch">
-        <!-- <p @click="changeLang('S')" :class="{'active': $Storage.get('locale') === 'S'}">简</p> |
-        <p @click="changeLang('C')" :class="{'active': $Storage.get('locale') === 'C'}">繁</p> |
-        <p @click="changeLang('E')" :class="{'active': $Storage.get('locale') === 'E'}">Eng</p> -->
-
-      <!-- <p @click="changeLang(lang.value)" v-for="(lang,index) in $Settings.langList" :key="index" :class="{'active': $Storage.get('locale') === lang.value}">{{lang.name}}</p> -->
-      <select  v-model="currentlang">
-        <option :value="lang.value" v-for="(lang,index) in $Settings.langList" :key="index">{{lang.name}}</option>
-      </select>
+        <p class="back" @click="backMeun()"><i class="el-icon-arrow-left"></i></p>
+        <p @click="changeLang('E')" :class="{'active': $Storage.get('locale') === 'E'}">International | EN</p>
+        <p @click="changeLang('S')" :class="{'active': $Storage.get('locale') === 'S'}">中国 | SC</p>
+        <p @click="changeLang('C')" :class="{'active': $Storage.get('locale') === 'C'}">香港 | TC</p>
     </div>
 </template>
 
@@ -22,6 +18,10 @@ export default class InsLangSwitch extends Vue {
   set currentlang (val) {
     this.changeLang(val);
   }
+  backMeun () {
+    this.$store.dispatch('isShowLangSwitch', false);
+    this.$store.dispatch('isShowMenu', true);
+  }
   changeLang (lang) {
     this.$Api.member.setUILanguage(lang).then((result) => {
       this.$i18n.locale = lang;
@@ -35,47 +35,28 @@ export default class InsLangSwitch extends Vue {
 </script>
 <style scoped lang="less">
 .langSwitch {
-    p {
-      display: inline-block;
-      padding: 0 10px;
-      cursor: pointer;
-      position: relative;
-
-      &:not(:last-child) {
-        &::after {
-          position: absolute;
-          content: '';
-          top: 1px;
-          right: 0;
-          height: 100%;
-          width: 2px;
-          display: block;
-          background-color: #fff;
-        }
-      }
-
-      &:last-child {
-        padding-right: 0;
-      }
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  p {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    color: #fff;
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+  }
+  .back {
+    i {
+      font-size: 1.6rem;
     }
-    select{
-      width: 100%;
-      background: transparent url('/images/mobile/arrow-down-back.png')  80% 50% no-repeat;
-      background-size: 1rem;
-      border:none;
-      box-sizing: border-box;
-      text-align: center;
-      color:#666666;
-      appearance: none;
-      -moz-appearance: none;
-      -webkit-appearance: none;
-      padding-left: .8rem;
-      font-size: 1.4rem;
-      outline: none;
-      option{
-        color:#666666;
-        outline: none;
-      }
-    }
+  }
+  .code {
+    padding-left: 2rem;
+  }
+  .active {
+    color: #c6b17b!important;
+  }
 }
 </style>
