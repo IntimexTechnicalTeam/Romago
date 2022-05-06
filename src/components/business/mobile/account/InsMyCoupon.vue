@@ -1,5 +1,5 @@
 <template>
-  <div id="container" class="couponContainer">
+  <div id="memberConterContainer" class="couponContainer">
     <!--main-content-->
     <accountHeader/>
     <p class="pageTitle">{{$t('MyCoupon.MyCoupon')}}</p>

@@ -1,6 +1,7 @@
 <template>
   <div class="home" v-cloak>
     <HomeBanner :page="'Home'" />
+    <HkLiveBox/>
   </div>
 </template>
 
@@ -8,7 +9,8 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 @Component({
   components: {
-    HomeBanner: () => import('@/components/base/mobile/InsBanner.vue')
+    HomeBanner: () => import('@/components/base/mobile/InsBanner.vue'),
+    HkLiveBox: () => import('@/components/hkTasteBusiness/mobile/home/HkLiveBox.vue')
   }
 })
 export default class InsHome extends Vue {
@@ -21,7 +23,6 @@ export default class InsHome extends Vue {
       clickable: true
     }
   };
-
   get AreaCode () {
     return localStorage.getItem('AreaCode') || '';
   }
@@ -29,6 +30,11 @@ export default class InsHome extends Vue {
 </script>
 
 <style lang="less" scoped>
+/deep/ .bannerNormal {
+  width: 100%;
+  height: 10vh!important;
+  position: fixed;
+}
 /deep/ .banner {
   .swiper-pagination-bullet{
     width: 12px!important;

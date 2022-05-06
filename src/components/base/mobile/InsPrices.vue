@@ -1,7 +1,7 @@
 <template>
     <div class="prices_warrper" :style="styla">
-         <div class="primePricesMain" v-if="DefaultListPrice!==0 && DefaultListPrice > DefaultSalePrice"><div :class="size">{{DefaultCurrency.Code }}&nbsp;</div><div class="primePrices" :class="size">{{(DefaultListPrice) | PriceFormat}}</div></div>
          <div class="currentPricesMain"><div :class="size">{{DefaultCurrency.Code}}&nbsp;</div><div :class="size + HL">{{(DefaultSalePrice) | PriceFormat}}</div></div>
+         <div class="primePricesMain" v-if="DefaultListPrice!==0 && DefaultListPrice > DefaultSalePrice"><div :class="size">{{DefaultCurrency.Code }}&nbsp;</div><div class="primePrices" :class="size">{{(DefaultListPrice) | PriceFormat}}</div></div>
           <div v-show="DefaultSalePrice!=currentPrices">
          <!-- <div class="primePricesMain" v-if="primePrices!==0 && primePrices !== currentPrices"><div :class="size">{{currency.Code}}&nbsp;</div><div class="primePrices" :class="size">{{(primePrices) | PriceFormat}}</div></div> -->
            <div class="currentPricesMain"><div :class="size">≈{{currency.Code}}&nbsp;</div><div :class="size + HL">{{(currentPrices) | PriceFormat}}</div></div>

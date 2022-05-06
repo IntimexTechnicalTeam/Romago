@@ -56,6 +56,11 @@ export default class InsMenberCenter extends Vue {
 }
 </script>
 <style lang="less" scoped>
+.MembercenterMobile {
+  width: 100%;
+  display: inline-block;
+  background: #000;
+}
 #container {
   width: 100%;
   display: inline-block;
@@ -90,32 +95,57 @@ export default class InsMenberCenter extends Vue {
   margin-left: 25%;
 }
 .MembercenterMobile .MemberInfoNav{
-    width: 100%;
-    margin-top: 1rem;
-    display: inline-block;
-    background: #e6e6e6;
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-between;
+    margin-top: 2rem;
 }
 .MembercenterMobile .MemberInfoNav ul{
+  width:calc(100% - 2px);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+  border:1px solid #ffffff;
+}
+.MembercenterMobile .MemberInfoNav ul >div{
   width:100%;
-  display: block;
+  display: flex;
+  width: 33.3%;
+  &:first-child{
+    li {
+        border-left: 0px!important;
+          width:100%!important;
+    }
+  }
 }
 .MembercenterMobile .MemberInfoNav li{
-  float: left;
-  list-style: none;
-  width:33.3%;
+  width: calc(100% - 1px);
+  border-left: 1px solid #ffffff;
 }
 .MembercenterMobile .MemberInfoNav li a{
     text-align: center;
     text-decoration: none;
-    display: block;
-    font-size: 1.6rem;
-    padding: 1rem;
+    display: flex;
+    font-size: 1.2rem;
     word-break: break-word;
+    line-height: 1.6rem;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    align-items: center;
+    justify-content: center;
+    height: 3rem;
+    color: #fff;
+    padding: 5px;
 }
 .MembercenterMobile .activeInfo{
-  background: #666666!important;
+  background: #ffffff!important;
 }
 .MembercenterMobile .activeInfo a{
-  color:#fff!important;
+  color:#333333!important;
 }
 </style>

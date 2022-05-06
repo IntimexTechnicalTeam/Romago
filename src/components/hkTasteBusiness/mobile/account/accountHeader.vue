@@ -1,14 +1,13 @@
 <template>
  <div class="accountHeader">
    <div class="accountBg">
-      <p class="memberCenterTitle">{{$t('Account.MemberCenter')}}</p>
-      <p class="accountUser">{{MemberName}}</p>
+      <p class="memberCenterTitle"><span class="Title">{{$t('Account.MemberCenter')}}</span><span class="accountUser">{{MemberName}}</span></p>
       <div class="accountMeun">
-          <p><router-link to="/account/memberInfo">{{$t('Account.MemberInformation')}}</router-link></p>
-          <p><router-link to="/order/List">{{$t('Account.MyOrder')}}</router-link></p>
-          <p><router-link to="/account/notification">{{$t('Account.MyMessages')}}</router-link></p>
-          <p><router-link to="/account/myFavorite">{{$t('Account.MyFavorite')}}</router-link></p>
-          <p><router-link to="/account/myCoupon">{{$t('MyCoupon.MyCoupon')}}</router-link></p>
+          <p><router-link to="/account/memberInfo">{{$t('Account.MemberInformation')}}<i class="icon el-icon-arrow-right"></i></router-link></p>
+          <p><router-link to="/order/List">{{$t('Account.MyOrder')}}<i class="icon el-icon-arrow-right"></i></router-link></p>
+          <p><router-link to="/account/notification">{{$t('Account.MyMessages')}}<i class="icon el-icon-arrow-right"></i></router-link></p>
+          <p><router-link to="/account/myFavorite">{{$t('Account.MyFavorite')}}<i class="icon el-icon-arrow-right"></i></router-link></p>
+          <p><router-link to="/account/myCoupon">{{$t('MyCoupon.MyCoupon')}}<i class="icon el-icon-arrow-right"></i></router-link></p>
       </div>
    </div>
  </div>
@@ -32,8 +31,8 @@ export default class accountHeader extends Vue {
    }
    // 获取会员总积分
    getMemberTotal () {
-     this.$Api.points.getMemberTotalPoints().then((result) => {
-       this.TotalPoints = result.TotalPoints;
+     this.$Api.pointsApi.GetMemberTotalPointsInfo().then((result) => {
+       this.TotalPoints = result.data.TotalPoints;
      });
    }
    get currentlang () {
@@ -65,48 +64,71 @@ ul,li{
   width: 100%;
   display:inline-block;
   .memberCenterTitle{
-    font-size: 2rem;
     text-align: center;
-    display: block;
-    padding-top: 2rem;
-    color:#FFF;
-    text-transform:uppercase;
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+    .Title {
+      text-align: left;
+      font-size: 1.5rem;
+      color:#fff;
+      font-weight: 700;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      margin-right: 2%;
+      &::before {
+        height: 1.5rem;
+        background: #c6b17a;
+        width: 4px;
+        content: '';
+        display: inline-block;
+        margin-right: .5rem;
+      }
+    }
+    .accountUser{
+      font-size: 1.4rem;
+      text-align: right;
+      color:#ffffff;
+    }
   }
   .accountBg{
     width:100%;
-    background: url('/images/mobile/Mobile-Personal-Center_02.jpg') no-repeat center center;
     background-size: 100% 100%;
     display: inline-block;
     box-sizing: border-box;
-    padding-bottom: 3rem;
     .accountMeun{
       width: 90%;
       margin: 0 auto;
       p{
-        border:1px solid #fff;
-        padding: .5rem;
         display: block;
-        height: 3.5rem;
-        margin-bottom: 1rem;
+        height: 3rem;
+        margin-bottom: 2rem;
+        .router-link-active {
+            color: #fff!important;
+           border:1px solid #c6b17c!important;
+           background: #c6b17c!important;
+        }
         a{
-          background: #fff;
+          background: transparent;
           display: flex;
-          width: 100%;
+          width: calc(100% - 2.2rem);
           align-items: center;
-          justify-content: center;
-          color:#333333;
-          font-size: 1.6rem;
+          justify-content: space-between;
+          color:#fff;
+          font-size: 1.4rem;
           height: 100%;
-          text-transform:uppercase;
+          border:1px solid #fff;
+          padding-left: 1rem;
+          padding-right: 1rem;
+          i {
+            font-size: 1.4rem;
+          }
         }
       }
-    }
-    .accountUser{
-      font-size: 2rem;
-      text-align: center;
-      color:#FFF;
-      padding-top: 2rem;
-      padding-bottom: 2rem;
     }
     .accountTop{
       width: 70%;

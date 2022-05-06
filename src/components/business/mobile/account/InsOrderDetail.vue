@@ -1,5 +1,5 @@
 <template>
-  <div id="container">
+  <div id="memberConterContainer">
     <accountHeader/>
     <p class="pageTitle">{{$t('Order.OrderDetail')}}</p>
       <transition name="slide">

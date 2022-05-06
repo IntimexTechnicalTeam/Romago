@@ -28,13 +28,13 @@ import { getQueryString } from './assets/scripts/common';
 import Settings from '@/settings';
 
 import infiniteScroll from 'vue-infinite-scroll';
-
 // import ElementUI from 'element-ui';
 // Vue.use(ElementUI);
 
 // 按需引入 Element 組件，减小项目体积，可自行在 element.js 進行修改
 import './plugins/element.js';
-
+import VueTouch from 'vue-touch';
+Vue.use(VueTouch, { name: 'v-touch' });
 (() => {
   if (
     navigator.userAgent.indexOf('iPhone') !== -1 ||

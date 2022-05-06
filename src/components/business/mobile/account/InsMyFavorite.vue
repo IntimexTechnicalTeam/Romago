@@ -1,5 +1,5 @@
 <template>
-  <div id="container">
+  <div id="memberConterContainer" class="myfav">
     <!--main-content-->
     <accountHeader/>
     <p class="pageTitle">{{$t('MyFavorite.MyFavorite')}}</p>
@@ -148,8 +148,11 @@ export default class InsMyFavorite extends Vue {
 </style>
 <style scoped lang="less">
 /*我的最爱*/
+.myfav {
+  padding-bottom: 2rem;
+}
 #main-content {
-  width: 95%;
+  width: 90%;
   margin: 0 auto;
   position: relative;
 }

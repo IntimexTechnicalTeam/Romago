@@ -267,7 +267,7 @@ export default class InsDeliveryAddress extends Vue {
   getCountry () {
     let _this = this;
     this.$Api.delivery.getCountry().then((result) => {
-      _this.countryList = result;
+      _this.countryList = result.data;
     });
   }
 
@@ -277,7 +277,7 @@ export default class InsDeliveryAddress extends Vue {
     var cid = num;
     if (cid && cid !== '') {
       this.$Api.delivery.getProvince(cid).then((result) => {
-        _this.provinceList = result;
+        _this.provinceList = result.data;
       });
     } else {
       _this.AddForm.Province = '';
@@ -298,7 +298,7 @@ export default class InsDeliveryAddress extends Vue {
   // 加载地址列表
   getAddress () {
     let _this = this;
-    this.$Api.address.getAddress().then((result) => {
+    this.$Api.delivery.getAddress().then((result) => {
       _this.addressList = result.data;
     });
   }
@@ -307,7 +307,7 @@ export default class InsDeliveryAddress extends Vue {
   removeAddr (cid) {
     let _this = this;
     var addId = cid;
-    this.$Api.address.removeAddress(addId).then((result) => {
+    this.$Api.delivery.removeAddress(addId).then((result) => {
       _this.$message({
         message: this.$t('MyFavorite.RemoveSuccess') as string,
         type: 'success',
@@ -336,7 +336,7 @@ export default class InsDeliveryAddress extends Vue {
     });
     this.AddForm['DeliveryId'] = this.addressList[index].DeliveryId;
     this.$Api.delivery.getProvince(this.addressList[index].CountryId).then((result) => {
-      _this.provinceList = result;
+      _this.provinceList = result.data;
     });
   }
   //   保存地址
@@ -348,7 +348,7 @@ export default class InsDeliveryAddress extends Vue {
     }
     (this.$refs.AddForm as ElForm).validate(valid => {
       if (valid) {
-        this.$Api.address.saveAddress(this.AddForm).then((result) => {
+        this.$Api.delivery.saveAddress(this.AddForm).then((result) => {
           (this.$refs['AddForm'] as ElForm).resetFields();
           this.getAddress();
           this.AddForm = {
@@ -415,7 +415,7 @@ export default class InsDeliveryAddress extends Vue {
 
             .el-button {
               width: 100%;
-              background: #333;
+              background: @base_color;
               border: 0;
 
               i[class^='el-icon'] {
@@ -440,8 +440,8 @@ export default class InsDeliveryAddress extends Vue {
 
       .common-title {
         color: #fff;
-        font-size: 22px;
-        background-color: #666;
+        font-size: 1.6rem;
+        background-color: #c6b17c;
         height: 40px;
         line-height: 40px;
         cursor: pointer;
@@ -455,45 +455,64 @@ export default class InsDeliveryAddress extends Vue {
         margin: 0 auto;
         padding-bottom: 2rem;
 
-        /deep/ .el-form {
-          margin-top: 2rem;
+    /deep/ .el-form {
+      &.el-form--label-right {
+        .el-form-item__label {
+          line-height: unset;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          color: #999999;
+        }
+      }
+      .el-input.is-disabled .el-input__inner {
+        border-radius: 0px;
+      }
+      .el-input--prefix .el-input__inner {
+        border-radius: 0px;
+      }
+      .el-select .el-input__inner {
+        border-radius: 0px;
+      }
+      .el-select {
+        width: 100%;
+      }
 
-          .el-select {
-            width: 100%;
-          }
+      .el-radio__input {
+        .el-radio__inner {
+          outline: none;
+          box-shadow: none;
 
-          .el-radio__input {
-            .el-radio__inner {
-              outline: none;
-              box-shadow: none;
-
-              &:hover {
-                border-color: #333333;
-              }
-            }
-            
-            &.is-checked .el-radio__inner {
-              border-color: #333333;
-              background: #333333;
-            }
-
-            &.is-checked+.el-radio__label {
-              color: #333333;
-            }
-          }
-
-          .submit-btn {
-            display: block;
-            width: 100%;
-            background: #333;
-            border: none;
-            margin-top: 20px;
-
-            > span {
-              font-size: 20px;
-            } 
+          &:hover {
+            border-color: #c6b17c;
           }
         }
+
+        &.is-checked .el-radio__inner {
+          border-color: #c6b17c;
+          background: #c6b17c;
+        }
+
+        &.is-checked+.el-radio__label {
+          color: #c6b17c;
+        }
+      }
+    }
+
+    /deep/ .submit-btn {
+      display: block;
+      width: 100%;
+      background: #c6b17c;
+      border: none;
+      margin: 3rem 0;
+      border-radius: 0px;
+      > span {
+        font-size: 1.4rem;
+        text-transform: uppercase;
+      }
+    }
       }
     }
   }

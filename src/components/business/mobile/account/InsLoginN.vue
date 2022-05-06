@@ -3,16 +3,11 @@
   <div class="insLogin_warrper">
       <div class="insLogin_title" v-if="$Settings.siteVersion !== 1">
          <div class="fblogin" @touchstart="fbLogin">
-          <img src="/static/facebook.png" />
+          <img src="/images/mobile/fblogin.png" />
           <span>{{$t('Login.FaceBookUse')}}</span>
          </div>
         <p class="or">{{$t('Register.or')}}</p>
       </div>
-      <!-- <div class="insLogin_divide">
-          <div class="divide"></div>
-          <div class="divide_or">{{$t('Login.or')}}</div>
-          <div class="divide"></div>
-      </div> -->
       <div class="insLogin_main">
          <div class="tabs-basic">
             <ul>
@@ -60,10 +55,22 @@
                 <InsInput2 :placeholder="$t('Register.UserEmail')" v-model="registerForm.email" width="100%" type="email" />
                 </InsForm>
                 <!-- <div></div> -->
-                <el-checkbox-group v-model="terms" style="margin: 20px 0 20px 0">
-                    <el-checkbox name="type"></el-checkbox><span><router-link to="/CMS/content/20298" target="_blank" style="font-size: 14px;padding-left: 14px;color: #666666;
+                <!-- <el-checkbox-group v-model="terms" style="margin: 20px 0 20px 0">
+                    <el-checkbox name="type"></el-checkbox><span><router-link to="/CMS/content/20298" target="_blank" style="font-size: 1rem;padding-left: .5rem;color: #666666;
     text-decoration: none;">{{$t('Register.RegisterAgree')}}</router-link></span>
-                </el-checkbox-group>
+                </el-checkbox-group> -->
+                <div class="remember_warpper">
+                        <div class="remember">
+                              <input
+                                  type="checkbox"
+                                  class="remember-btn"
+                                  name="remember-btn"
+                                  id="regbtn"
+                                  value
+                              />
+                              <router-link to="/CMS/content/20298" target="_blank">{{$t('Register.RegisterAgree')}}</router-link>
+                          </div>
+                        </div>
               </div>
               <InsButton :nama="$t('Forgetpassword.NextStep')" @click="register" size="huge"  class="loginBtn"/>
           </div>
@@ -232,47 +239,73 @@ export default class InsLoginN extends Vue {
 }
 </style>
 <style lang="less" scoped>
+/deep/ .input_outer {
+  .input_warpper .input_main input {
+    background: transparent!important;
+    border-bottom:1px solid #ccc!important;
+    color: #ccc;
+    padding-left: 0px;
+    &::placeholder {
+      color: #ccc!important;
+    }
+  }
+}
 .loginBtn{
-    padding: 1rem;
     font-size: 1.4rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #c6b17c!important;
+    border: 1px solid #c6b17c!important;
 }
 .insLogin_warrper{
     width: 100%;
     margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    background: #000;
     .insLogin_title{
-       padding: 24px 1rem;
        text-align: center;
+       width: 90%;
+       margin: 0 auto;
     }
     .insLogin_title .fblogin {
       text-align: center;
       font-size: 1.4rem;
-      padding: 0.7rem 1.4rem;
       color: #fff;
-      background-color: #3975ea;
-      display: inline-block;
-      border-radius: 0.7rem;
+      background-color: #4267b2;
+      display: flex;
       cursor: pointer;
+      width: 100%;
+      height: 3rem;
+      align-items: center;
+      justify-content: center;
     img{
-      width: 2.8rem;
+      width: 2rem;
       vertical-align: middle;
       margin-right: 1.4rem;
     }
     span{
       vertical-align: middle;
+      font-size: 1.4rem;
     }
 }
 .insLogin_title .or {
     text-align: center;
-    font-size: 2rem;
+    font-size: 1.4rem;
     position: relative;
-    color: #333333;
-    margin: 1rem 0;
+    color: #cccccc;
+    margin: 2rem 0;
+    text-transform: uppercase;
 }
 .insLogin_title .or::before {
     content: '';
-    width: 45%;
+    width: 40%;
     height: 1px;
-    background-color: #999999;
+    background-color: #cccccc;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -280,9 +313,9 @@ export default class InsLoginN extends Vue {
 }
 .insLogin_title .or::after {
     content: '';
-    width: 45%;
+    width: 40%;
     height: 1px;
-    background-color: #999999;
+    background-color: #cccccc;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -290,34 +323,46 @@ export default class InsLoginN extends Vue {
 }
 
    .tabs-basic {
-      padding: 1rem 0;
-
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      ul{
+        display: flex;
+        flex-wrap: wrap;
+        width: calc(100% - 2px);
+        border:1px solid #c6b17c;
+        justify-content: space-between;
+        overflow: hidden;
+      }
       li {
         width: 50%;
         float: left;
-        color: #666666;
+        color: #c6b17c;
         border-right: none;
         text-align: center;
         cursor: pointer;
         font-size: 1.4rem;
         box-sizing: border-box;
         list-style: none;
-        font-family: 'Arial';
-        padding: 1rem 0;
-        background: #f5f5f5;
-
+        height: 3rem;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
         &:first-child {
           border-left: 0;
         }
-
+        &:first-child {
+          border-left: 0;
+        }
         &.active {
-          background: #666666;
+          background: #c6b17c;
           color: #fff;
         }
       }
     }
     .insLogin_main{
-        width: 100%;
+        width: 90%;
         box-sizing: border-box;
         margin: 0 auto;
         .login{
@@ -325,7 +370,6 @@ export default class InsLoginN extends Vue {
             justify-content: space-between;
             flex-direction: column;
             width: 100%;
-             padding: 0rem 2rem 2rem 2rem;
             box-sizing: border-box;
             vertical-align: top;
             .remember_warpper{
@@ -333,13 +377,19 @@ export default class InsLoginN extends Vue {
                 margin: 20px  0;
                 display: flex;
                 justify-content: space-between;
+                text-transform: uppercase;
                 a{
-                    color: #666666;
+                    color: #bfbfbf;
                     text-decoration: none;
+                    font-size: 1rem;
+                    text-decoration: underline;
+                    text-transform: uppercase;
                   }
                 .remember{
-                  color: #666666;
-
+                  label {
+                    color: #bfbfbf;
+                    font-size: 1rem;
+                  }
                  input[type=checkbox] {
                       background: none;
                       width: 15px;
@@ -352,13 +402,13 @@ export default class InsLoginN extends Vue {
                       outline: none;
                       vertical-align: sub;
                       margin: 0;
-                      margin-right: 3px;
-                      border: 1px solid #e0e0e0;
+                      margin-right: .5rem;
+                      border: 1px solid #c6b17c;
                       position: relative;
                   }
                   input[type=checkbox]:checked {
-                      border: 1.5px solid @base_color;
-                      background-color: @base_color;
+                      border: 1px solid #c6b17c;
+                      background: #fff;
                   }
                    input[type=checkbox]:checked::after {
                          position: absolute;
@@ -366,8 +416,8 @@ export default class InsLoginN extends Vue {
                         width: 5px;
                         height: 10px;
                         top: -1px;
-                        left: 2px;
-                        border: 1px solid #fff;
+                        left: 3px;
+                        border: 1px solid #c6b17c;;
                         border-top: none;
                         border-left: none;
                         -webkit-transform: rotate(45deg);
@@ -379,11 +429,56 @@ export default class InsLoginN extends Vue {
         .register{
             box-sizing: border-box;
             width: 100%;
-            padding: 0rem 2rem 2rem 2rem;
             display: inline-flex;
             justify-content: space-between;
             flex-direction: column;
             vertical-align: top;
+                .remember_warpper{
+                    padding: 0 0 0 0px;
+                    margin: 20px  0;
+                    display: flex;
+                    justify-content: space-between;
+                    text-transform: uppercase;
+                }
+                .remember{
+                  a {
+                    color: #666666;
+                    font-size: 1rem;
+                    text-transform: uppercase;
+                  }
+                 input[type=checkbox] {
+                      background: none;
+                      width: 15px;
+                      height: 15px;
+                      -moz-appearance: none;
+                      appearance: none;
+                      -webkit-appearance: none;
+                      -webkit-box-sizing: border-box;
+                      box-sizing: border-box;
+                      outline: none;
+                      vertical-align: sub;
+                      margin: 0;
+                      margin-right: .5rem;
+                      border: 1px solid @base_color;
+                      position: relative;
+                  }
+                  input[type=checkbox]:checked {
+                      border: 1px solid @base_color;
+                  }
+                   input[type=checkbox]:checked::after {
+                         position: absolute;
+                        content: "";
+                        width: 5px;
+                        height: 10px;
+                        top: -1px;
+                        left: 3px;
+                        border: 1px solid @base_color;
+                        border-top: none;
+                        border-left: none;
+                        -webkit-transform: rotate(45deg);
+                        transform: rotate(45deg);
+                   }
+                }
             .register_half{
                 display: flex;
                 flex-wrap: wrap;

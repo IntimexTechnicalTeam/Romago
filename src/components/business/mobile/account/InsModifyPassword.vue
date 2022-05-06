@@ -14,9 +14,6 @@
         <el-form-item>
           <el-button round type="primary" class="submit-btn" @click="submitForm('pwdForm')">{{$t('DeliveryAddress.SaveBtn')}}</el-button>
         </el-form-item>
-        <el-form-item>
-          <el-button round class="reset-btn" @click="resetForm('pwdForm')">{{$t('DeliveryAddress.ResetBtn')}}</el-button>
-        </el-form-item>
       </el-form>
     </div>
    </div>
@@ -111,55 +108,69 @@ export default class InsModifyPassword extends Vue {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .ModifyPassword {
   .mid-box {
-    padding: 3rem 1rem;
-    box-sizing: border-box;
-
+    padding: 2rem 0;
     /deep/ .el-form {
+      .el-input__inner {
+        border-radius: 0px;
+      }
+      &.el-form--label-right {
+        .el-form-item__label {
+          line-height: unset;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          color: #999999;
+        }
+      }
+      .el-input.is-disabled .el-input__inner {
+        border-radius: 0px;
+      }
+      .el-input--prefix .el-input__inner {
+        border-radius: 0px;
+      }
+      .el-select .el-input__inner {
+        border-radius: 0px;
+      }
+      .el-select {
+        width: 100%;
+      }
+
       .el-radio__input {
         .el-radio__inner {
           outline: none;
           box-shadow: none;
 
           &:hover {
-            border-color: #333333;
+            border-color: #c6b17c;
           }
         }
 
         &.is-checked .el-radio__inner {
-          border-color: #333333;
-          background: #333333;
+          border-color: #c6b17c;
+          background: #c6b17c;
         }
 
         &.is-checked+.el-radio__label {
-          color: #333333;
+          color: #c6b17c;
         }
       }
+    }
 
-      .submit-btn {
-        display: block;
-        width: 100%;
-        background: #333;
-        border: none;
-        margin-top: 20px;
-
-        > span {
-          font-size: 20px;
-        }
-      }
-
-      .reset-btn {
-        display: block;
-        width: 100%;
-        color: #333;
-        background: #fff;
-        border: 1px solid #333;
-
-        > span {
-          font-size: 20px;
-        }
+    /deep/ .submit-btn {
+      display: block;
+      width: 100%;
+      background: #c6b17c;
+      border: none;
+      margin: 3rem 0;
+      border-radius: 0px;
+      > span {
+        font-size: 1.4rem;
+        text-transform: uppercase;
       }
     }
   }

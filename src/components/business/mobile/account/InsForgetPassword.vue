@@ -1,9 +1,6 @@
 <template>
-  <div id="container">
-    <!-- <div class="Banner"  :style="{backgroundImage: 'url('+ ImgList +')',backgroundSize:'100% 100%'}">
-        <div class="TitleBg"><div class="innerBoxText">{{$t('Forgetpassword.ForgetPassword')}}</div></div>
-    </div> -->
-    <div class="DetailTitle"><img :src="ImgList" v-show="ImgList!==null"><div class="TitleBg"><div class="innerBoxText">{{$t('Forgetpassword.ForgetPassword')}}</div></div></div>
+  <div id="memberConterContainer">
+    <p class="pageTitle">{{$t('Forgetpassword.ForgetPassword')}}</p>
     <div class="ForgetPassMain">
       <div style="margin-top: 15px;" v-if="ResetPwd">
         <h2 class="ResetPwdTips">{{$t('Forgetpassword.ResetPwdTips')}}</h2>
@@ -195,6 +192,8 @@ export default class InsForgetPassword extends Vue {
     text-align: left;
     font-size: 1.2rem;
     margin-bottom: 10px;
+    color:#fff;
+    font-weight: 500;
 }
 .EmailSuccess{
   text-align: center;

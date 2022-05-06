@@ -9,8 +9,8 @@
               <span class="lang" @click="showSlideLang()"><img src="/images/mobile/mpic_23.png"></span>
             </div>
           </div>
-          <div id="menu">
-              <Menu :backColor="'@base_color'" :textColor="'#fff'" :uniqueOpened="false" />
+          <div id="menu" class="MeunBar">
+              <Menu :backColor="'@base_color'" :textColor="'#fff'" :uniqueOpened="false"  :type="'header'"/>
           </div>
         </div>
     </div>
@@ -22,7 +22,7 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 @Component({
   components: {
     InsLogo: () => import('@/components/base/mobile/InsLogo.vue'),
-    Menu: () => import('@/components/business/mobile/header/InsElMenu.vue'),
+    Menu: () => import('@/components/business/mobile/header/InsMenu.vue'),
     InsLangSwitch: () => import('@/components/business/mobile/header/InsLangSwitch.vue')
   }
 })
@@ -167,91 +167,154 @@ export default class InsMenuLayout extends Vue {
   }
 }
 
-#menu {
-    .el-submenu__icon-arrow {
-        display: none;
-    }
+// #menu {
+//     .el-submenu__icon-arrow {
+//         display: none;
+//     }
 
-    .el-submenu__title {
-        padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
-        padding-left: 0px!important;
-        height: auto!important;
-        line-height: unset;
-        background-color:transparent!important;
-        .name{
-            font-size: 1.4rem!important;
-            color:#fff;
-            height: auto!important;
-            line-height: unset!important;
-        }
-    }
+//     .el-submenu__title {
+//         padding-top: 0.5rem;
+//         padding-bottom: 0.5rem;
+//         padding-left: 0px!important;
+//         height: auto!important;
+//         line-height: unset;
+//         background-color:transparent!important;
+//         .name{
+//             font-size: 1.4rem!important;
+//             color:#fff;
+//             height: auto!important;
+//             line-height: unset!important;
+//         }
+//     }
 
-    .el-menu {
-        width: 90%;
-        margin: 0 auto;
-        background-color: transparent;
-        border: 0;
-        .el-submenu__icon-arrow {
-            display: block;
-            font-size: 1.4rem;
-        }
+//     .el-menu {
+//         width: 90%;
+//         margin: 0 auto;
+//         background-color: transparent;
+//         border: 0;
+//         .el-submenu__icon-arrow {
+//             display: block;
+//             font-size: 1.4rem;
+//         }
 
-        > li {
-            height: auto;
-            line-height: unset;
-            text-align: left;
-             >a {
-                 color:#666666;
-                 background-size: 100% 100%;
-                 display:block;
-                 width: 100%;
-                 padding-top: .5rem;
-                 padding-bottom: .5rem;
-                 margin: 0 auto;
-                 font-weight: 500;
-                 b{
-                     color:#FFF;
-                     display: block;
-                     width: 100%;
-                     font-weight: 500;
-                     &:nth-child(1){
-                        color:#fff;
-                        font-weight: 500;
-                        font-size: 1.4rem;
-                     }
-                     &:nth-child(2){
-                         color:#fff;
-                         font-size: 1.2rem;
-                     }
-                 }
-            }
+//         > li {
+//             height: auto;
+//             line-height: unset;
+//             text-align: left;
+//              >a {
+//                  color:#666666;
+//                  background-size: 100% 100%;
+//                  display:block;
+//                  width: 100%;
+//                  padding-top: .5rem;
+//                  padding-bottom: .5rem;
+//                  margin: 0 auto;
+//                  font-weight: 500;
+//                  b{
+//                      color:#FFF;
+//                      display: block;
+//                      width: 100%;
+//                      font-weight: 500;
+//                      &:nth-child(1){
+//                         color:#fff;
+//                         font-weight: 500;
+//                         font-size: 1.4rem;
+//                      }
+//                      &:nth-child(2){
+//                          color:#fff;
+//                          font-size: 1.2rem;
+//                      }
+//                  }
+//             }
 
-            a {
-                text-decoration: none;
-            }
-        }
+//             a {
+//                 text-decoration: none;
+//             }
+//         }
 
-        li {
-            line-height: unset;
-            padding: 0 !important;
-            min-width: unset;
-        }
-    }
-}
-#menu .is-opened > .el-submenu__title{
-    background:transparent!important;
-    color:#fff!important;
-    .name{
-        color:#FFF!important;
-    }
-}
-#menu .is-opened > .el-submenu__title .el-submenu__icon-arrow{
-    color:#fff!important;
-}
+//         li {
+//             line-height: unset;
+//             padding: 0 !important;
+//             min-width: unset;
+//         }
+//     }
+// }
+// #menu .is-opened > .el-submenu__title{
+//     background:transparent!important;
+//     color:#fff!important;
+//     .name{
+//         color:#FFF!important;
+//     }
+// }
+// #menu .is-opened > .el-submenu__title .el-submenu__icon-arrow{
+//     color:#fff!important;
+// }
 </style>
 
 <style scoped lang="less">
+.MeunBar {
+  width: 90%;
+  margin: 0 auto;
+   /deep/ .nav_menu {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+     > ul {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      position: relative;
+      top: 0;
+      left: 0;
+      >li {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        text-align: left;
+        &:hover {
+          > a {
+            color: #fff;
+          }
+        }
+        >ul {
+          position: relative;
+          left:0;
+          top: 0;
+          display: block;
+          width: 100%;
+          border: 0px;
+          li {
+            background: transparent;
+            border: 0px;
+            padding-left: 2rem;
+            &:hover {
+              a{
+                color:#c6b17b;
+                text-decoration: underline;
+              }
+            }
+            >a {
+            color:#e5e5e5;
+            padding: 0px;
+            font-size: 1.2rem;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            text-transform: uppercase;
+            }
+          }
+        }
+        >a {
+          color:#fff;
+          padding: 0px;
+          font-size: 1.4rem;
+          padding-top: 1rem;
+          padding-bottom: 1rem;
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+}
 .topbar {
   width: 90%;
   margin: 0 auto;

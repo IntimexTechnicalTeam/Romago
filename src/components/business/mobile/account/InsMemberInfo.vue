@@ -6,7 +6,6 @@
         :model="ruleForm"
         :rules="rules"
         :label-position="'right'"
-        label-width="25%"
         ref="ruleForm"
         class="demo-ruleForm"
       >
@@ -242,9 +241,18 @@ export default class InsMemberInfo extends Vue {
           align-items: center;
           justify-content: center;
           text-align: center;
+          color: #999999;
         }
       }
-
+      .el-input.is-disabled .el-input__inner {
+        border-radius: 0px;
+      }
+      .el-input__inner {
+        border-radius: 0px;
+      }
+      .el-select .el-input__inner {
+        border-radius: 0px;
+      }
       .el-select {
         width: 100%;
       }
@@ -255,17 +263,17 @@ export default class InsMemberInfo extends Vue {
           box-shadow: none;
 
           &:hover {
-            border-color: #333333;
+            border-color: #c6b17c;
           }
         }
-        
+
         &.is-checked .el-radio__inner {
-          border-color: #333333;
-          background: #333333;
+          border-color: #c6b17c;
+          background: #c6b17c;
         }
 
         &.is-checked+.el-radio__label {
-          color: #333333;
+          color: #c6b17c;
         }
       }
     }
@@ -273,12 +281,13 @@ export default class InsMemberInfo extends Vue {
     /deep/ .submit-btn {
       display: block;
       width: 100%;
-      background: #333;
+      background: #c6b17c;
       border: none;
       margin: 3rem 0;
-
+      border-radius: 0px;
       > span {
-        font-size: 20px;
+        font-size: 1.4rem;
+        text-transform: uppercase;
       }
     }
   }

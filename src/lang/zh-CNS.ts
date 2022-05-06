@@ -134,7 +134,9 @@ export default {
     Total: '共',
     Product: '个产品',
     ProductDetail: '产品详情',
-    Unit: '单位'
+    Unit: '单位',
+    Filter: '筛选',
+    ViewAll: '查看更多'
   },
   Shoppingcart: {
     ShoppingcartTitle: '购物车',

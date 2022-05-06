@@ -1,6 +1,6 @@
 <template>
-  <div id="container" class="resetPWD">
-      <div class="DetailTitle"><img :src="ImgList" v-show="ImgList!==null"><div class="TitleBg"><div class="innerBoxText">{{$t('Forgetpassword.ResetPwd')}}</div></div></div>
+  <div id="memberConterContainer" class="resetPWD">
+        <p class="pageTitle">{{$t('Forgetpassword.ResetPwd')}}</p>
          <div class="resetPwdMain">
           <InsForm ref="pwdForm" v-model="pwdForm">
             <div class="login-register-content">
@@ -179,14 +179,18 @@ export default class InsResetPwd extends Vue {
     height: 500px;
 }
 .resetPWD{
-  padding-bottom: 60px;
+  padding-bottom: 2rem;
 }
 .resetBtn{
-    background-color:  @base_color;
-    border: 1px solid @base_color;
+    background-color:  #c6b17c;
+    border: 1px solid #c6b17c;
     width: 100%;
+    padding: 0px;
+    height: 3.5rem;
+    border-radius: 0px;
     span{
-      font-size: 20px;
+      font-size: 1.4rem;
+      text-transform: uppercase;
     }
 }
 </style>

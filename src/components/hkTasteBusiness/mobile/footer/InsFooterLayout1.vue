@@ -49,24 +49,8 @@ export default class InsFooter extends Vue {
         // RNPay登陆權限验证
         if (result.IsLogin && !this.$Storage.get('isLogin')) {
           this.$router.push('/account/login?returnurl=' + this.$route.path);
-          return;
         }
-
         this.htmlString = result.ReturnValue.HtmlString;
-
-        this.$nextTick(() => {
-          if (document.querySelectorAll('#Sign').length > 0) {
-            this.Signer = new intimex.CanvasSigner('#NewSignCanvas', '#Signature', {
-              color: '#58B63A',
-              width: 5
-            });
-            this.Signer.initCanvas();
-
-            window['Signer'] = this.Signer;
-          }
-
-          if (result.ReturnValue.Title) document.title = result.ReturnValue.Title;
-        });
       });
     }
 

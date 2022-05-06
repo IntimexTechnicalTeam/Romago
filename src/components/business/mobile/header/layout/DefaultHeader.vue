@@ -80,7 +80,10 @@ export default class DefaultHeader extends Vue {
   }
   @Watch('$route', { deep: true })
     onRouteChange () {
-      this.search = false;
+      this.$store.dispatch('isShowSearch', false);
+      this.$store.dispatch('isShowMenu', false);
+      this.$store.dispatch('isShowLangSwitch', false);
+      this.$store.dispatch('isShowCodeSelect', false);
     }
 }
 </script>

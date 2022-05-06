@@ -1,17 +1,13 @@
 <template>
   <div id="container" class="ProductSearch">
-        <div class="ProducBanner">
-            <ProductListSwiper :TitleName="$t('product.Producttitle')"/>
-        </div>
         <div class="SearchSlide">
-          <div class="bg" @click="closeSub"></div>
           <div class="leftSide">
             <advancedSearch @advancedChange="advancedChange" v-if="isAdvanced"  @closeSub="closeSub" @resetAll="resetAll" />
           </div>
         </div>
       <div class="selectBar">
           <ul>
-            <li @click="showSearchSlide"><span class="el-icon-s-operation"></span><b>{{$t('product.Screening')}}</b></li>
+            <li @click="showSearchSlide"><span class="filterIcon"></span><b>{{$t('product.Filter')}}</b></li>
             <li>
               <select v-model="PriceItem" @change="getselect(PriceItem)">
                 <option value="desc">{{$t('product.PriceHL')}}</option>
@@ -22,26 +18,15 @@
         </div>
     <!-- <advancedSearch :attrType="2"  @advancedChange="advancedChange" /> -->
 
-    <!-- 點擊按鈕加載 -->
-    <!-- <div class="prolist-box">
+    <div class="prolist-box">
       <div class="products_container" v-if="proList.length>0">
           <InsProductList v-for="item in proList" :key="item.productCode" :item="item" :needCode="false" class="product_item" ></InsProductList>
         </div>
         <div class="products_container" v-else>
              <h3 class="nocontentTips">{{$t('messageTips.NoContent')}}</h3>
         </div>
-          <div ref="load" class="loading" @touchstart="loading" v-if="totalRecord>pageSize"><p>{{tips?$t('Action.LoadMore'):$t('home.Thatsall')}}</p></div>
-          <div class="loading" v-else>{{$t('home.Thatsall')}}</div>
-    </div> -->
-
-    <!-- 滾動自動加載 -->
-    <div class="prolist-box" v-infinite-scroll="vload" infinite-scroll-disabled="disabled" infinite-scroll-immediate="false">
-      <div class="products_container">
-        <InsProductList v-for="item in proList" :key="item.productCode" :item="item" :needCode="false" class="product_item"></InsProductList>
-      </div>
-
-      <p class="loading" v-if="vloading">{{$t('product.loadTips')}}</p>
-      <p class="loading" v-if="noMore">{{$t('home.Thatsall')}}</p>
+        <div ref="load" class="loading" @touchstart="loading" v-if="totalRecord>pageSize"><p>{{tips?$t('Action.LoadMore'):$t('home.Thatsall')}}</p><p class="downIcon" v-if="tips"><i class="el-icon-arrow-down"></i></p></div>
+        <div class="loading" v-else>{{$t('home.Thatsall')}}</div>
     </div>
   </div>
 </template>
@@ -69,22 +54,6 @@ export default class InsProductSearch extends Vue {
   searchType: number = 1; // 搜索类型（0 => 叠加，1 => 筛选）
   PriceItem:string='desc';
   isAdvanced: boolean = true;
-
-  // 滾動自動加載
-  vloading: boolean = false;
-
-  get noMore () {
-    return this.proList.length >= this.totalRecord;
-  };
-  get disabled () {
-    return this.vloading || this.noMore;
-  }
-
-  vload () {
-    this.vloading = true;
-    this.currentPage++;
-  }
-  // ======= over ========
 
   // 搜索关键词
   get searchKey () {
@@ -119,7 +88,6 @@ export default class InsProductSearch extends Vue {
       if (flag === 'loadpage') {
         this.proList = this.proList.concat(result.YouWouldLike);
         this.totalRecord = result.TotalRecord;
-        if (this.vloading) this.vloading = false;
       } else {
         this.proList = result.YouWouldLike;
         this.totalRecord = result.TotalRecord;
@@ -210,6 +178,12 @@ export default class InsProductSearch extends Vue {
 </style>
 
 <style scoped lang="less">
+#container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  background: #000;
+}
 .nocontentTips{
   width: 95%;
   margin: 0 auto;
@@ -230,21 +204,44 @@ export default class InsProductSearch extends Vue {
 }
 
 .product_item{
-    width: 50% !important;
-    padding:2rem 1rem 0;
+    width: 48% !important;
     box-sizing:border-box;
+    margin-right: 4%;
+    margin-bottom: 4%;
+    overflow: hidden;
+    &:nth-child(2n) {
+      margin-right: 0px!important;
+    }
 }
-
+.prolist-box {
+  width: 90%;
+  margin: 0 auto;
+}
 .loading{
     text-align: center;
     height: 3rem;
     line-height: 3rem;
     margin: 1rem 0 2rem;
+    border-radius: 2rem;
+    overflow: hidden;
+    font-size: 1.2rem;
+    color: #fff;
+    text-transform: uppercase;
+    p{
+      font-size: 1.2rem;
+      color: #fff;
+    }
+    .downIcon {
+      i{
+        font-size: 1.4rem;
+        color: #fff;
+      }
+    }
 }
 
 .ProductSearch {
   .InsAdvancedSearch {
-    background: #fff;
+    background: #f2f1f0;
     min-height: 100vh;
   }
 }
@@ -254,19 +251,10 @@ export default class InsProductSearch extends Vue {
   left: 0;
   top: 0px;
   bottom: 0px;
+  background: rgba(232,252,250,.8);
   overflow-x: scroll;
   z-index: 999999;
   display: none;
-
-  > .bg {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
-    background: rgba(0,0,0,.6);
-  }
-
   .leftSide{
     width: 80%;
     left:-80%;
@@ -284,53 +272,60 @@ export default class InsProductSearch extends Vue {
     margin: 0 auto;
     display: inline-block;
     margin-top: 2rem;
+    margin-bottom: 2rem;
   ul{
-    width: 95%;
+    width: 90%;
     margin: 0 auto;
   }
   li{
     float: left;
     margin-right: 4%;
     width: 47%;
-    background: #FFF;
-    border:1px solid #eee;
-    font-size: 1.6rem;
-    background: #666666;
-    color: #FFF;
-    height: 3.5rem;
-    line-height: 3.5rem;
+    background: transparent;
+    border:1px solid #fff;
+    font-size: 1rem;
+    color: #fff;
+    height: 3rem;
+    line-height: 3rem;
     list-style: none;
-    span{
-    width: 20%;
-    display: inline-block;
-    font-size: 1.4rem;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .filterIcon  {
+      background: url('/images/mobile/others/filters.png') no-repeat center center;
+      width: 1.5rem;
+      height: 1.5rem;
+      background-size: 1.5rem;
+      display: inline-block;
     }
     b{
-      width: 60%;
-      display: inline-block;
       text-align: center;
-      font-size: 1.2rem;
+      font-size: 1rem;
       font-weight: 500;
+      margin-left: .5rem;
+      text-transform: uppercase;
     }
     select{
     width: 100%;
     border: none;
     padding-left: .5rem;
-    height: 3.5rem;
-    line-height: 3.5rem;
-    font-size: 1.2rem;
+    height: 3rem;
+    line-height: 3rem;
+    font-size: 1rem;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    background: url(/images/mobile/arrow-down-back.png) 98% 15px no-repeat;
-    background-size: 15px;
+    background: transparent url(/images/mobile/mobileIndex_14.png) 98% 50% no-repeat;
+    background-size:1.8rem;
     outline: none;
+    color: #fff;
+    text-transform: uppercase;
+      option{
+        color: #000;
+      }
     }
     &:last-child{
       margin-right: 0px!important;
-      background: #FFF!important;
-      color:#333333;
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div id="container" class="NotificationMain">
+  <div id="memberConterContainer" class="NotificationMain">
     <accountHeader />
     <p class="pageTitle">{{ $t("Notification.MyMessages") }}</p>
     <div id="main-content">
@@ -193,7 +193,7 @@ export default class InsNotification extends Vue {
   z-index: 1000000000!important;
 }
 </style>
-<style lang="less">
+<style lang="less" scoped>
 /*我的最爱*/
 .pageNum {
   margin-top: 30px;
@@ -231,5 +231,8 @@ export default class InsNotification extends Vue {
   .el-pager
   li:not(.disabled).active {
   background-color: #8dc11f;
+}
+.NotificationMain {
+  padding-bottom: 2rem;
 }
 </style>

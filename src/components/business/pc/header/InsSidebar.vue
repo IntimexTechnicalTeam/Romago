@@ -1,40 +1,42 @@
 <template>
   <div class="siderbarContainer">
     <div id="sidebar" v-show="isShow">
-      <a href="javascript:void(0);" @click="toTop"
-        ><img src="/static/Image/mobile/home/down.png"
-      /></a>
       <a href="javascript:void(0);" @click="show = !show"
-        ><img src="/static/Image/mobile/home/down2.png"
+        ><img src="/images/mobile/mpic_10.png"
+      /></a>
+        <a href="javascript:;" class="livechat" @click="showLivechat"
+        ><img src="/images/mobile/mpic_11.png"
+      /></a>
+      <a href="javascript:;" class="livechat"
+        ><img src="/images/mobile/mpic_12.png"
+      /></a>
+      <a href="javascript:;" class="livechat"
+        ><img src="/images/mobile/mpic_13.png"
       /></a>
       <span v-show="show">
+        <a href="javascript:;" class="livechat"
+          ><img src="/images/mobile/mpic_14.png"
+        /></a>
         <div class="wechat">
           <a href="javascript:;" @mouseover="showWeChat = true;" @mouseout="showWeChat = false;">
-            <img src="/static/Image/wechat.png" />
+            <img src="/images/mobile/mpic_15.png" />
           </a>
-
           <transition name="slide-fade">
             <span class="wechat_img" v-show="showWeChat">
               <img src="/static/Image/wechat_code.png" />
             </span>
           </transition>
         </div>
-
-        <a
-          href="https://api.whatsapp.com/send?phone=8529876%205436&text=%E6%88%91%E6%83%B3%E6%9F%A5%E8%AF%A2%E4%B8%80%E4%B8%8B"
-          target="_blank"
-          ><img src="/static/Image/mobile/home/whatsapp.png"
+        <a href="javascript:;" class="livechat"
+          ><img src="/images/mobile/mpic_16.png"
         /></a>
-        <a href="javascript:;" class="livechat" @click="showLivechat"
-          ><img src="/static/Image/mobile/home/facebook.png"
-        /></a>
-        <a href="tel:85298765436" class="fb-button" target="_blank"
-          ><img src="/static/Image/mobile/home/phone.png"
-        /></a>
-        <a href="mailto:info@hktaste.com.hk" class="fb-button"
-          ><img src="/static/Image/mobile/home/news.png"
+        <a href="javascript:;" class="livechat"
+          ><img src="/images/mobile/mpic_17.png"
         /></a>
       </span>
+      <a href="javascript:void(0);" @click="toTop"
+        ><img src="/images/mobile/mpic_18.png"
+      /></a>
     </div>
     <!-- 显示livechat -->
     <div class="fb-livechat">
@@ -209,12 +211,12 @@ export default class InsSidebar extends Vue {
 }
 #sidebar {
   img {
-    width: 4rem;
+    width: 30px;
   }
   position: fixed;
   right: 0 !important;
   bottom: 60px;
-  width: 4rem;
+  width: 35px;
   // text-align: center;
   z-index: 997;
   line-height: 0;
@@ -277,5 +279,8 @@ export default class InsSidebar extends Vue {
 
 a {
   line-height: 0;
+  background: rgba(0,0,0,.7);
+  display: inline-block;
+  padding: 5px;
 }
 </style>

@@ -1,9 +1,9 @@
 <template>
-  <div id="container">
+  <div id="memberConterContainer">
     <accountHeader/>
     <p class="pageTitle">{{$t('Order.OrderTitle')}}</p>
     <transition name="slide">
-      <div key="1" v-if="!waiting">
+      <div key="1" v-if="!waiting" class="orderCon">
     <div class="OrderMain OrderMobile">
     <el-card shadow="hover" class="OrderCard">
       <el-row
@@ -147,10 +147,6 @@ export default class InsOrderList extends Vue {
 }
 </style>
 <style lang="less" scoped>
-#container {
-  width: 100%;
-  display: inline-block;
-}
 .order-items{
   color:#666;
   font-size: 14px;
@@ -163,7 +159,7 @@ export default class InsOrderList extends Vue {
   margin-right: -10px;
 }
 .OrderMain {
-  width:95%;
+  width:90%;
   margin: 0 auto;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -253,5 +249,10 @@ export default class InsOrderList extends Vue {
   width: 100%;
   height: 29vw;
   background-color: aliceblue;
+}
+.orderCon {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
 }
 </style>

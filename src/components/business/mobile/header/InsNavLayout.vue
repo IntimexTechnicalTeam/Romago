@@ -21,6 +21,9 @@ export default class InsNavLayout extends Vue {
   @Prop({ default: 1 }) private level!: number;
 
   toUrl (n) {
+    if (n.Type < 0) {
+      return;
+    }
     if (!n.IsNewWin && n.Url) {
       window.location.href = n.Url;
     } else if (n.IsNewWin && n.Url) {
@@ -29,7 +32,13 @@ export default class InsNavLayout extends Vue {
   }
 
   To (n) {
-    return n.Type === 1 ? '/cms/catDetail/' + n.Value.Id : n.Type === 2 ? '/cms/content/' + n.Value.Id : n.Type === 3 ? '/regnpay/form/' + n.Value.Id : '/';
+    return n.Type === 1 ? '/cms/catDetail/' + n.Value.Id
+      : n.Type === 2 ? '/CMS/content/' + n.Value.Id
+      : n.Type === 3 ? '/RegNPay/Form/' + n.Value.Id
+      : n.Type === 4 && !this.$store.state.catMenuType ? '/product/cat/' + n.Value.Id
+      : n.Type === 4 && this.$store.state.catMenuType ? '/product/search/-?catalogs=' + JSON.stringify([parseInt(n.Value.Id)]) + '&type=0'
+      : n.Type === 5 ? '/product/search/-?attrs=' + JSON.stringify([{ Id: parseInt(n.Value.Id), Vals: [] }]) + '&type=0'
+      : '/product/search/-?attrs=' + JSON.stringify([{ Id: parseInt(n.ParentId), Vals: [parseInt(n.Value.Id)] }]) + '&type=0';
   }
 }
 </script>
