@@ -18,6 +18,7 @@ export default class InsLogo extends Vue {
   transform: translate(-50%);
   img {
     width: 12rem;
+    padding-top: 0.5rem;
   }
 }
 </style>

@@ -46,7 +46,6 @@ export default class FixedHeader extends Vue {
   left: 0;
   top: 0;
   z-index: 9999;
-  box-shadow: 0 0 10px 0 #d4d5d1;
 }
 
 /* 可以设置不同的进入和离开动画 */

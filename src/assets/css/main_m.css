@@ -108,11 +108,19 @@ a{
 div,li,ul{
   list-style: none;
 }
-p, a, span {
-  font-family: 'Arial', 'Microsoft YaHei';
+@font-face {
+	font-family:'PoppinsBold';
+	src:url('../fonts/Poppins-SemiBold.ttf');
+}
+@font-face {
+	font-family:'PoppinsLight';
+	src:url('../fonts/PoppinsLight.ttf'),url('../fonts/PoppinsLight.eot'),url('../fonts/PoppinsLight.woff'),url('../fonts/PoppinsLight.otf');
 }
 body {
-  font-family: 'Arial', 'Microsoft YaHei';
+  font-family: 'PoppinsLight', 'Microsoft YaHei';
+}
+input,textarea,select {
+  font-family: 'PoppinsLight', 'Microsoft YaHei';
 }
 div {
   user-select: none;
@@ -127,10 +135,12 @@ div {
   width: 90%;
   margin: 0 auto;
   margin-top: 20px;
-  line-height: 30px;
+  line-height: 26px;
   border-left: 5px solid #c6b17c;
   text-indent: 10px;
   color: #fff;
+  text-transform: uppercase;
+  font-family: 'PoppinsBold', 'Microsoft YaHei';
 }
 #memberConterContainer {
   width: 100%;

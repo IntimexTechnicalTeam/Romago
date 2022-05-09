@@ -2,53 +2,19 @@
   <div id="container" class="MobileContact">
     <!-- 联络我们页面 -->
     <div class="Cmsbg" v-if="NewcateId=='40112'">
-      <transition name="slide">
-        <div key="1" v-if="!waiting" style="display:flex;">
-           <div class="DetailTitle"><img :src="ImgList" v-show="ImgList!==null"><div class="TitleBg"><div class="innerBoxText">{{CateName}}</div></div></div>
-      </div>
-      </transition>
-      <transition name="slide">
-        <div class="faker" key="2" v-if="waiting" v-loading="true"></div>
-      </transition>
-      <div class="CmsContent">
-          <p class="OurStores">{{$t('Cms.OurStores')}}</p>
-          <p class="BusinessHours">{{$t('Cms.BusinessHours')}}: 07:30 - 19:00</p>
-          <p v-html="content.Body"></p>
-         <div class="clear"></div>
-      </div>
-      <div class="CmsMap">
-            <p class="addressIcon"><i></i>{{$t('home.Address')}}：</p>
-            <div class="perList" v-for="(val,index) in ShopList" :key="index" v-on:click="showContent(val.Id,index)" :class="{'activeColor':cindex==index}">
-                <div class="icon"><i></i></div>
-                <div class="content">
-                  <p>{{val.Title}}</p>
-                  <p>{{val.DescOne}}</p>
-                  <p>{{val.DescTwo}}</p>
-                </div>
-            </div>
-            <p v-html="MapInfo" class="MapInfo"></p>
-      </div>
-      <div class="borderline"></div>
       <!-- 表单信息 -->
         <div class="FormMain">
-          <p class="FormTitle">{{FormTitle}}</p>
+          <p class="pageTitle">{{FormTitle}}</p>
           <div v-html="htmlString" class="to_vertical" id="content"></div>
           <div id="preview" style="display:none;"></div>
         </div>
+         <p v-html="content.Body" class="contactUsContainer"></p>
     </div>
     <!-- 其他页面 -->
-    <div class="CmsNormal" v-if="NewcateId!='40112'">
-      <transition name="slide">
-        <div key="1" v-if="!waiting" style="display:flex;">
-              <div class="DetailTitle"><img :src="ImgList" v-show="ImgList!==null"><div class="TitleBg"><div class="innerBoxText">{{CateName}}</div></div></div>
-      </div>
-      </transition>
-      <transition name="slide">
-        <div class="faker" key="2" v-if="waiting" v-loading="true"></div>
-      </transition>
+    <div class="CmsNormal" v-else>
       <div class="CmsContent">
-        <p class="TitleName">{{TitleName}}</p>
-        <p v-html="content.Body"></p>
+        <p class="pageTitle">{{TitleName}}</p>
+        <p v-html="content.Body" class="contents"></p>
       </div>
     </div>
   </div>
@@ -240,141 +206,22 @@ export default class InsCmsContent extends Vue {
     }
   }
 }
-.MobileContact{
-    .OurStores{
-      font-size: 2.5rem;
-      font-weight: 700;
-      color:#333333;
-      text-align: right;
-    }
-    .BusinessHours{
-      font-size: 1.6rem;
-      color:#333333;
-      margin-bottom: 30px;
-      text-align: right;
-    }
-    .aboutUSbg{
-      width: 100%;
-      float: left;
-      background: #FFF;
-      border-radius: 10px;
-      padding: 5px;
-     .innerBox{
-       border:1px solid #000;
-       border-radius: 10px;
-       position: relative;
-        min-height: 400px;
-        padding: 20px;
-        p{
-          font-size: 1.4rem;
-          text-align: justify;
-        }
-        &::before{
-            content: '';
-            width: 98%;
-            height: 20px;
-            background: url(/images/mobile/productList_icon.png) no-repeat center center;
-            background-size: 100%;
-            position: absolute;
-            top: 10px;
-            left: 1%;
-        }
-        &::after{
-            content: '';
-            width: 98%;
-            height: 20px;
-            background: url(/images/mobile/productList_icon.png) no-repeat center center;
-            background-size: 100%;
-            position: absolute;
-            bottom: 10px;
-            left: 1%;
-        }
-     }
-   }
-  }
-.MobileContact .activeColor .content p:nth-child(1){
-    text-decoration: underline;
-    font-weight: 700;
-}
-.MobileContact .aboutBg{
-    width: 80%;
-    background-size: 100%;
-    min-height: 65rem;
-    padding: 10%;
-    word-break: break-all;
-}
-.MobileContact .abooutImg{
-    width: 70%;
-    margin: 0 auto;
-    margin-bottom: 1rem;
-    img{
-      width: 100%;
-    }
-}
-.MobileContact .contactBox{
-  width: 100%;
-  display: inline-block;
-  p{
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
-    font-size: 1.4rem;
-    display: flex;
-    align-items: center;
-    border-top: 1px solid #666;
-    &:last-child{
-      border-bottom: 1px solid #666;
-    }
-    .icon1{
-      background: url('/images/mobile/Mobile-Contact-02.png') no-repeat center center;
-      background-size: 100%;
-      width: 2.5rem;
-      height: 2.5rem;
-      display: inline-block;
-      vertical-align: middle;
-      margin-right:1rem;
-    }
-    .icon2{
-      background: url('/images/mobile/Mobile-Contact-03.png') no-repeat center center;
-      background-size: 100%;
-      width: 2.5rem;
-      height: 2.5rem;
-      display: inline-block;
-      vertical-align: middle;
-      margin-right:1rem;
-    }
-    .icon3{
-      background: url('/images/mobile/Mobile-Contact-04.png') no-repeat center center;
-      background-size: 100%;
-      width: 2.5rem;
-      height:2.5rem;
-      display: inline-block;
-      vertical-align: middle;
-      margin-right:1rem;
-    }
-  }
-}
-.MobileContact .CmsMap .MapInfo{
-  width:100%;
-  margin-bottom: 1rem;
-  iframe{
-    width:100%;
-    height: 30rem;
-  }
-  img{
-    width:100%;
-  }
-}
 .MobileContact .FormMain{
   width:90%;
   margin:0 auto;
   padding-bottom: 3rem;
   position: relative;
-  padding-top: 3rem;
+  #content {
+    padding-top: 2rem;
+  }
   .FormTitle{
     font-size: 2.5rem;
     margin-top: 2rem;
     margin-bottom: 2rem;
     color:#333333;
+  }
+  .pageTitle {
+    width: 100%!important;
   }
   .FormImg{
     position: absolute;
@@ -390,223 +237,195 @@ export default class InsCmsContent extends Vue {
       border: none;
     }
     h4{
-      background: #fff;
-      background-size: 100% 100%;
-      display: inline-block;
-      height: 3.5rem;
-      width: 40%;
-      text-align: center;
-      line-height: 3.5rem;
-      font-size: 1.2rem;
-      margin-bottom: .5rem;
-      border:1px solid #808080;
-      border-radius: 2px;
+      display: none;
     }
     input[type="text"],input[type="email"]{
-      border:1px solid #808080;
-      height: 3.5rem;
-      line-height: 3.5rem;
-      width: 70%;
+      border: 0;
+      border-bottom: 1px solid #cccccc;
+      outline: 0;
+      height: 3rem;
+      line-height: 3rem;
+      width: 100%;
       box-sizing: border-box;
-      border-radius: 2px;
-      margin-bottom: .5rem;
-      text-indent: 1rem;
       outline: none;
-      font-size: 1.4rem;
+      font-size: 1.2rem;
+      background: transparent;
+      margin-bottom: 1rem;
+      color: #cccccc;
+      &::placeholder{
+        color: #cccccc;
+      }
     }
     textarea{
-      border:1px solid #808080;
+      border: 0;
+      border-bottom: 1px solid #cccccc;
       height: 10rem;
       width: 100%;
       box-sizing: border-box;
-      border-radius: 2px;
-      margin-bottom: .5rem;
       outline: none;
-      font-size: 1.4rem;
+      font-size: 1.2rem;
+      background: transparent;
+      margin-bottom: 1rem;
+      color: #cccccc;
+      &::placeholder{
+        color: #cccccc;
+      }
     }
     p[name="error"]{
       color:red;
       margin-bottom:.5rem;
     }
     .btn-default{
-      width: 40%;
-      float: right;
-      background: #333333;
-      height: 3.5rem;
-      line-height: 3.5rem;
+      width: 100%;
+      background: #c6b17b;
+      height: 3rem;
+      line-height: 3rem;
       color:#fff;
       background-size: 100%;
       border:none;
       margin-top: 1rem;
       font-size: 1.4rem;
-      margin-bottom: 5rem;
-      border-radius: 2px;
+      margin-bottom: 2rem;
+    }
+    .dropdown_op {
+      width: 100%;
+      height: 3rem;
+      border: 0px;
+      border-bottom: 1px solid #cccccc;
+      margin-bottom: 1rem;
+      outline: 0;
+      font-size: 1.2rem;
+      color: #cccccc;
+      appearance: none;
+      background: transparent url(/images/mobile/yellowDown.png) 98% 50% no-repeat;
+      background-size: 1.5rem;
+      &::placeholder{
+        color: #cccccc;
+      }
+      option {
+        color: #000;
+      }
+    }
+  }
+  .only_tilte {
+    h4 {
+      display: block;
+      font-size: 1.2rem;
+      color: #ccc;
+      font-weight: 500;
+    }
+  }
+  .checkbox_op {
+    label {
+      display: block;
+      font-size: 1.2rem;
+      color: #ccc;
     }
   }
 }
 </style>
 <style scoped lang="less">
-.TitleName{
-  text-align: center;
-  font-size: 1.6rem;
-  font-weight: 700;
-  margin-bottom: 2rem;
-}
-.DetailTitle{
-  width: 100%;
-  display: flex;
-  flex-wrap:wrap;
-  position: relative;
-  align-items: center;
-  justify-content: center;
-  img{
+.MobileContact {
     width: 100%;
-  }
-  .TitleBg{
-    width: 75%;
-    border: 1px solid #ffffff;
-    height: 4.5rem;
-    line-height: 4.5rem;
-    margin: 0 auto;
-    padding: 10px;
-    margin-bottom: 20px;
-    top: 50%;
-    position: absolute;
-    transform: translateY(-50%);
-    .innerBoxText{
-      background:#ffffff;
-      color: #333333;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.5rem;
-      font-weight: 700;
-      font-family: 'Arial';
+    display: flex;
+    flex-wrap: wrap;
+    .Cmsbg {
+          background: url('/images/mobile/ohters_13.jpg') no-repeat center center;
+          background-size: cover;
+          width: 100%;
+          display: flex;
+          flex-wrap: wrap;
+          padding-top: 5rem;
+          .contactUsContainer {
+            width: 90%;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            padding-bottom: 2rem;
+            /deep/ .ContactInner {
+              .tp1 {
+                margin-bottom: 1rem;
+                .pageTitle {
+                  width: 100%!important;
+                }
+                .Addr {
+                  font-size: 1.4rem;
+                  color: #fff;
+                  margin-top: 1rem;
+                }
+                .tel {
+                  font-size: 1.4rem;
+                  color: #fff;
+                  margin-top: 1rem;
+                }
+              }
+            }
+          }
     }
-  }
-}
-.CmsNormal{
-  width: 100%;
-  display: inline-block;
-  background: #FFF;
-}
-.TitleBg{
-  width: 75%;
-  height: 4.5rem;
-  border:1px solid #ffffff;
-  margin: 0 auto;
-  padding: .8rem;
-  .innerBoxText{
+  .CmsContent {
     width: 100%;
-    height: 100%;
-    background:#ffffff;
-    color: #333333;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.5rem;
-    font-weight: 700;
-    font-family: 'Arial';
-  }
-}
-.cmsTitlebg{
-    width: 50%;
-    background: url(/images/mobile/contact_02.png) no-repeat center center;
-    background-size: 100% 100%;
-    display: flex;
-    box-sizing: border-box;
-    height: 6rem;
-    align-items: center;
-    justify-content: center;
-    .p1{
-      font-size: 1.5rem;
-      width: 100%;
-      text-align: center;
-      font-weight: 700;
-    }
-    .p2{
-      font-size: 1.2rem;
-      text-align: center;
-      color: #262626;
-      font-weight: 600;
-    }
-}
-.Cmsbg{
-    width:100%;
-    background: url('/images/mobile/MobileIndex_03.jpg') no-repeat center center;
-    background-size: 100% 100%;
-    display: inline-block;
-    box-sizing: border-box;
-    margin-top: -.5rem;
-    padding-bottom: 2rem;
-    .borderline{
-      height:1px;
-      width: 100%;
-      display: inline-block;
-      background: #000;
-   }
-}
-.Banner {
-  width: 100%;
-  height: 15rem;
-  display:flex;
-  align-items: center;
-  position: relative;
-}
-.Banner img {
-  width: 100%;
-  height: 15rem;
-}
-#container {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-.CmsMap {
-    width: 90%;
-    margin: 0 auto;
-    padding-top: 2rem;
-}
-.CmsContent{
-  position: relative;
-    width: 90%;
-    margin: 0 auto;
+    flex-wrap: wrap;
+    background: #030101;
     padding-top: 5rem;
-    padding-bottom: 5rem;
-  .CmsMapImg{
-    width: 20%;
-    position: absolute;
-    right: 0px;
-    top:3rem;
-    img{
-      width: 100%;
-    }
-  }
-}
-.CmsMap
-{
-  position: relative;
-  .addressIcon{
-    width: 100%;
-    font-size: 1.4rem;
-    margin-bottom: 2rem;
-    align-items: center;
-    display: flex;
-    i{
-      background: url('/images/mobile/Mobile-Contact-05.png') no-repeat center center;
-      background-size: 100% 100%;
-      width:2.5rem;
-      height:2.5rem;
-      display: inline-block;
-      margin-right:.5rem;
-    }
-  }
-  .perList{
-    margin-bottom:3rem;
-    width:calc(100% - 3rem);
-    padding-left: 3rem;
-    p{
-      font-size:1.4rem;
+    .contents {
+      margin-top: 2rem;
+      /deep/ .AboutMain {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        .InnerBox {
+          width: 90%;
+          margin: 0 auto;
+          .InsTitle {
+            font-size: 1.6rem;
+            color: #c6b17b;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+          }
+          .InsText {
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 1rem;
+            line-height: 2rem;
+          }
+          .InsImg {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            img {
+              width: 100%;
+            }
+          }
+        }
+        .P1 {
+          background: url('/images/mobile/ohters_10.jpg') no-repeat center center;
+          background-size: 100% 100%;
+          width: 100%;
+          display: flex;
+          flex-wrap: wrap;
+          padding-top: 1rem;
+          padding-bottom: 3rem;
+        }
+        .P2 {
+          background: url('/images/mobile/ohters_11.jpg') no-repeat center center;
+          background-size: 100% 100%;
+          width: 100%;
+          display: flex;
+          flex-wrap: wrap;
+          padding-top: 1rem;
+          padding-bottom: 3rem;
+        }
+        .P3 {
+          background: url('/images/mobile/ohters_12.jpg') no-repeat center center;
+          background-size: 100% 100%;
+          width: 100%;
+          display: flex;
+          flex-wrap: wrap;
+          padding-top: 1rem;
+          padding-bottom: 3rem;
+        }
+      }
     }
   }
 }

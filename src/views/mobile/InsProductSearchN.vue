@@ -166,7 +166,6 @@ export default class InsProductSearch extends Vue {
   .el-loading-text {
     font-size: 1.3rem;
     color: #cccccc;
-    font-family: 'Arial';
   }
 
   .el-loading-parent--relative {
@@ -182,7 +181,9 @@ export default class InsProductSearch extends Vue {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  background: #000;
+  background: url('/images/mobile/ohters_16.jpg') no-repeat center center;
+  background-size: cover;
+  padding-top: 5rem;
 }
 .nocontentTips{
   width: 95%;
@@ -241,7 +242,7 @@ export default class InsProductSearch extends Vue {
 
 .ProductSearch {
   .InsAdvancedSearch {
-    background: #f2f1f0;
+    background: rgba(0,0,0,.9);
     min-height: 100vh;
   }
 }
@@ -251,13 +252,12 @@ export default class InsProductSearch extends Vue {
   left: 0;
   top: 0px;
   bottom: 0px;
-  background: rgba(232,252,250,.8);
   overflow-x: scroll;
   z-index: 999999;
   display: none;
   .leftSide{
-    width: 80%;
-    left:-80%;
+    width: 100%;
+    left:-100%;
     min-height: 100%;
     position: absolute;
     transition: all .5s;
@@ -292,7 +292,7 @@ export default class InsProductSearch extends Vue {
     align-items: center;
     justify-content: center;
     .filterIcon  {
-      background: url('/images/mobile/others/filters.png') no-repeat center center;
+      background: url('/images/mobile/ohters_02.png') no-repeat center center;
       width: 1.5rem;
       height: 1.5rem;
       background-size: 1.5rem;
@@ -300,7 +300,7 @@ export default class InsProductSearch extends Vue {
     }
     b{
       text-align: center;
-      font-size: 1rem;
+      font-size: 1.2rem;
       font-weight: 500;
       margin-left: .5rem;
       text-transform: uppercase;
@@ -311,7 +311,7 @@ export default class InsProductSearch extends Vue {
     padding-left: .5rem;
     height: 3rem;
     line-height: 3rem;
-    font-size: 1rem;
+    font-size: 1.2rem;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;

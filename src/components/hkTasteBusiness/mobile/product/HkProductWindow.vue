@@ -2,7 +2,7 @@
     <div class="in_pdWindow_page_item" :style="styla" @mouseenter="Enter=true" @mouseleave="Enter=false"  v-if="item">
         <div class="picBox">
             <img :src="(item.Image?item.Image:item.Img_L?item.Img_L:item.Img)"  :class="{'height_line':Enter}" :style="imgStyla" :data-key="item.Sku" @error="loadError" @click="buttonSubmit(item)"/>
-            <div class="fav"><img :src="item.IsFavorite ? '/images/mobile/others/other_28.png': '/images/mobile/mpic_21.png'" @click="addToFavorite(item)" /></div>
+            <div class="fav"><img :src="item.IsFavorite ? '/images/mobile/others/ohters_03.png': '/images/mobile/ohters_04.png'" @click="addToFavorite(item)" /></div>
         </div>
         <div class="in_pdWindow_item_description">
              <router-link :to="'/product/detail/'+item.Sku" class="in_pdWindow_item_title" >&nbsp;{{item.Name}}</router-link >

@@ -1,7 +1,7 @@
 <template>
 <div class="headerMain">
   <!-- 正常菜单 -->
-    <div class="header-box" :class="{'homePage':showHomePage=='/'}">
+    <div class="header-box header-normal">
       <div class="headerTop">
           <img class="slide-menu" src="/images/mobile/mpic_09.png" @click="showSlideMenu" />
            <ins-logo />
@@ -94,9 +94,17 @@ export default class DefaultHeader extends Vue {
     position: fixed;
     left: 0;
     top: 0;
-    z-index: 999;
+    z-index: 9999;
     background: #000;
     display: none;
+  }
+  .header-normal {
+    position: absolute!important;
+    top: 0;
+    z-index: 999;
+    background: transparent!important;
+    width: 100%;
+    left: 0;
   }
   .searchMain {
     display: flex;
@@ -137,22 +145,23 @@ export default class DefaultHeader extends Vue {
       }
     }
 .headerTop{
-  display: flex;
-  position: relative;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  width: 95%;
+  padding-left: 2.5%;
+  padding-right: 2.5%;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding-top: .5rem;
   padding-bottom: .5rem;
+  display: flex;
   .rightSide {
-    float: left;
+    float: right;
     display: flex;
   }
   .slide-menu {
     width: 2rem;
     height: 2rem;
+    margin-top: .5rem;
   }
   .shoppingcart{
       padding-right: 0rem;

@@ -111,7 +111,6 @@ export default class InsAdvancedSearch extends Vue {
       .viewall {
         border: 1px solid @base_color;
         border-radius: 2rem;
-        background: #fff;
         margin-top: 1rem;
         label {
           color: @base_color!important;
@@ -120,8 +119,7 @@ export default class InsAdvancedSearch extends Vue {
       p.category {
         width: 100%;
         font-size: 20px;
-        color: #333333;
-        background-color: #FFF;
+        color: #fff;
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
@@ -135,6 +133,7 @@ export default class InsAdvancedSearch extends Vue {
         height: 3.5rem;
         line-height: 3.5rem;
         border-radius: 2rem;
+        font-family: 'PoppinsBold', 'Microsoft YaHei';
         i{
           position: absolute;
           right: 0px;
@@ -150,9 +149,6 @@ export default class InsAdvancedSearch extends Vue {
             display: flex;
             align-items: center;
             justify-content: flex-start;
-            background: #f2f1f0;
-            border-radius: 2rem;
-            margin-bottom: 1rem;
             input[type="checkbox"] {
                 width: 18px;
                 height: 18px;
@@ -170,13 +166,14 @@ export default class InsAdvancedSearch extends Vue {
                 background-size: auto;
 
                 &+label {
-                    color: @base_color;
+                    color: #c6b17b;
+                    text-decoration: underline;
                 }
             }
 
             label {
             font-size: 18px;
-            color: #666666;
+            color: #cccccc;
             width: 90%;
             margin: 0 auto;
             }
