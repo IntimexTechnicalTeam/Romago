@@ -77,6 +77,14 @@ export default class PanelDetail {
   public set ExtAttrList (v : ProductAttr[][]) {
     this._ExtAttrList = v;
   }
+  private _AdditionalImage : [][];
+  public get AdditionalImage () : [][] {
+    return this._AdditionalImage;
+  }
+  public set AdditionalImage (v : [][]) {
+    this._AdditionalImage = v;
+  }
+
   private _ProductStatus : number;
   public get ProductStatus () : number {
     return this._ProductStatus;
@@ -190,7 +198,7 @@ export default class PanelDetail {
     this._Permission = v;
   }
   public button: Button[] = [];
-  constructor (sku:string, name:string, code:string, Permission:string, listPrice:number, salePrice:number, DefaultListPrice:number, DefaultSalePrice:number, _YoutubeLink:string, overView:string = '', attrList:ProductAttr[][] = [], extAttrList:ProductAttr[][] = [], productStatus:number = 3, currency:Currency = new Currency(), DefaultCurrency:Currency = new Currency(), _MaxPurQty:number = 0, _MinPurQty:number = 1, _CatId = 0, _CatalogTree = [], _IsFavorite:boolean = false, _Score:number = 0, _UnitInfo:object = {}, _SoldOutAttrComboList = [], _AttrComboImgList = []) {
+  constructor (sku:string, name:string, code:string, Permission:string, listPrice:number, salePrice:number, DefaultListPrice:number, DefaultSalePrice:number, _YoutubeLink:string, overView:string = '', attrList:ProductAttr[][] = [], extAttrList:ProductAttr[][] = [], productStatus:number = 3, currency:Currency = new Currency(), DefaultCurrency:Currency = new Currency(), _MaxPurQty:number = 0, _MinPurQty:number = 1, _CatId = 0, _CatalogTree = [], _IsFavorite:boolean = false, _Score:number = 0, _UnitInfo:object = {}, _SoldOutAttrComboList = [], _AttrComboImgList = [], _AdditionalImage = []) {
     this._Name = name;
     this._Sku = sku;
     this._Code = code;
@@ -214,6 +222,7 @@ export default class PanelDetail {
     this._DefaultCurrency = DefaultCurrency;
     this._SoldOutAttrComboList = _SoldOutAttrComboList;
     this._AttrComboImgList = _AttrComboImgList;
+    this._AdditionalImage = _AdditionalImage;
     this._Permission = Permission;
   }
 }

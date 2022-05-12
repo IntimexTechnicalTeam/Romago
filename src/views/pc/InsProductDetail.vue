@@ -9,7 +9,8 @@
   <div v-else>
   <div class="productDetail_container">
     <div class="productDetail_main">
-      <inPreview style="width:50%" :imgList="ImgList" :pageNum="userAgent === 'mobile' ?  1 : 4" :ProductTitleName="ProductTitleName"></inPreview>
+      <!-- <inPreview style="width:50%" :imgList="ImgList" :pageNum="userAgent === 'mobile' ?  1 : 4" :ProductTitleName="ProductTitleName"></inPreview> -->
+      <HkProductSlider width="50%"  :imgList="ImgList"></HkProductSlider>
       <div style="width:45%;margin-left:5%;float:right;">
           <PkProductInfo :panelDetail.sync="PanelDetail"  :ProductSku="ProductCode" width="100%" :AddPrice="getNewsPrice" style="margin-top:4rem;margin-bottom: 2rem;"></PkProductInfo>
           <div class="ProductRate"><el-rate  v-model="Score" disabled  disabled-void-color="#5f6548" disabled-void-icon-class="el-icon-star-off"></el-rate></div>
@@ -43,6 +44,7 @@
 </template>
 <script lang="ts">
 import { Vue, Prop, Component, Watch } from 'vue-property-decorator';
+import HkProductSlider from '@/components/hkTasteBusiness/pc/product/HkProductSlider.vue';
 import inTab from '@/components/business/pc/product/InsTab.vue';
 import inYouWouldLike from '@/components/business/pc/product/InsYouWouldLike.vue';
 import YouWouldLike from '@/model/youWouldLike';
@@ -57,6 +59,7 @@ import PkProductDetailCate from '@/components/hkTasteBusiness/pc/product/HkProdu
 import PkProductInfo from '@/components/hkTasteBusiness/pc/product/PkProductInfo.vue';
 import ProductListSwiper from '@/components/hkTasteBusiness/pc/product/HkProductListSwiper.vue';
 @Component({ components: {
+  HkProductSlider,
   inPreview,
   inPanel,
   inTab,

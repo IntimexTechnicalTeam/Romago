@@ -89,7 +89,7 @@ import $ from 'jquery';
 export default class InsProductSearch extends Vue {
   proList: YouWouldLike[] = []; // 产品数据
   currentPage: number = 1; // 当前页
-  pageSize: number = 16; // 每页显示条目个数
+  pageSize: number = 2; // 每页显示条目个数
   totalRecord: number = 0; // 总条目数
   private tips: boolean = true;
   private LoadingInstance!: any;

@@ -795,7 +795,7 @@ export default class InsCheckoutN extends Vue {
   vertical-align: top;
 }
 .promotion-code-btn {
-  background-color: #074493;
+  background-color: #c6b17b;
   display: inline-block;
   vertical-align: top;
   height: 40px;

@@ -190,13 +190,12 @@ export default class InsComments extends Vue {
 
 .comments_container::-webkit-scrollbar { width: 0 !important }
 .comments_container{
-    width: 95%;
+    width: 100%;
     margin: 0 auto;
     padding-top: 2rem;
     min-height: 7rem;
-    font-size: 1.3rem;
-    color: #333;
-    border: 1px solid #000;
+    font-size: 1.2rem;
+    color: #cccccc;
     border-radius: 5px;
     margin-top: 1rem;
     min-height: 20rem;

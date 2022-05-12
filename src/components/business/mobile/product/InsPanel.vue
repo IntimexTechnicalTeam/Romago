@@ -1,40 +1,49 @@
 <template>
   <div class="in_panel_warpper mobileWarper" :style="warpperStyle">
-    <div class="in_panel_content">
-      <inSelect
-        v-for="(item,index) in panelDetail.AttrList"
-        :items="item"
-        :key="index"
-        placeholder="请选择"
-        v-model="ProductInfor['Attr'+(index+1)]"
-        @input="changeAttr"
-        @changePrice="AdditionalPrice"
-      ></inSelect>
-      <inNum :label="$i18n.t('product.countTitle')" v-model="ProductInfor.Qty" :v="ProductInfor.Qty" :min="panelDetail.MinPurQty" :max="panelDetail.MaxPurQty" styla="text-align:center;"></inNum>
-      <div class="in_panel_iconList">
-        <div v-for="item in panelDetail.icons" :key="item.id" class="in_panel_icon_warpper">
-          <img :src="item.src" />
+    <div class="selectNum">
+      <div class="left">
+        <div class="in_panel_content">
+          <inSelect
+            v-for="(item,index) in panelDetail.AttrList"
+            :items="item"
+            :key="index"
+            placeholder="请选择"
+            v-model="ProductInfor['Attr'+(index+1)]"
+            @input="changeAttr"
+            @changePrice="AdditionalPrice"
+          ></inSelect>
+          <inNum  v-model="ProductInfor.Qty" :v="ProductInfor.Qty" :min="panelDetail.MinPurQty" :max="panelDetail.MaxPurQty" styla="text-align:center;"></inNum>
+          <div class="in_panel_iconList">
+            <div v-for="item in panelDetail.icons" :key="item.id" class="in_panel_icon_warpper">
+              <img :src="item.src" />
+            </div>
+          </div>
         </div>
+      </div>
+      <div class="right">
+        <p class="ProductCode">{{panelDetail.Code}}</p>
       </div>
     </div>
     <!-- <div class="in_panel_footer">
       <el-button @click="click('addToCart')" class="actionBtn addToCart" :loading="Loading">{{$t('product.addToCart')}}</el-button>
       <el-button @click="click('buy')" class="actionBtn buyNow" :loading="buyLoading">{{$t('product.buy')}}</el-button>
     </div> -->
-    <div class="in_panel_footer" v-if="panelDetail.ProductStatus!==-1 && panelDetail.SoldOutAttrComboList.length===0">
-      <inButton
-        v-for="item in panelDetail.button"
-        :nama="$i18n.t('product.'+item.nama)"
-        :key="item.nama"
-        :loading="(item.action === 'addToCart')?Loading:buyLoading"
-        :type="(item.action === 'addToCart' || item.action === 'favorite' || item.action === 'buy') ? 'primary' : 'error'"
-        :action="item.action"
-        @click="click"
-      ></inButton>
-    </div>
-      <div class="in_panel_footer" v-else>
-        <button type="button" :disabled="SoldOutAttr" @click="click('addToCart')" class="CartBtn">{{$t('product.addToCart')}}</button>
-        <button type="button" :disabled="SoldOutAttr" @click="click('buy')" class="BuyBtn">{{$t('product.buy')}}</button>
+    <div class="postBtn">
+        <div class="in_panel_footer" v-if="panelDetail.ProductStatus!==-1 && panelDetail.SoldOutAttrComboList.length===0">
+          <inButton
+            v-for="item in panelDetail.button"
+            :nama="$i18n.t('product.'+item.nama)"
+            :key="item.nama"
+            :loading="(item.action === 'addToCart')?Loading:buyLoading"
+            :type="(item.action === 'addToCart' || item.action === 'favorite' || item.action === 'buy') ? 'primary' : 'error'"
+            :action="item.action"
+            @click="click"
+          ></inButton>
+        </div>
+          <div class="in_panel_footer" v-else>
+            <button type="button" :disabled="SoldOutAttr" @click="click('addToCart')" class="CartBtn">{{$t('product.addToCart')}}</button>
+            <button type="button" :disabled="SoldOutAttr" @click="click('buy')" class="BuyBtn">{{$t('product.buy')}}</button>
+        </div>
     </div>
   </div>
 </template>
@@ -116,7 +125,7 @@ export default class InsPanel extends Vue {
   addFavorite () {
     let ps;
     if (this.panelDetail.IsFavorite) {
-      ps = this.$Api.member.removeFavorite(this.ProductSku).then((result) => {
+      ps = this.$Api.product.removeFavorite(this.ProductSku).then((result) => {
         if (result.Succeeded) {
           // Vue.prototype.$Confirm(this.$t('Message.Message'), this.$t('product.successInRemoving'));
           this.$message(this.$t('product.successInRemoving') as string);
@@ -126,7 +135,7 @@ export default class InsPanel extends Vue {
         }
       });
     } else {
-      ps = this.$Api.member.addFavorite(this.ProductSku).then((result) => {
+      ps = this.$Api.product.addFavorite(this.ProductSku).then((result) => {
         if (result.Succeeded) {
           // Vue.prototype.$Confirm(this.$t('Message.Message'), this.$t('product.successInAdding'));
           this.$message(this.$t('product.successInAdding') as string);
@@ -137,7 +146,7 @@ export default class InsPanel extends Vue {
       });
     }
     return ps;
-    // return this.$Api.member.addFavorite(this.ProductSku).then((result) => {
+    // return this.$Api.product.addFavorite(this.ProductSku).then((result) => {
     //   if (result.Succeeded) {
     //     // Vue.prototype.$Confirm('succeed', this.$t('product.successInAdding'));
     //   } else if (result.ReturnValue.Code === 1000) {
@@ -248,7 +257,7 @@ export default class InsPanel extends Vue {
   margin-right: 1rem;
 }
 .in_panel_warpper .el-input-number{
-  border:none!important;
+  border:1px solid #e6e6e6!important;
   box-sizing: border-box;
 }
 .in_panel_warpper .el-input__inner{
@@ -256,15 +265,23 @@ export default class InsPanel extends Vue {
   box-sizing: border-box;
   width: 4rem;
 }
+.in_panel_warpper .in_num_main .el-input-number__decrease {
+  left: 0px!important;
+}
+ .in_panel_warpper .in_num_main .el-input-number__increase {
+   right: 0px!important;
+ }
 .in_panel_warpper .in_num_main .el-input-number__decrease, .in_panel_warpper .in_num_main .el-input-number__increase{
-    width: 2.5rem!important;
-    border: 1px solid #000;
-    border-radius: 5px;
-    height: 2.5rem;
-    line-height: 2.5rem;
+    width: 2.5rem !important;
+    box-sizing: border-box;
+    background: #f5f5f5!important;
+    top:0px!important;
+    border-radius: 0px;
 }
 .in_panel_warpper .in_num_main .el-input-number__decrease i, .in_panel_warpper .in_num_main .el-input-number__increase i{
-  color:#000;
+    color: #333333;
+    font-weight: 700;
+    font-size: 1.1rem;
 }
 .in_panel_warpper  .el-input-number{
   width: auto!important;
@@ -276,7 +293,7 @@ export default class InsPanel extends Vue {
   width: 10rem;
   line-height: 2.5rem!important;
   height: 2.5rem!important;
-  color:#000!important;
+  color:#fff!important;
   font-weight: 500;
   font-size: 1.4rem;
 }
@@ -291,19 +308,20 @@ export default class InsPanel extends Vue {
       .CartBtn{
       height: 3.5rem;
       font-size:1.4rem;
-      color: #333333;
       display: inline-flex;
       justify-content: center;
       align-items: center;
-      background-color: #333333;
       color: #fff;
-      border-radius: 3px;
       margin-bottom: 1rem;
-      border:1px solid #333333;
+      color: #fff;
+      background: #c6b17b;
+      border:1px solid #c6b17b;
       text-transform: uppercase;
       width: 48%;
       float: left;
       margin-left: 0px!important;
+      font-family: 'Poppins';
+       overflow: hidden;
         &:disabled{
           cursor:not-allowed;
           background: #ccc;
@@ -317,19 +335,19 @@ export default class InsPanel extends Vue {
       .BuyBtn{
       height: 3.5rem;
       font-size:1.4rem;
-      color: #333333;
       display: inline-flex;
       justify-content: center;
       align-items: center;
-      background-color: #333333;
       color: #fff;
-      border-radius: 3px;
+      background: #c6b17b;
       margin-bottom: 1rem;
-      border:1px solid #333333;
+      border:1px solid #c6b17b;
       text-transform: uppercase;
       width: 48%;
       float: left;
       margin-left: 4%;
+      font-family: 'Poppins';
+       overflow: hidden;
         &:disabled{
           cursor:not-allowed;
           background: #ccc;
@@ -343,24 +361,27 @@ export default class InsPanel extends Vue {
     .in_btn {
       height: 3.5rem;
       font-size:1.8rem;
-      color: #333333;
       display: inline-flex;
       justify-content: center;
       align-items: center;
-      background-color: #333333;
-      color: #fff;
-      border-radius: 3px;
       margin-bottom: 1rem;
-      border:1px solid #333333;
       text-transform: uppercase;
       width: 48%;
       float: left;
       margin-left: 4%;
+      font-family: 'Poppins';
+      overflow: hidden;
       span{
         font-size:1.4rem;
       }
       &:first-child {
         margin-left: 0px!important;
+        color: #fff;
+        background: #c6b17b;
+      }
+      &:last-child{
+        background: #c6b17b;
+        color: #fff;
       }
     }
   }
@@ -368,33 +389,13 @@ export default class InsPanel extends Vue {
 </style>
 <style lang="less" scoped>
 .in_panel_content{
-  width: 95%;
+  width: 90%;
   margin: 0 auto;
 }
 .in_panel_footer{
   width: 95%;
   margin: 0 auto;
 }
-.in_panel_footer .actionBtn{
-  width: 100%;
-  font-size: 1.6rem;
-  display: block;
-  text-align: center;
-}
-.in_panel_footer .addToCart{
-  border:1px solid #262626;
-  background: #fff;
-  color:#242424;
-  margin-bottom: 1rem;
-  padding: 15px 20px!important;
-}
-.in_panel_footer .buyNow{
-  border:1px solid #262626;
-  background:#262626;
-  color:#fff;
-  padding: 15px 20px!important;
-}
-
 .in_pannel_addtofav {
   width:90%;
   margin: 0 auto;
@@ -419,7 +420,7 @@ export default class InsPanel extends Vue {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin-top: 1.6rem;
+  margin-top: 1rem;
 }
 
 .productDetail_price_warpper {
@@ -452,7 +453,6 @@ export default class InsPanel extends Vue {
   text-decoration: line-through;
 }
 .in_panel_iconList {
-  margin-top: 3.3rem;
   text-align: left;
   display: flex;
   flex-wrap: nowrap;
@@ -460,4 +460,29 @@ export default class InsPanel extends Vue {
 .in_panel_icon_warpper {
   margin-right: 1rem;
 }
+</style>
+<style lang="less" scoped>
+  .selectNum {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .right {
+      .ProductCode {
+        color: #cccccc;
+        font-size: 1.2rem;
+        margin-top: .5rem;
+      }
+    }
+  }
+  .postBtn {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    left: 0px;
+    z-index: 9999;
+    background: #fff;
+    border-top: 1px solid #eee;
+  }
 </style>

@@ -264,9 +264,10 @@ export default class InsLoginN extends Vue {
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
-    padding-top: 4rem;
-    padding-bottom: 4rem;
-    background: #000;
+    padding-top: 7rem;
+    padding-bottom: 5rem;
+    background:url('/images/mobile/ohters_14.jpg') no-repeat center center;
+    background-size: cover;
     .insLogin_title{
        text-align: center;
        width: 90%;

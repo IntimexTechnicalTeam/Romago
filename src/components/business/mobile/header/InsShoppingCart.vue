@@ -57,9 +57,8 @@ export default class InsShoppingCart extends Vue {
   shopCart: ShopCart = new ShopCart();
   hiddenClick:boolean=true;
   toggleDialog () {
-    this.isShow = !this.isShow;
+    window.location.href = '/account/shoppingcart';
   }
-
   closeDialog () {
     this.isShow = false;
   }

@@ -1,19 +1,21 @@
 <template>
   <div id="memberConterContainer" class="resetPWD">
-        <p class="pageTitle">{{$t('Forgetpassword.ResetPwd')}}</p>
-         <div class="resetPwdMain">
-          <InsForm ref="pwdForm" v-model="pwdForm">
-            <div class="login-register-content">
-                  <InsInput2 :placeholder="$t('Register.UserNewPassword')" width="100%" v-model="pwdForm.newPassword" type="password"/>
-                  <InsInput2 :placeholder="$t('Register.UserConfirmPassword')" width="100%" v-model="pwdForm.ConfirmNewPassword" type="confirmpassword" :rule="pwdForm.newPassword" />
-            </div>
-            <div class="login-register-handle">
-              <div class="btn-box">
-                <el-button type="primary" @click="submitForm('pwdForm')" class="resetBtn">{{$t('DeliveryAddress.SaveBtn')}}</el-button>
+    <div class="Innerbox">
+          <p class="pageTitle">{{$t('Forgetpassword.ResetPwd')}}</p>
+          <div class="resetPwdMain">
+            <InsForm ref="pwdForm" v-model="pwdForm">
+              <div class="login-register-content">
+                    <InsInput2 :placeholder="$t('Register.UserNewPassword')" width="100%" v-model="pwdForm.newPassword" type="password"/>
+                    <InsInput2 :placeholder="$t('Register.UserConfirmPassword')" width="100%" v-model="pwdForm.ConfirmNewPassword" type="confirmpassword" :rule="pwdForm.newPassword" />
               </div>
-            </div>
-          </InsForm>
-        </div>
+              <div class="login-register-handle">
+                <div class="btn-box">
+                  <el-button type="primary" @click="submitForm('pwdForm')" class="resetBtn">{{$t('DeliveryAddress.SaveBtn')}}</el-button>
+                </div>
+              </div>
+            </InsForm>
+          </div>
+      </div>
   </div>
 </template>
 <script lang="ts">
@@ -117,8 +119,10 @@ export default class InsResetPwd extends Vue {
   font-size: 20px;
 }
 .login-register-content .input_warpper .input_main input{
-  background: #fff;
-  border:1px solid #ddd;
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 0;
+    height: 3.5rem;
 }
 </style>
 <style lang="less" scoped>
@@ -129,38 +133,11 @@ export default class InsResetPwd extends Vue {
 .login-register-content{
   margin-bottom: 30px;
 }
-.DetailTitle{
+.Innerbox {
   width: 100%;
   display: flex;
-  flex-wrap:wrap;
-  position: relative;
-  align-items: center;
-  justify-content: center;
-  img{
-    width: 100%;
-  }
-  .TitleBg{
-    width: 75%;
-    border: 1px solid #ffffff;
-    height: 4.5rem;
-    line-height: 4.5rem;
-    margin: 0 auto;
-    padding: 10px;
-    margin-bottom: 20px;
-    top: 50%;
-    position: absolute;
-    transform: translateY(-50%);
-    .innerBoxText{
-      background:#ffffff;
-      color: #333333;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.5rem;
-      font-weight: 700;
-      font-family: 'Arial';
-    }
-  }
+  flex-wrap: wrap;
+  padding-top: 5rem;
 }
 .login-form{
   width: 900px;
@@ -169,14 +146,6 @@ export default class InsResetPwd extends Vue {
   background: #FFF;
   padding: 20px;
   margin-top: 30px;
-}
-.Banner{
-    width: 100%;
-    height: 500px;
-}
-.Banner img{
-    width: 100%;
-    height: 500px;
 }
 .resetPWD{
   padding-bottom: 2rem;

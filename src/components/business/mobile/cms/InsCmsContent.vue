@@ -184,25 +184,43 @@ export default class InsCmsContent extends Vue {
 <style lang="less">
 .MobileContact .FormMain{
   #preview{
-    width: 80%;
-    float:right;
+    width: 90%;
+    margin: 0 auto;
+    padding-top: 2rem;
+    .title {
+      color: #fff;
+      font-size: 1.4rem;
+      text-align: center;
+    }
+    >div {
+      font-size: 1.2rem;
+      color: #fff;
+    }
     .anwer{
       margin-bottom: 20px;
     }
     .back{
       background: #ccc;
       color:#FFF;
-      padding:10px 20px 10px 20px;
+      width: 45%;
+      height: 3rem;
+      line-height: 3rem;
       border:none;
-      margin-right: 20px;
       margin-top: 30px;
+      font-size: 1.2rem;
+      outline: 0;
     }
     .confirm{
       background: #333;
       color:#FFF;
-      padding:10px 20px 10px 20px;
+      width: 45%;
+      height: 3rem;
+      line-height: 3rem;
       border:none;
       margin-top: 30px;
+      margin-right: 5%;
+      font-size: 1.2rem;
+      outline: 0;
     }
   }
 }
@@ -271,9 +289,8 @@ export default class InsCmsContent extends Vue {
         color: #cccccc;
       }
     }
-    p[name="error"]{
-      color:red;
-      margin-bottom:.5rem;
+    p[name='error'] {
+      color: #c6b17b;
     }
     .btn-default{
       width: 100%;
@@ -349,12 +366,12 @@ export default class InsCmsContent extends Vue {
                   width: 100%!important;
                 }
                 .Addr {
-                  font-size: 1.4rem;
+                  font-size: 1.2rem;
                   color: #fff;
                   margin-top: 1rem;
                 }
                 .tel {
-                  font-size: 1.4rem;
+                  font-size: 1.2rem;
                   color: #fff;
                   margin-top: 1rem;
                 }
@@ -362,12 +379,19 @@ export default class InsCmsContent extends Vue {
             }
           }
     }
+  .CmsNormal {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+    background: url('/images/mobile/ohters_16.jpg') no-repeat center center;
+    background-size: cover;
+  }
   .CmsContent {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    background: #030101;
-    padding-top: 5rem;
     .contents {
       margin-top: 2rem;
       /deep/ .AboutMain {

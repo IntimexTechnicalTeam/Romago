@@ -1,22 +1,21 @@
 <template>
   <div id="container" class="catDetail">
-    <div class="DetailTitle">
+    <!-- <div class="DetailTitle">
       <img :src="cmsCategory.ImagePath">
       <div class="TitleBg">
         <div class="innerBoxText">{{cmsCategory.Name}}</div>
       </div>
-    </div>
+    </div> -->
 
     <div class="catContent">
-        <template v-if="cmsCategory.PageStyle === '0' || cmsCategory.PageStyle === '1'">
-          <div v-html="cmsCategory.Content" class="layer"></div>
-        </template>
 
-        <ins-cat-layout2 :catData="cmsCatTree" :cmsData="contentList" @changeCatSelect="changeCatSelect" v-if="cmsCategory.PageStyle === '2'" />
+        <ins-cat-layout1  v-if="PageStyle === '0' || PageStyle === '1'"/>
 
-        <ins-cat-layout3 :cmsData="contentList" v-if="cmsCategory.PageStyle === '3'" />
+        <ins-cat-layout2 :catData="cmsCatTree" :cmsData="contentList" @changeCatSelect="changeCatSelect" v-if="PageStyle === '2'" />
 
-        <ins-cat-layout4 :cmsData="contentList" :pager="pager" v-if="cmsCategory.PageStyle === '4'" />
+        <ins-cat-layout3 :cmsData="contentList" v-if="PageStyle === '3'" />
+
+        <ins-cat-layout4 :cmsData="contentList" :pager="pager" v-if="PageStyle === '4'" />
     </div>
   </div>
 </template>
@@ -25,7 +24,7 @@
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 @Component({
   components: {
-    // InsBanner: () => import('@/components/base/InsBanner.vue'),
+    InsCatLayout1: () => import('@/components/business/mobile/cms/InsCatLayout1.vue'),
     InsCatLayout2: () => import('@/components/business/mobile/cms/InsCatLayout2.vue'),
     InsCatLayout3: () => import('@/components/business/mobile/cms/InsCatLayout3.vue'),
     InsCatLayout4: () => import('@/components/business/mobile/cms/InsCatLayout4.vue')
@@ -48,8 +47,8 @@ export default class insNews extends Vue {
       this.$Api.cms.getCategoryByDevice({ CatId: this.id, IsMobile: true }).then((result) => {
         if (result.Succeeded) {
           this.cmsCategory = result;
-          this.PageStyle = result.PageStyle;
-
+          this.PageStyle = result.ReturnValue.PageStyle;
+          console.log(this.PageStyle, 'this.PageStylethis.PageStylethis.PageStylethis.PageStylethis.PageStyle');
           switch (result.PageStyle) {
               case '2':
                 this.getCategoryTree();
@@ -148,6 +147,13 @@ export default class insNews extends Vue {
 </script>
 <style scoped lang="less">
 .catDetail {
+  width: 100%;
+  background: url(/images/mobile/ohters_16.jpg) no-repeat center center;
+  background-size: cover;
+  display: flex;
+  flex-wrap:wrap;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
   .DetailTitle{
     width: 100%;
     display: flex;

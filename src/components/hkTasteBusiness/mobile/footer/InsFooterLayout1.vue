@@ -4,7 +4,7 @@
      <div class="MeunMain">
        <Menu :backColor="'@base_color'" :textColor="'#fff'" :uniqueOpened="true" :type="'footer'" />
      </div>
-      <p class="NormalTitle">SOCIAL MEDIA</p>
+      <p class="NormalTitle">{{$t('Message.SOCIALMEDIA')}}</p>
       <p class="NormalImg">
           <a href="#" target="_blank"><img src="/images/mobile/mpic_11.png"></a>
           <a href="#" target="_blank"><img src="/images/mobile/mpic_12.png"></a>
@@ -14,11 +14,11 @@
           <a href="#" target="_blank"><img src="/images/mobile/mpic_16.png"></a>
           <a href="#" target="_blank"><img src="/images/mobile/mpic_17.png"></a>
       </p>
-      <p class="NormalTitle">Payment methods</p>
+      <p class="NormalTitle">{{$t('CheckOut.PaymentMethod')}}</p>
       <p class="NormalImg">
           <img src="/images/mobile/mpic_04.png" class="payImg">
       </p>
-      <p class="NormalTitle">NEWSLETTER</p>
+      <p class="NormalTitle">{{$t('Message.NEWSLETTER')}}</p>
       <div class="RegnpayForm">
           <div v-html="htmlString" class="to_vertical" id="content"></div>
           <div id="preview" display="none"></div>
@@ -124,7 +124,7 @@ export default class InsFooter extends Vue {
   display: flex;
   flex-wrap: wrap;
   background: url('/images/mobile/mpic_05.jpg') no-repeat center center;
-  background-size: 100% 100%;
+  background-size: cover;
   padding-top: 2rem;
   padding-bottom: 2rem;
    /deep/ .nav_menu {
@@ -183,6 +183,41 @@ export default class InsFooter extends Vue {
       width: 100%;
       display: flex;
       flex-wrap: wrap;
+      /deep/ #preview {
+        .title {
+          color: #fff;
+          font-size:1.4rem;
+        }
+        >div {
+          font-size: 1.2rem;
+          color: #fff;
+          margin-bottom: 1rem;
+          margin-top: 1rem;
+        }
+        .confirm {
+          width: 45%;
+          height: 3rem;
+          padding: 0px;
+          margin: 0;
+          box-sizing: border-box;
+          background: #c6b17b;
+          font-size: 1.2rem;
+          border: 2px solid #c6b17b;
+          color: #fff;
+          margin-right: 2%;
+        }
+        .back {
+          width: 45%;
+          height: 3rem;
+          padding: 0px;
+          margin: 0;
+          box-sizing: border-box;
+          background: #ccc;
+          font-size: 1.2rem;
+          border: 2px solid #ccc;
+          color: #fff;
+        }
+      }
       #content {
         width: 100%;
         display: flex;
@@ -191,6 +226,9 @@ export default class InsFooter extends Vue {
           width: 100%;
           display: flex;
           flex-wrap: wrap;
+          p[name='error'] {
+            color: #c6b17b;
+          }
           form {
             width: 100%;
             display: flex;

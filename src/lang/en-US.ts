@@ -55,7 +55,9 @@ export default {
     SaveAll: 'SaveAll',
     noRMBStripe: 'Currency RMB does not support Stripe payment, please choose another payment method or switch currency mode',
     textareaError: 'Please enter more than 5 characters',
-    FindNoProduct: 'The system is busy, please refresh the page again'
+    FindNoProduct: 'The system is busy, please refresh the page again',
+    SOCIALMEDIA: 'SOCIAL MEDIA',
+    NEWSLETTER: 'NEWSLETTER'
   },
   RegNPay: {
     BackText: 'Back',
@@ -120,7 +122,7 @@ export default {
     successInAdding: 'succeed in adding',
     successInRemoving: 'succeed in removing',
     ProductIntro: 'Product introduction',
-    ProductIntroduction: 'Product introduction',
+    ProductIntroduction: 'Description',
     UserReviews: 'User reviews',
     OwnerReply: 'Owner reply',
     per: 'page',
@@ -136,7 +138,8 @@ export default {
     ProductDetail: 'Product Detail',
     Unit: 'Unit',
     Filter: 'Filter',
-    ViewAll: 'View All'
+    ViewAll: 'View All',
+    SubTotal: 'Sub Total'
   },
   Shoppingcart: {
     ShoppingcartTitle: 'Shopping Cart ',

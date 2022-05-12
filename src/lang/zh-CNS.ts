@@ -55,7 +55,9 @@ export default {
     SaveAll: '保存所有',
     noRMBStripe: '货币RMB不支持Stripe支付，请选择其他支付方式或切换货币模式',
     textareaError: '请输入5个字符以上',
-    FindNoProduct: '系统正忙，请重新刷新页面'
+    FindNoProduct: '系统正忙，请重新刷新页面',
+    SOCIALMEDIA: '关注我们',
+    NEWSLETTER: '最新消息'
   },
   Account: {
     MemberCenter: '会员中心',
@@ -86,7 +88,7 @@ export default {
     PlsPayWay: '请选择付款方式',
     PreviewTitleText: '请再次确认页面',
     FormatErrorText: '请输入正确电邮地址',
-    RequiredText: '请检查你的答案'
+    RequiredText: '必填项'
   },
   product: {
     ProductCode: '产品代码',
@@ -136,7 +138,8 @@ export default {
     ProductDetail: '产品详情',
     Unit: '单位',
     Filter: '筛选',
-    ViewAll: '查看更多'
+    ViewAll: '查看更多',
+    SubTotal: '共'
   },
   Shoppingcart: {
     ShoppingcartTitle: '购物车',

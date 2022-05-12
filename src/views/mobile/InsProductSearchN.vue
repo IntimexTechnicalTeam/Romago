@@ -125,7 +125,6 @@ export default class InsProductSearch extends Vue {
       this.LoadingInstance = this.$loading({
         target: this.$refs.load as any,
         fullscreen: false,
-        // spinner: 'el-icon-loading',
         text: 'Loading...'
       });
       setTimeout(() => {
@@ -221,18 +220,30 @@ export default class InsProductSearch extends Vue {
 .loading{
     text-align: center;
     height: 3rem;
-    line-height: 3rem;
     margin: 1rem 0 2rem;
     border-radius: 2rem;
     overflow: hidden;
     font-size: 1.2rem;
     color: #fff;
     text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
     p{
       font-size: 1.2rem;
       color: #fff;
+      align-items: center;
+      width: 100%;
+      justify-content: center;
+      display: flex;
     }
     .downIcon {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      justify-content: center;
       i{
         font-size: 1.4rem;
         color: #fff;

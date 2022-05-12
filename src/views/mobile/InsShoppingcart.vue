@@ -1,7 +1,7 @@
 <template>
   <div class="shoppingcart_warrper">
     <!--main-content-->
-        <div class="shoppingcart_header">{{$t('Shoppingcart.ShoppingcartTitle')}}</div>
+        <p class="pageTitle">{{$t('Shoppingcart.ShoppingcartTitle')}}</p>
         <div class="ShoppingCartItem_warpper"  v-for="(one,index) in items" :key="index">
             <div class="shoppingcart_item_image">
                 <a class="product-img" v-bind:href="'/product/Detail/'+one.Product.Sku">
@@ -10,11 +10,13 @@
             </div>
             <div class="shoppingcart_item_detail">
                 <div class="shoppingcart_item_name">{{one.Product.Name}}</div>
-                <div class="shoppingcart_item_code">{{one.Product.Code}}</div>
+                <div class="shoppingcart_item_price">
+                    <div>{{Currency.Code}} {{(one.Product.SalePrice) | PriceFormat}}</div>
+                </div>
                 <div class="shoppingcart_item_attr">
-                      <span v-if="one.AttrName1">{{one.AttrTypeName1}}：{{one.AttrName1}}</span>&nbsp;
-                      <span v-if="one.AttrName2">{{one.AttrTypeName2}}：{{one.AttrName2}}</span>&nbsp;
-                      <span v-if="one.AttrName3">{{one.AttrTypeName3}}：{{one.AttrName3}}</span>&nbsp;
+                      <span v-if="one.AttrName1">{{one.AttrTypeName1}}：{{one.AttrName1}}&nbsp;</span>
+                      <span v-if="one.AttrName2">{{one.AttrTypeName2}}：{{one.AttrName2}}&nbsp;</span>
+                      <span v-if="one.AttrName3">{{one.AttrTypeName3}}：{{one.AttrName3}}&nbsp;</span>
                 </div>
                 <div class="shoppingcart_item_qty">
                   <div class="common-num">
@@ -36,16 +38,13 @@
                       <a class="add-num" href="javascript:;" v-on:click="plusQty(one,one.Id,$event);" :class="{'disabled':one.IsAdd}">+</a>
                       </div>
                 </div>
-                <div class="shoppingcart_item_price">
-                    <div>{{Currency.Code}} {{(one.Product.SalePrice) | PriceFormat}}</div>
-                </div>
             </div>
             <div class="close"  v-on:click="removeItem(index)">
-                <i class="el-icon-circle-close"></i>
+                <i class="el-icon-close"></i>
             </div>
         </div>
         <div>
-          <div class="shoppingcart_total1">{{Currency.Code}} {{(totalAmount) | PriceFormat}}</div>
+          <div class="shoppingcart_total1"><span class="tp1">{{$t('product.SubTotal')}}:</span><span class="tp2">{{Currency.Code}} {{(totalAmount) | PriceFormat}}</span></div>
           <div class="shoppingcart_total"><el-button type="success" @click="submit"><span style="font-size:1.5rem;">{{ $t('Shoppingcart.Checkout') }}</span></el-button></div>
         </div>
     <!--main-content-->
@@ -222,30 +221,37 @@ export default class InsShoppingcart extends Vue {
 
 .ShoppingCartItem_warpper{
     display: flex;
-    flex-wrap: nowrap;
     padding-top: 1rem;
     padding-bottom: 1rem;
     border-bottom: 1px solid #eee;
     position: relative;
+    width: 90%;
+    margin: 0 auto;
+    justify-content: space-between;
     .close{
         position: absolute;
         top: 1rem;
-        right: 1rem;
+        right: 0rem;
+        border-radius: 100%;
+        width: 2rem;
+        height: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         i{
-            font-size: 2rem;
+            font-size: 1.6rem;
+            color: #fff;
         }
     }
 }
 .shoppingcart_item_image{
-    margin: 0 0 0 1rem;
-}
-.shoppingcart_item_image img{
-    width: 10rem;
-    height: 10rem;
+    width: 25%;
+    img {
+       width: 100%
+    }
 }
 .shoppingcart_item_detail{
-    margin: 0 0 0 1rem;
-    margin-right: 3.5rem;
+  width: 70%;
 }
 .shoppingcart_item_name,
 .shoppingcart_item_code,
@@ -254,10 +260,20 @@ export default class InsShoppingcart extends Vue {
     line-height: 2.5rem;
     font-size: 1.2rem;
     // width: 10rem;
+  display: inline-block;
+  white-space: nowrap;
+  width: 88%;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  color: #fff;
+  text-transform: uppercase;
+  font-family: 'PoppinsBold', 'Microsoft YaHei';
 }
 .shoppingcart_item_price >div{
     font-size: 1.2rem;
-    color:#d92526;
+    color:#c6b17b;
+    text-transform: uppercase;
+    font-family: 'PoppinsBold', 'Microsoft YaHei';
 }
 .shoppingcart_item_qty{
     display: flex;
@@ -277,9 +293,11 @@ export default class InsShoppingcart extends Vue {
     justify-content: space-between;
 }
 .shoppingcart_warrper{
-    background-color: white;
+    width: 100%;
+    background: url(/images/mobile/ohters_16.jpg) no-repeat center center;
+    background-size: cover;
     padding: 2rem 0;
-    border-radius: .5rem;
+    padding-top: 5rem;
     // min-height: calc(100vh - 402px);
     .shoppingcart_header{
         font-size: 2rem;
@@ -290,42 +308,92 @@ export default class InsShoppingcart extends Vue {
     }
 }
 .shoppingcart_total{
-    text-align: right;
+    text-align: center;
     padding: 1rem;
+    /deep/ .el-button {
+      width: 100%;
+      height: 3rem;
+      line-height: 3rem;
+      padding: 0;
+      background: #c6b17b;
+      color: #fff;
+      font-family: 'PoppinsBold', 'Microsoft YaHei';
+      text-transform: uppercase;
+      font-size: 1.4rem;
+      border-radius: 0px;
+    }
 }
 .shoppingcart_total1{
-    font-size: 1.5rem;
     text-align: right;
     padding: 1rem;
-    color:#d92526;
+    .tp1 {
+      font-size: 1.4rem;
+      color: #fff;
+    }
+     .tp2 {
+      font-size: 1.4rem;
+      color: #c6b17b;
+      font-family: 'PoppinsBold', 'Microsoft YaHei';
+    }
 }
 .num-content{
     float: left;
 }
 .num-content .input-text {
-  display: inline-block;
-  width: 38px;
-  height: 30px;
-  line-height: 30px;
-  text-align: center;
-  border: none;
-  color: #999999;
-  outline: none;
-  border-left: 1px solid #e0e0e0;
-  border-right: 1px solid #e0e0e0;
-}
-.common-num {
-  display: inline-block;
-  border: 1px solid #e0e0e0;
-  border-radius: 3px;
-}
-.common-num a{
-    float: left;
-    width: 30px;
+    display: inline-block;
+    width: 50px;
     height: 30px;
     line-height: 30px;
     text-align: center;
+    border: none;
+    color: #fff;
+    outline: none;
+    font-size: 1.4rem;
+    border-left: 1px solid #fff;
+    border-right: 1px solid #fff;
+    background: transparent;
+}
+.common-num {
+  display: inline-block;
+  border: 1px solid #fff;
+}
+.common-num a{
+    float: left;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
     font-size: 20px;
-    color: #999999;
+    color: #666666;
+    background: #fff;
+}
+.TtitleBg {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  p {
+    font-size: 1.6rem;
+    color: #333333;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &::after {
+      content: '';
+      width: 16rem;
+      display: inline-block;
+      background: url('/images/mobile/mindex_04.png') no-repeat center center;
+      height: 2rem;
+      background-size: 100%;
+      position: absolute;
+      top: 1rem;
+    }
+  }
 }
 </style>

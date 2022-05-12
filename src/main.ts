@@ -12,6 +12,7 @@ import * as directives from '@/directives/index';
 import elLoading from 'element-ui/packages/loading/src/directive';
 // require styles
 import 'swiper/dist/css/swiper.css';
+import 'font-awesome/css/font-awesome.min.css';
 // 引入css
 import 'element-ui/lib/theme-chalk/index.css';
 // 引进Axios
@@ -28,12 +29,12 @@ import { getQueryString } from './assets/scripts/common';
 import Settings from '@/settings';
 
 import infiniteScroll from 'vue-infinite-scroll';
-// import ElementUI from 'element-ui';
-// Vue.use(ElementUI);
+import ElementUI from 'element-ui';
 
 // 按需引入 Element 組件，减小项目体积，可自行在 element.js 進行修改
-import './plugins/element.js';
+// import './plugins/element.js';
 import VueTouch from 'vue-touch';
+Vue.use(ElementUI);
 Vue.use(VueTouch, { name: 'v-touch' });
 (() => {
   if (

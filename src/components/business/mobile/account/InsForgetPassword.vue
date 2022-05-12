@@ -1,5 +1,6 @@
 <template>
   <div id="memberConterContainer">
+    <div class="Innerbox">
     <p class="pageTitle">{{$t('Forgetpassword.ForgetPassword')}}</p>
     <div class="ForgetPassMain">
       <div style="margin-top: 15px;" v-if="ResetPwd">
@@ -41,6 +42,7 @@
           >{{$t('Forgetpassword.ToReEnter')}}</a>
         </p>
       </div>
+    </div>
     </div>
   </div>
 </template>
@@ -108,78 +110,14 @@ export default class InsForgetPassword extends Vue {
 }
 </script>
 <style lang="less" scoped>
-.DetailTitle{
+.Innerbox {
   width: 100%;
   display: flex;
-  flex-wrap:wrap;
-  position: relative;
-  align-items: center;
-  justify-content: center;
-  img{
-    width: 100%;
-  }
-  .TitleBg{
-    width: 75%;
-    border: 1px solid #ffffff;
-    height: 4.5rem;
-    line-height: 4.5rem;
-    margin: 0 auto;
-    padding: 10px;
-    margin-bottom: 20px;
-    top: 50%;
-    position: absolute;
-    transform: translateY(-50%);
-    .innerBoxText{
-      background:#ffffff;
-      color: #333333;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.5rem;
-      font-weight: 700;
-      font-family: 'Arial';
-    }
-  }
-}
-.Banner {
-  width: 100%;
-  height: 15rem;
-  display:flex;
-  align-items: center;
-  position: relative;
-}
-.TitleBg{
-  width: 75%;
-  height: 4.5rem;
-  border:1px solid #ffffff;
-  margin: 0 auto;
-  padding: .8rem;
-  .innerBoxText{
-    width: 100%;
-    height: 100%;
-    background:#ffffff;
-    color: #333333;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.5rem;
-    font-weight: 700;
-    font-family: 'Arial';
-  }
-}
-#container {
-  width: 100%;
-  display: inline-block;
-  .forgetpsw_title{
-    font-size: 2rem;
-    line-height: 4rem;
-    background-color: rgba(255, 255, 255, .5);
-    text-align: center;
-    margin-top: 2rem;
-  }
+  flex-wrap: wrap;
+  padding-top: 5rem;
 }
 .ForgetPassMain {
-    width: 95%;
+    width: 90%;
     margin: 0 auto;
     margin-top: 2rem;
     margin-bottom: 2rem;

@@ -307,7 +307,7 @@ label {
   margin-right: -1px;
 }
 .promotion-code-btn {
-  background-color: #074493;
+  background-color: #c6b17b;
   display: inline-block;
   vertical-align: top;
   height: 40px;

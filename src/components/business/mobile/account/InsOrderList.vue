@@ -164,6 +164,7 @@ export default class InsOrderList extends Vue {
   margin-top: 20px;
   margin-bottom: 20px;
   position: relative;
+  background: #fff;
 }
 .OrderCard {
   padding-bottom: 10px;

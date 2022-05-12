@@ -1,6 +1,6 @@
 <template>
   <div class="checkoutn_warpper mobileV">
-    <div class="shoppingcart_header" >{{$t('Action.Checkout')}}</div>
+    <p class="pageTitle">{{$t('Action.Checkout')}}</p>
     <div class="main_warpper">
         <div class="checkoutl checkoutr">
             <div class="shopCart_warpper">
@@ -574,8 +574,13 @@ export default class InsCheckoutN extends Vue {
       border: solid 1px transparent;
   }
 }
+.btnStyle {
+  background: #c6b17b;
+}
 .btnStyle span{
     font-size: 1.4rem;
+    text-transform: uppercase;
+    font-family: 'PoppinsBold', 'Microsoft YaHei';
   }
 .payment_item .el-radio{
   display: inline-flex;
@@ -583,6 +588,15 @@ export default class InsCheckoutN extends Vue {
 }
 </style>
 <style lang="less" scoped>
+    /deep/ .expressWay_main {
+      background: #fff;
+    }
+    /deep/ .TimeRangMain {
+     background: #fff;
+    }
+    /deep/ .expressWay_Warpper {
+      border: 0px;
+    }
     // min-height: calc(100vh - 402px);
     /deep/ .shoppingcart_item_name {
       overflow: hidden;
@@ -594,23 +608,23 @@ export default class InsCheckoutN extends Vue {
     }
      /deep/ .shoppingcart_item_qty .qty_count {
         display: inline-block;
-        &:last-child {
-          // margin-left: 1rem;
-        }
     }
     .shoppingcart_header{
         font-size: 2rem;
         line-height: 5rem;
         text-align: center;
         font-weight: 700;
-        background-color: white;
         padding: 2rem 0;
-        border-radius: .5rem;
+        text-transform: uppercase;
+        font-family: 'PoppinsBold', 'Microsoft YaHei';
     }
 
 .checkoutn_warpper{
   // margin: 100px auto;
   width: 100vw;
+  padding-top: 5rem;
+  background: url(/images/mobile/ohters_16.jpg) no-repeat center center;
+  background-size: cover;
   .main_warpper{
     display: flex;
     width: 100vw;
@@ -637,7 +651,6 @@ export default class InsCheckoutN extends Vue {
         .payment_warpper{
           width: 100vw;
           background-color: white;
-          border-radius: .5rem;
           // margin-top: 1rem;
           .title{
             font-size: 1.5rem;
@@ -667,9 +680,11 @@ export default class InsCheckoutN extends Vue {
     }
     .checkoutr{
           width: 100%;
+          background: #fff;
+          margin-top: 3rem;
         .shopCart_warpper{
-          border: solid 1px rgba(0,0,0,.1);
           margin-bottom: 5rem;
+          background: #fff;
           .shopcartTitle{
             font-size: 1.6rem;
             background-color:@base_color;
@@ -709,7 +724,6 @@ export default class InsCheckoutN extends Vue {
           }
         }
         .payment_warpper{
-            border: solid 1px rgba(0,0,0,.1);
             margin-top:20px ;
             .payment_main{
               .payment_title{
@@ -732,6 +746,16 @@ export default class InsCheckoutN extends Vue {
   }
   .btn_warpper{
     text-align: center;
+    >div {
+      background: #c6b17b;
+      padding: 0px;
+      margin: 0;
+      width: 90%!important;
+      margin-bottom: 10px;
+      span {
+         font-family: 'PoppinsBold', 'Microsoft YaHei';
+      }
+    }
   }
 }
 
@@ -803,7 +827,7 @@ export default class InsCheckoutN extends Vue {
   vertical-align: top;
 }
 .promotion-code-btn {
-  background-color: #074493;
+  background-color: #c6b17b;
   display: inline-block;
   vertical-align: top;
   height: 40px;
@@ -879,6 +903,7 @@ export default class InsCheckoutN extends Vue {
     padding: 20px 0;
     // border-bottom: 1px solid rgba(0, 0, 0, 0.5);
     position: relative;
+    background: #fff;
     .close{
         position: absolute;
         top: 12px;

@@ -2,7 +2,7 @@
   <div class="siderbarContainer">
     <div id="sidebar" v-show="isShow">
       <a href="javascript:void(0);" @click="show = !show"
-        ><img src="/images/mobile/mpic_10.png"
+        ><img :src="show?'/images/mobile/mpic_10.png':'/images/mobile/open.png'"
       /></a>
         <a href="javascript:;" class="livechat" @click="showLivechat"
         ><img src="/images/mobile/mpic_11.png"

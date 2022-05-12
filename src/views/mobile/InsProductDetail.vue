@@ -1,22 +1,21 @@
 <template>
   <div class="productDetail_container">
      <div v-if="this.Permission == 3" class="IsDetailshow">
-
-     {{$t('messageTips.NoProduct')}}
-
+      {{$t('messageTips.NoProduct')}}
     </div>
     <div v-else>
     <div class="productDetail_main" :style="'flex-wrap: wrap;'">
-      <ProductSwiper width="100%"  :imgList="ImgList" :ProductTitleName="ProductTitleName"></ProductSwiper>
+      <HkProductSlider width="100%"  :AdditionalImage="PanelDetail.AdditionalImage"></HkProductSlider>
       <PkProductInfo :panelDetail="PanelDetail"  :ProductSku="ProductSku" :AddPrice="getNewsPrice" width="100%" style="margin-top:2rem;"></PkProductInfo>
-      <div class="ProductRate"><el-rate  v-model="Score" disabled  disabled-void-color="#5f6548" disabled-void-icon-class="el-icon-star-off"></el-rate></div>
-      <PkProductDetailCate :source="ExtAttrList" :cateTree="CatalogTree" width="100%" style="margin-top:2rem;"></PkProductDetailCate>
+      <!-- <PkProductDetailCate :source="ExtAttrList" :cateTree="CatalogTree" width="100%" style="margin-top:2rem;"></PkProductDetailCate> -->
       <inPanel :panelDetail="PanelDetail" width="100%" :ProductSku="ProductSku"  @getPrice="showPrice" itemscopestyle="margin-top:2rem;"></inPanel>
     </div>
     <div class="tab_warpper">
       <div class="tab_header">
-        <div class="detail_title" @click="IsDetail=true" v-bind:class="{isActive:IsDetail}">{{$t('product.ProductIntroduction')}}</div>
-        <div class="comment_title" @click="IsDetail=false" v-bind:class="{isActive:!IsDetail}" v-if="$Settings.siteVersion !== 1">{{$t('product.comments.title')}}</div>
+        <div class="tab_inner">
+          <div class="detail_title" @click="IsDetail=true" v-bind:class="{isActive:IsDetail}">{{$t('product.ProductIntroduction')}}</div>
+          <div class="comment_title" @click="IsDetail=false" v-bind:class="{isActive:!IsDetail}" v-if="$Settings.version !== 1">{{$t('product.comments.title')}}</div>
+        </div>
       </div>
       <div class="clear"></div>
       <div class="product_detail" v-html="Tabs.Detail" v-show="IsDetail && Tabs.Detail!=''"></div>
@@ -34,6 +33,7 @@
 </template>
 <script lang="ts">
 import { Vue, Prop, Component, Watch } from 'vue-property-decorator';
+import HkProductSlider from '@/components/hkTasteBusiness/mobile/product/HkProductSlider.vue';
 import inTab from '@/components/business/mobile/product/InsTab.vue';
 import inYouWouldLike from '@/components/business/mobile/product/InsYouWouldLike2.vue';
 import YouWouldLike from '@/model/youWouldLike';
@@ -49,8 +49,8 @@ import Tab from '@/model/Tab';
 import inAccordion from '@/components/base/mobile/InsAccordion.vue';
 import inComments from '@/components/business/mobile/product/InsComments.vue';
 import inProductUpOrDown from '@/components/business/mobile/product/InsProductUpOrDown.vue';
-import ProductListSwiper from '@/components/hkTasteBusiness/mobile/product/HkProductListSwiper.vue';
 @Component({ components: {
+  HkProductSlider,
   inPreview,
   inPanel,
   inTab,
@@ -60,8 +60,7 @@ import ProductListSwiper from '@/components/hkTasteBusiness/mobile/product/HkPro
   ProductSwiper,
   PkProductDetailCate,
   PkProductInfo,
-  inProductUpOrDown,
-  ProductListSwiper
+  inProductUpOrDown
 } })
 export default class ProductDetail extends Vue {
   private Slider: YouWouldLike[] = [];
@@ -80,7 +79,7 @@ export default class ProductDetail extends Vue {
   private PriceC:number=0;
   private ProductTitleName:string = '';
   private Permission: string = '';
-  getProduct () {
+  async getProduct () {
     this.ProductSku = this.$route.params.id ? this.$route.params.id : '0';
     // 获取产品详情数据
     this.$Api.product.getProduct(this.ProductSku).then((result) => {
@@ -143,10 +142,12 @@ export default class ProductDetail extends Vue {
 <style  lang="less">
 .product_detail p,.product_detail h3{
   padding:2rem;
+  color: #cccccc;
 }
 .product_detail h3{
   font-size:1.4rem;
   font-weight:100;
+  color: #cccccc;
 }
 .el-rate__decimal {
     display: inline-block;
@@ -175,11 +176,13 @@ export default class ProductDetail extends Vue {
       display: inline-block;
       &:nth-child(1){
         font-size: 1.6rem;
+        color:#c6b17b;
+        font-family: 'PoppinsBold', 'Microsoft YaHei';
       }
       &:nth-child(2){
-        font-size:2rem;
-        color:#b40606;
-        font-weight: 700;
+        font-size:1.6rem;
+        color:#c6b17b;
+        font-family: 'PoppinsBold', 'Microsoft YaHei';
       }
     }
   }
@@ -213,14 +216,13 @@ export default class ProductDetail extends Vue {
   margin-top: .5rem;
 }
 .isActive{
-  color:#FFF!important;
-  background: #262626 !important;
-  border:1px solid #262626!important;
+  color:#fff!important;
+  background: #c6b17b !important;
 }
 .productDetail_container {
   width: 100%;
-  background: #fff;
-  background-size: 100% 100%;
+  background: url(/images/mobile/ohters_16.jpg) no-repeat center center;
+  background-size: cover;
   display: inline-block;
   box-sizing: border-box;
   .IsDetailshow {
@@ -233,37 +235,44 @@ export default class ProductDetail extends Vue {
   .tab_warpper{
     margin: 5rem 0 0 0;
     .tab_header{
-      width: 95%;
+      width: 100%;
       margin:0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      border-bottom: 1px solid #c6b17b;
+      .tab_inner {
+        width: 100%;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+      }
       .comment_title,.detail_title{
-        width: 48%;
-        color:#000000;
+        width: 50%;
+        color:#c6b17b;
         text-align: center;
-        font-size: 1.4rem;
-        padding-top: 1rem;
-        padding-bottom: 1rem;
+        font-size: 1.2rem;
+        height: 3rem;
+        line-height: 3rem;
         float: left;
-        border-radius: 5px;
-      }
-      .detail_title{
-        margin-right: calc(4% - 4px);
-         border:1px solid #000;
-      }
-      .comment_title{
-        border:1px solid #000;
+        font-family: 'PoppinsBold', 'Microsoft YaHei';
+        text-transform: uppercase;
       }
     }
     .product_detail{
-      width: 95%;
+      width: 100%;
       margin:0 auto;
-      background: #fff;
-      border: 1px solid #000;
       min-height: 20rem;
-      border-radius: 5px;
       margin-top: 1rem;
       margin-bottom: 1rem;
+      /deep/ p {
+        font-size: 1.2rem;
+        color: #cccccc;
+        line-height: 2rem;
+      }
       p{
-        font-size: 1.6rem;
+        font-size: 1.2rem;
      }
     }
   }
@@ -273,6 +282,9 @@ export default class ProductDetail extends Vue {
   width: 100%;
   display: flex;
   flex-wrap: nowrap;
+  padding-top: 5rem;
+  background: url('/images/mobile/ohters_16.jpg') no-repeat center center;
+  background-size: cover;
 }
 .productDetail_price_warpper {
   display: flex;

@@ -1,12 +1,9 @@
 <template>
-    <div >
+    <div class="RnpContainer">
       <div class="RNPForm default">
         <div class="FormMain">
           <div v-html="htmlString" class="to_vertical" id="content"></div>
           <div id="preview" display="none"></div>
-        </div>
-        <div style="text-align:center;font-size:2.5rem;">
-          @Powered by RegNPay InStore
         </div>
       </div>
 
@@ -109,4 +106,12 @@ export default class InsRegAndPay extends Vue {
 </style>
 <style lang="less" scoped>
 @import "../../assets/less/regnpay_m.less";
+.RnpContainer {
+  width: 100%;
+  display: flex;
+  background:url('/images/mobile/ohters_16.jpg') no-repeat center center;
+  background-size: cover;
+  flex-wrap: wrap;
+  padding-top: 5rem;
+}
 </style>

@@ -55,7 +55,9 @@ export default {
     SaveAll: '保存所有',
     noRMBStripe: '貨幣RMB不支持Stripe支付，請選擇其他支付方式或切換貨幣模式',
     textareaError: '請輸入5個字符以上',
-    FindNoProduct: '系統正忙，請重新刷新頁面'
+    FindNoProduct: '系統正忙，請重新刷新頁面',
+    SOCIALMEDIA: '關注我們',
+    NEWSLETTER: '最新消息'
   },
   Account: {
     MemberCenter: '會員中心',
@@ -86,7 +88,7 @@ export default {
     PlsPayWay: '請選擇付款方式',
     PreviewTitleText: '請再次確認頁面',
     FormatErrorText: '請輸入正確電郵地址',
-    RequiredText: '請檢查你的答案'
+    RequiredText: '必填項'
   },
   product: {
     ProductCode: '產品代碼',
@@ -136,7 +138,8 @@ export default {
     ProductDetail: '產品詳情',
     Unit: '單位',
     Filter: '篩選',
-    ViewAll: '查看更多'
+    ViewAll: '查看更多',
+    SubTotal: '共'
   },
   Shoppingcart: {
     ShoppingcartTitle: '購物車',

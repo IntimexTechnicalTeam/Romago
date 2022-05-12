@@ -18,7 +18,6 @@ import sdk from '@/sdk/InstoreSdk';
 @Component
 export default class accountHeader extends Vue {
    MemberName:string='';
-   TotalPoints:string='';
    // 获取会员信息
    getMemberInfo () {
      let _this = this;
@@ -29,18 +28,11 @@ export default class accountHeader extends Vue {
        }
      );
    }
-   // 获取会员总积分
-   getMemberTotal () {
-     this.$Api.pointsApi.GetMemberTotalPointsInfo().then((result) => {
-       this.TotalPoints = result.data.TotalPoints;
-     });
-   }
    get currentlang () {
      return this.$Storage.get('locale');
    }
    mounted () {
      this.getMemberInfo();
-     this.getMemberTotal();
    }
 }
 </script>
@@ -100,6 +92,7 @@ ul,li{
     background-size: 100% 100%;
     display: inline-block;
     box-sizing: border-box;
+    padding-top: 2rem;
     .accountMeun{
       width: 90%;
       margin: 0 auto;

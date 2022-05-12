@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="RnpContainer">
   <div class="RNPResult default">
     <div id="rnp-main-content">
       <div class="record-title">{{$t('RegNPay.SubRecord')}}</div>
@@ -163,6 +163,14 @@ export default class Result extends Vue {
 .Banner img {
   width: 100%;
   height:500px;
+}
+.RnpContainer {
+  width: 100%;
+  display: flex;
+  background:url('/images/mobile/ohters_16.jpg') no-repeat center center;
+  background-size: cover;
+  flex-wrap: wrap;
+  padding-top: 5rem;
 }
 .regnpayNopay{
     width: 95%;

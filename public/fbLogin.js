@@ -128,20 +128,26 @@ function fblogout () {
 //       });
 //   });
 // });
-function confirm () {
+var flag = true;
+function confirm() {
+if (flag) {
   // eslint-disable-next-line no-new-object
   var obj = new Object();
+
   obj.FormId = $('#RpForm_Id').val();
   obj.TotalAmount = Number($('#total').html());
-  obj.Signature = $('#img-signature').attr('src');
+  obj.Signature = $('#Signature').attr('src');
   obj.RnpSubmitDatas = getAnswers();
-  regAndPay.saveSubmit(obj).then(function (result) {
+  flag = false;
+  // window.alert('ssss');
+  regAndPay.saveSubmit(obj).then(function(result) {
     if (result.data.Succeeded) {
-      router.push({
-        path: '/regnpay/result/' + result.data.ReturnValue
-      });
+          console.log('22222');
+            router.push({ path: '/regnpay/result/' + result.data.ReturnValue });
     } else {
-      alert(result.data.Message);
+     window.alert(result.data.Message);
+     flag = true;
     }
   });
+}
 }

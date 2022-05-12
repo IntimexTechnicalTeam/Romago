@@ -59,7 +59,8 @@ export default class InsMenberCenter extends Vue {
 .MembercenterMobile {
   width: 100%;
   display: inline-block;
-  background: #000;
+  background:url('/images/mobile/ohters_15.jpg') no-repeat center center;
+  background-size: cover;
 }
 #container {
   width: 100%;

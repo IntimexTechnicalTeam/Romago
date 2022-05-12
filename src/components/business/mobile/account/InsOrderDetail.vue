@@ -160,10 +160,13 @@ export default class InsOrderDetail extends Vue {
   color: #666;
 }
 .OrderMain {
-  width:95%;
+  width: 88%;
   margin: 0 auto;
   margin-top: 1rem;
+  background: #fff;
+  padding: 2%;
   padding-bottom: 3rem;
+  border-radius: 5px;
 }
 .OrderBottomBtn{
   float:right!important;
