@@ -34,6 +34,10 @@ import ElementUI from 'element-ui';
 // 按需引入 Element 組件，减小项目体积，可自行在 element.js 進行修改
 // import './plugins/element.js';
 import VueTouch from 'vue-touch';
+import 'animate.css';
+import SlideVerify from 'vue-monoplasty-slide-verify';
+
+Vue.use(SlideVerify);
 Vue.use(ElementUI);
 Vue.use(VueTouch, { name: 'v-touch' });
 (() => {

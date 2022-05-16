@@ -1,34 +1,34 @@
 <template>
-<div class="headerMain">
-  <!-- 正常菜单 -->
-    <div class="header-box header-normal">
-      <div class="headerTop">
-          <img class="slide-menu" src="/images/mobile/mpic_09.png" @click="showSlideMenu" />
-           <ins-logo />
-          <div class="rightSide">
-              <div class="searchMain">
-                  <a href="javascript:;" class="searchImg" @click="showsearch"></a>
-              </div>
-              <ins-login />
-              <shopcart class="shoppingcart" />
-          </div>
+  <div class="headerMain">
+    <!-- 正常菜单 -->
+      <div class="header-box header-normal">
+        <div class="headerTop">
+            <img class="slide-menu" src="/images/mobile/mpic_09.png" @click="showSlideMenu" />
+            <ins-logo />
+            <div class="rightSide">
+                <div class="searchMain">
+                    <a href="javascript:;" class="searchImg" @click="showsearch"></a>
+                </div>
+                <ins-login />
+                <shopcart class="shoppingcart" />
+            </div>
+        </div>
       </div>
-    </div>
-    <!-- 固定菜单 -->
-    <div class="header-box header-fixed">
-      <div class="headerTop">
-          <img class="slide-menu" src="/images/mobile/mpic_09.png" @click="showSlideMenu" />
-           <ins-logo />
-          <div class="rightSide">
-              <div class="searchMain">
-                  <a href="javascript:;" class="searchImg" @click="showsearch"></a>
-              </div>
-              <ins-login />
-              <shopcart class="shoppingcart" />
-          </div>
+      <!-- 固定菜单 -->
+      <div class="header-box header-fixed">
+        <div class="headerTop">
+            <img class="slide-menu" src="/images/mobile/mpic_09.png" @click="showSlideMenu" />
+            <ins-logo />
+            <div class="rightSide">
+                <div class="searchMain">
+                    <a href="javascript:;" class="searchImg" @click="showsearch"></a>
+                </div>
+                <ins-login />
+                <shopcart class="shoppingcart" />
+            </div>
+        </div>
       </div>
-    </div>
-</div>
+  </div>
 </template>
 
 <script lang="ts">

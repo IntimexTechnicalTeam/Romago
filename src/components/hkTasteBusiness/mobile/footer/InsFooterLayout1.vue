@@ -1,33 +1,38 @@
 <template>
- <div id="footer">
-   <div class="InnerBox">
-     <div class="MeunMain">
-       <Menu :backColor="'@base_color'" :textColor="'#fff'" :uniqueOpened="true" :type="'footer'" />
-     </div>
-      <p class="NormalTitle">{{$t('Message.SOCIALMEDIA')}}</p>
-      <p class="NormalImg">
-          <a href="#" target="_blank"><img src="/images/mobile/mpic_11.png"></a>
-          <a href="#" target="_blank"><img src="/images/mobile/mpic_12.png"></a>
-          <a href="#" target="_blank"><img src="/images/mobile/mpic_13.png"></a>
-          <a href="#" target="_blank"><img src="/images/mobile/mpic_14.png"></a>
-          <a href="#" target="_blank"><img src="/images/mobile/mpic_15.png"></a>
-          <a href="#" target="_blank"><img src="/images/mobile/mpic_16.png"></a>
-          <a href="#" target="_blank"><img src="/images/mobile/mpic_17.png"></a>
-      </p>
-      <p class="NormalTitle">{{$t('CheckOut.PaymentMethod')}}</p>
-      <p class="NormalImg">
-          <img src="/images/mobile/mpic_04.png" class="payImg">
-      </p>
-      <p class="NormalTitle">{{$t('Message.NEWSLETTER')}}</p>
-      <div class="RegnpayForm">
-          <div v-html="htmlString" class="to_vertical" id="content"></div>
-          <div id="preview" display="none"></div>
+ <div id="footer" :class="{'fixedFooter':RoutePath==='/'}">
+ <div class="touchHeight" @scroll="scrollEvent">
+      <div class="HkLiveBox" v-show="RoutePath==='/'"><HkLiveBox/></div>
+          <div class="BottomBg">
+            <div class="InnerBox">
+              <div class="MeunMain">
+                <Menu :backColor="'@base_color'" :textColor="'#fff'" :uniqueOpened="true" :type="'footer'" />
+              </div>
+                <p class="NormalTitle">{{$t('Message.SOCIALMEDIA')}}</p>
+                <p class="NormalImg">
+                    <a href="#" target="_blank"><img src="/images/mobile/mpic_11.png"></a>
+                    <a href="#" target="_blank"><img src="/images/mobile/mpic_12.png"></a>
+                    <a href="#" target="_blank"><img src="/images/mobile/mpic_13.png"></a>
+                    <a href="#" target="_blank"><img src="/images/mobile/mpic_14.png"></a>
+                    <a href="#" target="_blank"><img src="/images/mobile/mpic_15.png"></a>
+                    <a href="#" target="_blank"><img src="/images/mobile/mpic_16.png"></a>
+                    <a href="#" target="_blank"><img src="/images/mobile/mpic_17.png"></a>
+                </p>
+                <p class="NormalTitle">{{$t('CheckOut.PaymentMethod')}}</p>
+                <p class="NormalImg">
+                    <img src="/images/mobile/mpic_04.png" class="payImg">
+                </p>
+                <p class="NormalTitle">{{$t('Message.NEWSLETTER')}}</p>
+                <div class="RegnpayForm">
+                    <div v-html="htmlString" class="to_vertical" id="content"></div>
+                    <div id="preview" display="none"></div>
+                </div>
+                <p class="copyRight">
+                  <span>© Copyright 2022 Wise Leader Limited All Rights Reserved.</span>
+                  <span>Powered by Nstore<img src="/images/mobile/nstore.png"></span>
+                </p>
+            </div>
+          </div>
       </div>
-      <p class="copyRight">
-         <span>© Copyright 2022 Wise Leader Limited All Rights Reserved.</span>
-         <span>Powered by Nstore<img src="/images/mobile/nstore.png"></span>
-      </p>
-   </div>
 </div>
 </template>
 
@@ -36,14 +41,17 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 
 @Component({
   components: {
-        Menu: () => import('@/components/business/mobile/header/InsMenu.vue')
+        Menu: () => import('@/components/business/mobile/header/InsMenu.vue'),
+        HkLiveBox: () => import('@/components/hkTasteBusiness/mobile/home/HkLiveBox.vue')
   }
 })
 export default class InsFooter extends Vue {
   currentYear: number = 0;
   private htmlString: string = '';
   Signer: any = null;
-
+    swipedown () {
+        console.log(this.$store.state.isActive, 'this.$store.state.isActive');
+    }
     getForm () {
       this.$Api.regAndPay.genForm('NewsLetter', this.lang, true).then(result => {
         // RNPay登陆權限验证
@@ -53,7 +61,9 @@ export default class InsFooter extends Vue {
         this.htmlString = result.ReturnValue.HtmlString;
       });
     }
-
+    get RoutePath() {
+      return this.$route.path;
+    }
     created () {
       var date = new Date();
       this.currentYear = date.getFullYear();
@@ -100,11 +110,16 @@ export default class InsFooter extends Vue {
     get lang () {
       return this.$Storage.get('locale');
     }
-
     get queryLang () {
       return this.$route.query.Lang || '';
     }
-
+    scrollEvent () {
+          let _this = this;
+          let scroll = _this.$el.querySelector('.touchHeight') as any;
+          if (scroll.scrollTop === 0) {
+            this.$store.dispatch('isActive', false);
+          }
+    }
     mounted () {
       window['regAndPay'] = this.$Api.regAndPay;
       window['router'] = this.$router;
@@ -119,14 +134,36 @@ export default class InsFooter extends Vue {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
+.fixedFooter {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  left: 0;
+  top: 0px;
+  .touchHeight {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+  }
+}
 #footer {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  background: url('/images/mobile/mpic_05.jpg') no-repeat center center;
-  background-size: cover;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  .BottomBg {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    background: url('/images/mobile/mpic_05.jpg') no-repeat center center;
+    background-size: cover;
+    padding-bottom: 2rem;
+  }
+  .HkLiveBox {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+  }
    /deep/ .nav_menu {
       width: 100%;
       display: flex;
@@ -179,6 +216,7 @@ export default class InsFooter extends Vue {
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
+    padding-top: 2rem;
     .RegnpayForm {
       width: 100%;
       display: flex;

@@ -1,8 +1,7 @@
 <template>
-  <div class="banner" v-loading="loading">
-
+  <div class="banner" :class="isActive ?'bannerNormal':''" v-show="!isActive">
     <div class="sup_contbox_content">
-              <swiper  ref="videoSwiper" :options="swiperOptionVideos" @slideChange="slideChange"  v-if="VideoData.length!=0">
+              <swiper  ref="videoSwiper"  :options="swiperOptionVideos" @slideChange="slideChange"   v-if="VideoData.length > 0 && initSwiper">
                 <swiper-slide class="swiper-item" v-for='(item,index) of VideoData' :key='index'>
                   <div class="qhbox">
                     <div class="vrteacher" style="height:100vh;">
@@ -10,9 +9,9 @@
                       <div class="Inner">
                         <div class="ptitle">{{item.Title}}</div>
                         <div class="pdesc">{{item.Desc}}</div>
-                        <div class="next" v-show="isShowDown"><i class="down"></i></div>
+                        <div class="next"><i class="down"></i></div>
                       </div>
-                        <video class="myVideo" :src="item.SeoKeyword"  ref="videoPlayer" :id="'startvideo'+index"  autoplay></video>
+                        <video class="myVideo" :src="item.SeoKeyword"  ref="videoPlayer" :id="'startvideo'+index"   autoplay></video>
                     </div>
                   </div>
                 </swiper-slide>
@@ -31,16 +30,15 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
   }
 })
 export default class Banner extends Vue {
-  @Prop() private initOptions!: object;
-  @Prop() private data!: any;
   isShowDown:boolean=true;
+  initSwiper:boolean = false;
   isLast:boolean = false;
-  private bannerList: object[] = [];
   page:number=1;
   pageSize:number=12;
   VideoData:any[]=[];
-  private loading = false; // 數據加載過渡效果
-  isRead:boolean =false;
+  isEnd: boolean = false;
+  touchStartY: number = 0;
+  touchMovingY: number = 0;
   swiperOptionVideos:any= {
     direction: 'vertical',
     autoHeight: true,
@@ -50,18 +48,35 @@ export default class Banner extends Vue {
     slidesPerView: 'auto', // 记得这里写 auto 不要默认写1哦
     observer: true, // 修改swiper自己或子元素时，自动初始化swiper
     observeParents: true, // 修改swiper的父元素时，自动初始化swiper
-    on: {
-    touchEnd: function(swiper, event) {
-      // 你的事件
-      console.log('dddddddd');
-      }
+    mousewheel: true,
+    autoplay: {
+      delay: 10000,
+      stopOnLastSlide: true,
+      disableOnInteraction: true
+    },
+      on: {
+        init () {
+          $('.ptitle').removeClass('animate__animated animate__backInLeft').addClass('animate__animated animate__backInLeft');
+          $('.pdesc').removeClass('animate__animated animate__backInLeft').addClass('animate__animated animate__backInLeft');
+        },
+        touchStart: (event) => {
+            $('.ptitle').removeClass('animate__animated animate__backInLeft');
+            $('.pdesc').removeClass('animate__animated animate__backInLeft');
+        },
+        touchEnd: (event) => {
+            $('.ptitle').addClass('animate__animated animate__backInLeft');
+            $('.pdesc').addClass('animate__animated animate__backInLeft');
+            if (this.videoSwiper.isEnd && this.videoSwiper.swipeDirection === 'next') {
+                this.$store.dispatch('isActive', true);
+            }
+        }
     }
   }
   get videoSwiper() {
     return (this.$refs.videoSwiper as any).swiper;
   }
-  init () {
-    console.log('init');
+  get isActive () {
+    return this.$store.state.isActive;
   }
   slideChange() {
         var videos = document.getElementsByClassName('myVideo') as any;
@@ -76,7 +91,7 @@ export default class Banner extends Vue {
             videos[this.videoSwiper.activeIndex].play();
         }, 200);
       }
-     getContentsByCatKeyEx () {
+    getContentsByCatKeyEx () {
       var params = {
         key: 'VideoHome',
         page: this.page,
@@ -85,37 +100,17 @@ export default class Banner extends Vue {
       this.$Api.cms.getContentsByCatKeyEx(params).then((result) => {
           console.log(result, 'resultresultresult');
           this.VideoData = result.Data;
-          this.isRead = true;
+          console.log(this.VideoData.length, 'ddddddddddd');
       });
     }
   mounted() {
-    // for (var i = 0; i < 4; i++) {
-    //         // 获取四个视频的id
-    //             var video = document.getElementById('startvideo' + i) as any;
-    //         // 调用video标签的播放函数
-    //             video.play();
-    //     }
-
-      // let _this = this;// 赋值vue的this
-      // // 实现鼠标移入时停止自动轮播，移出时开始自动轮播
-      // (_this.$refs.videoSwiper as any).swiper.el.onmouseover = function() {
-      //   (_this.$refs.videoSwiper as any).swiper.autoplay.stop();
-      // };
-      // (_this.$refs.videoSwiper as any).swiper.el.onmouseout = function() {
-      //   (_this.$refs.videoSwiper as any).swiper.autoplay.start();
-      // };
-    }
-
-  created () {
     this.getContentsByCatKeyEx();
-    if (this.isRead) {
-     var videos = document.getElementsByClassName('myVideo') as any;
-        setTimeout(() => {
-          // this.videoSwiper.activeIndex为当前slide的序号
-          videos[0].play();
-      }, 200);
-    }
+    this.initSwiper = true;
   }
+  @Watch('$route', { deep: true })
+    onRouteChange () {
+      this.getContentsByCatKeyEx();
+    }
 }
 </script>
 
@@ -123,11 +118,12 @@ export default class Banner extends Vue {
 .bannerNormal {
   width: 100%;
   height: 10vh!important;
-  position: fixed;
 }
 .banner {
   width: 100%;
   height: 100vh;
+  position: fixed;
+  z-index: 99;
   .swiper-container {
     width: 100%;
     height: 100%;
@@ -170,6 +166,7 @@ export default class Banner extends Vue {
           .pdesc {
             color: #fff;
             font-size: 3rem;
+            font-family: 'PoppinsBold', 'Microsoft YaHei';
           }
           .next {
             margin-top: 2rem;

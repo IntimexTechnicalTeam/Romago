@@ -30,7 +30,7 @@ export default class HkLiveBox extends Vue {
   display: flex;
   flex-wrap: wrap;
   background: url('/images/mobile/mpic_02.jpg') no-repeat center center;
-  background-size: 100% 100%;
+  background-size: cover;
   padding-top: 3rem;
   padding-bottom: 3rem;
   .mapBg {
