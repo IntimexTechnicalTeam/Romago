@@ -11,7 +11,7 @@
                         <div class="pdesc">{{item.Desc}}</div>
                         <div class="next"><i class="down"></i></div>
                       </div>
-                        <video class="myVideo" :src="item.SeoKeyword"  ref="videoPlayer" :id="'startvideo'+index"   autoplay></video>
+                        <video class="myVideo" :src="item.SeoKeyword"  ref="videoPlayer" :id="'startvideo'+index"   autoplay muted></video>
                     </div>
                   </div>
                 </swiper-slide>
@@ -36,7 +36,6 @@ export default class Banner extends Vue {
   page:number=1;
   pageSize:number=12;
   VideoData:any[]=[];
-  isEnd: boolean = false;
   touchStartY: number = 0;
   touchMovingY: number = 0;
   swiperOptionVideos:any= {
@@ -50,7 +49,7 @@ export default class Banner extends Vue {
     observeParents: true, // 修改swiper的父元素时，自动初始化swiper
     mousewheel: true,
     autoplay: {
-      delay: 10000,
+      delay: 15000,
       stopOnLastSlide: true,
       disableOnInteraction: true
     },
@@ -100,12 +99,12 @@ export default class Banner extends Vue {
       this.$Api.cms.getContentsByCatKeyEx(params).then((result) => {
           console.log(result, 'resultresultresult');
           this.VideoData = result.Data;
+          this.initSwiper = true;
           console.log(this.VideoData.length, 'ddddddddddd');
       });
     }
   mounted() {
     this.getContentsByCatKeyEx();
-    this.initSwiper = true;
   }
   @Watch('$route', { deep: true })
     onRouteChange () {

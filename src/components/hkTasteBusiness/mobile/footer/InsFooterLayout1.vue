@@ -1,6 +1,6 @@
 <template>
  <div id="footer" :class="{'fixedFooter':RoutePath==='/'}">
- <div class="touchHeight" @scroll="scrollEvent">
+ <div class="touchHeight" @scroll="scrollEvent" @touchend="handleTouchEnd">
       <div class="HkLiveBox" v-show="RoutePath==='/'"><HkLiveBox/></div>
           <div class="BottomBg">
             <div class="InnerBox">
@@ -119,6 +119,13 @@ export default class InsFooter extends Vue {
           if (scroll.scrollTop === 0) {
             this.$store.dispatch('isActive', false);
           }
+    }
+    handleTouchEnd () {
+      let _this = this;
+      let scroll = _this.$el.querySelector('.touchHeight') as any;
+      if (scroll.scrollTop === 0) {
+        this.$store.dispatch('isActive', false);
+      }
     }
     mounted () {
       window['regAndPay'] = this.$Api.regAndPay;

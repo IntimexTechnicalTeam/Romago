@@ -57,7 +57,12 @@ export default {
     textareaError: 'Please enter more than 5 characters',
     FindNoProduct: 'The system is busy, please refresh the page again',
     SOCIALMEDIA: 'SOCIAL MEDIA',
-    NEWSLETTER: 'NEWSLETTER'
+    NEWSLETTER: 'NEWSLETTER',
+    WarrantycardTitle: 'Your TIMEPIECE INFORMATION',
+    WarrantycardTips: 'Found on your International Limited Warranty card,please enter your timepiece’s serial number below:',
+    WarrantycardFaq: 'Where can I find my serial number?',
+    Continue: 'Continue',
+    robotTips: 'I’m not a robot'
   },
   RegNPay: {
     BackText: 'Back',

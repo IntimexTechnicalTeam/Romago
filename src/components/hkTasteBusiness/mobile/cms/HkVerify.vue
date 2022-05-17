@@ -1,20 +1,20 @@
 <template>
   <div class="HkVerify" id="memberConterContainer">
     <div class="InnerBox">
-        <p class="pageTitle">Your TIMEPIECE INFORMATION</p>
+        <p class="pageTitle">{{$t('Message.WarrantycardTitle')}}</p>
         <p class="desc">
-          Found on your International Limited Warranty card,please enter your timepiece’s serial number below:
+          {{$t('Message.WarrantycardTips')}}
         </p>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
           <el-form-item  prop="VerifyText">
             <el-input v-model="ruleForm.VerifyText" placeholder="Serial NUMBER"></el-input>
-            <router-link to="/CMS/content/30309" class="UrlText">Where can I find my serial number?</router-link>
+            <router-link to="/CMS/content/30309" class="UrlText">{{$t('Message.WarrantycardFaq')}}</router-link>
           </el-form-item>
           <el-form-item  prop="VerifyChoice">
-              <el-checkbox label="I’m not a robot" name="VerifyChoice" v-model="ruleForm.VerifyChoice" @change="VerifyLayerShow()"></el-checkbox>
+              <el-checkbox :label="$t('Message.robotTips')" name="VerifyChoice" v-model="ruleForm.VerifyChoice" @change="VerifyLayerShow()"></el-checkbox>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submitForm()">Continue</el-button>
+            <el-button type="primary" @click="submitForm()">{{$t('Message.Continue')}}</el-button>
           </el-form-item>
         </el-form>
       <div class="layerBox" v-show="showVerify">

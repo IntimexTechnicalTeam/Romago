@@ -57,7 +57,12 @@ export default {
     textareaError: '请输入5个字符以上',
     FindNoProduct: '系统正忙，请重新刷新页面',
     SOCIALMEDIA: '关注我们',
-    NEWSLETTER: '最新消息'
+    NEWSLETTER: '最新消息',
+    WarrantycardTitle: '您手表的详细资料',
+    WarrantycardTips: '请在下方填上您的国际有限保修卡序列号:',
+    WarrantycardFaq: '在哪里可以找到我的序列号？',
+    Continue: '继续',
+    robotTips: '我不是机器人'
   },
   Account: {
     MemberCenter: '会员中心',
