@@ -1,215 +1,395 @@
 <template>
-<div id="footer">
-  <div class="footbg">
-    <div class="footerMain">
-        <!-- <div class="footerTop">
-            <p><span>whatsapp&nbsp;{{$t('home.Order')}}</span><b>6289 1789</b></p>
-            <p><span>{{$t('home.TelSearch')}}</span><b>6289 1789</b></p>
-        </div> -->
-        <div class="footerBotttom">
-          <div class="footerLeft">
-              <ul v-for="(n,index) in footerMenus" :key="index">
-                <li>
-                  <router-link
-                    :to="n.Type === 0 ? n.Url : n.Type === 1 ? '/cms/catDetail/' + n.Value.Id : n.Type === 2 ? '/CMS/content/' + n.Value.Id : n.Type === 3 ? '/RegNPay/Form/' + n.Value.Id : n.Type === 4 ? '/product/CatProduct?catId=' + n.Value.Id : n.Type === 5 ? '/product/list?key=&attr=' + n.Value.Id : '/product/list?key=&attr=' + n.ParentId + '&attrId=' + n.Value.Id"
-                  ></router-link>
-                  <ul>
-                    <li v-for="(c,index2) in n.Childs" :key="index2">
-                       <router-link :to="To(c)">{{c.Name}}</router-link>
-                    </li>
-                  </ul>
-                </li>
-             </ul>
-          </div>
-          <div class="footerRight">
-            <p><img src="/images/pc/pcindex_14.png" /></p>
-          </div>
-          <div class="clear"></div>
-           <p class="footercopy">
-             <span>Copyright © {{currentYear}} NStore powered by Eventizer
-               <a href="https://eventizer.hk/" target="_blank">
-               <img src="/images/pc/footerlogo.png">
-               </a>
-              </span>
-             <span>
-                <p>{{$t('home.Weaccept')}}</p>
-                <div>
-                  <img src="/images/payment/stripe.png" />
-                  <img src="/images/payment/WeChatPay.png" />
-                  <img src="/images/payment/Alipay.png" />
-                  <img src="/images/payment/PayMe.png" />
-                  <img src="/images/payment/Paypal.png" />
-                  <img src="/images/payment/MasterCard.png" />
-                  <img src="/images/payment/VISA.png" />
+ <div id="footer" :class="{'fixedFooter':RoutePath==='/'}">
+ <div class="touchHeight" @scroll="scrollEvent" @touchend="handleTouchEnd">
+      <div class="HkLiveBox" v-show="RoutePath==='/'"><HkLiveBox/></div>
+          <div class="BottomBg">
+            <div class="InnerBox">
+              <div class="MeunMain">
+                <Menu :backColor="'@base_color'" :textColor="'#fff'" :uniqueOpened="true" :type="'footer'" />
+              </div>
+                <p class="NormalTitle">{{$t('Message.SOCIALMEDIA')}}</p>
+                <p class="NormalImg">
+                    <a href="#" target="_blank"><img src="/images/mobile/mpic_11.png"></a>
+                    <a href="#" target="_blank"><img src="/images/mobile/mpic_12.png"></a>
+                    <a href="#" target="_blank"><img src="/images/mobile/mpic_13.png"></a>
+                    <a href="#" target="_blank"><img src="/images/mobile/mpic_14.png"></a>
+                    <a href="#" target="_blank"><img src="/images/mobile/mpic_15.png"></a>
+                    <a href="#" target="_blank"><img src="/images/mobile/mpic_16.png"></a>
+                    <a href="#" target="_blank"><img src="/images/mobile/mpic_17.png"></a>
+                </p>
+                <p class="NormalTitle">{{$t('CheckOut.PaymentMethod')}}</p>
+                <p class="NormalImg">
+                    <img src="/images/mobile/mpic_04.png" class="payImg">
+                </p>
+                <p class="NormalTitle">{{$t('Message.NEWSLETTER')}}</p>
+                <div class="RegnpayForm">
+                    <div v-html="htmlString" class="to_vertical" id="content"></div>
+                    <div id="preview" display="none"></div>
                 </div>
-              </span>
-            </p>
-        </div>
-    </div>
-  </div>
+                <p class="copyRight">
+                  <span>© Copyright 2022 Wise Leader Limited All Rights Reserved.</span>
+                  <span>Powered by Nstore<img src="/images/mobile/nstore.png"></span>
+                </p>
+            </div>
+          </div>
+      </div>
 </div>
-
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 
-@Component
-export default class InsFooterLayout1 extends Vue {
+@Component({
+  components: {
+        Menu: () => import('@/components/business/pc/header/InsMenu.vue'),
+        HkLiveBox: () => import('@/components/hkTasteBusiness/pc/home/HkLiveBox.vue')
+  }
+})
+export default class InsFooter extends Vue {
   currentYear: number = 0;
-  footerMenus: any[] = [];
-  goToTop () {
-    let sTop = document.documentElement.scrollTop;
-    let times = setInterval(() => {
-      sTop -= 50;
-      if (sTop <= 0) {
-        document.documentElement.scrollTop = 0;
-        clearInterval(times);
+  private htmlString: string = '';
+  Signer: any = null;
+    swipedown () {
+        console.log(this.$store.state.isActive, 'this.$store.state.isActive');
+    }
+    getForm () {
+      this.$Api.regAndPay.genForm('NewsLetter', this.lang, true).then(result => {
+        // RNPay登陆權限验证
+        if (result.IsLogin && !this.$Storage.get('isLogin')) {
+          this.$router.push('/account/login?returnurl=' + this.$route.path);
+        }
+        this.htmlString = result.ReturnValue.HtmlString;
+      });
+    }
+    get RoutePath() {
+      return this.$route.path;
+    }
+  get isActive () {
+    return this.$store.state.isActive;
+  }
+    created () {
+      var date = new Date();
+      this.currentYear = date.getFullYear();
+      window['jsData'] = {
+        HasPreview: true,
+        UploadButtonText: this.$t('RegNPay.UploadButtonText'),
+        UploadingText: this.$t('RegNPay.UploadingText'),
+        UploadSuccessfulText: this.$t('RegNPay.UploadSuccessfulText'),
+        UploadFailText: this.$t('RegNPay.UploadFailText'),
+        NoFileText: this.$t('RegNPay.NoFileText'),
+        UploadLengthText: this.$t('RegNPay.UploadLengthText'),
+        UploadSizeText: this.$t('RegNPay.UploadSizeText'),
+        BackText: this.$t('RegNPay.BackText'),
+        ConfirmText: this.$t('RegNPay.ConfirmText'),
+        PleaseSelect: this.$t('RegNPay.PleaseSelect'),
+        PreviewTitleText: this.$t('RegNPay.PreviewTitleText'),
+        RequiredText: this.$t('RegNPay.RequiredText'),
+        FormatErrorText: this.$t('RegNPay.FormatErrorText'),
+        Version: '2.0',
+        HasRNPConfirm: false
+      };
+      this.$LoadScript('/static/js/CanvasSigner.js');
+      this.$LoadScript('/static/js/ajaxFileUpload.js');
+
+      document.dispatchEvent(new Event('rnpFinshed'));
+
+      // RNP Form后台预览跳转语言判断
+      if (this.queryLang) {
+        this.$Api.member.setUILanguage(this.queryLang).then((result) => {
+          this.$i18n.locale = this.queryLang as string;
+          localStorage.setItem('locale', this.queryLang as string);
+          this.getForm();
+        }).catch((error) => {
+          console.log(error);
+        });
       } else {
-        document.documentElement.scrollTop = sTop;
+        this.getForm();
       }
-    }, 1);
-  }
-  To (n) {
-    return n.Type === 1 ? '/cms/catDetail/' + n.Value.Id : n.Type === 2 ? '/CMS/content/' + n.Value.Id : n.Type === 3 ? '/RegNPay/Form/' + n.Value.Id : n.Type === 4 && !this.$store.state.catMenuType ? '/product/cat/' + n.Value.Id : n.Type === 4 && this.$store.state.catMenuType ? '/product/search/-?catalogs=' + JSON.stringify([parseInt(n.Value.Id)]) + '&type=0' : n.Type === 5 ? '/product/search/-?attrs=' + JSON.stringify([{ Id: parseInt(n.Value.Id), Vals: [] }]) + '&type=0' : '/product/search/-?attrs=' + JSON.stringify([{ Id: parseInt(n.ParentId), Vals: [parseInt(n.Value.Id)] }]) + '&type=0';
-  }
-  getMenu () {
-    this.$Api.promotion.getMenu().then((result) => {
-      this.footerMenus = result.ReturnValue.FooterMenus;
-    });
-  }
-  created () {
-    var date = new Date();
-    this.currentYear = date.getFullYear();
-    this.getMenu();
+    }
+    get id () {
+      return this.$route.params.id;
+    }
+
+    get lang () {
+      return this.$Storage.get('locale');
+    }
+    get queryLang () {
+      return this.$route.query.Lang || '';
+    }
+    scrollEvent () {
+          let _this = this;
+          let scroll = _this.$el.querySelector('.touchHeight') as any;
+          if (scroll.scrollTop === 0) {
+            this.$store.dispatch('isActive', false);
+          }
+    }
+    handleTouchEnd () {
+      let _this = this;
+      let scroll = _this.$el.querySelector('.touchHeight') as any;
+      if (scroll.scrollTop === 0) {
+        this.$store.dispatch('isActive', false);
+      }
+    }
+    mounted () {
+      window['regAndPay'] = this.$Api.regAndPay;
+      window['router'] = this.$router;
+      // window['getPanel'] = this.$Api.getPanel;
+
+      window['Elalert'] = this.$alert;
+    }
+  @Watch('$route', { deep: true })
+  onIdChange () {
   }
 }
 </script>
-
+<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
-/* 底部文件 */
-.footbg{
-    // background: #9f2f34 url('/images/pc/pcindex_05.jpg') no-repeat center bottom;
-    // background-size: cover;
-    width: 100%;
-    display: inline-block;
-    padding-bottom: 10px;
-    // min-height: 278px;
-    background-color: #4d4d4d;
-}
-.footerMain{
-    width: 1200px;
-    margin: 30px auto 0;
-}
-.footerTop{
-    text-align: center;
-    padding-top: 25px;
-    padding-bottom: 25px;
-    width: 100%;
-}
-.footerTop p{
-    text-align: center;
-    display: inline-block;
-    margin-right: 50px;
-}
-.footerTop p span{
-    font-size: 14px;
-    color: #FFF;
-    line-height: 35px;
-    margin-right: 15px;
-}
-.footerTop p b{
-    font-weight: 100;
-    font-size: 35px;
-    color: #FFF;
-    line-height: 35px;
-}
-.footerBotttom{
-    width: 100%;
-}
-.footerLeft{
-    float: left;
-    width: 40%;
-}
-.footerLeft > ul{
-    float: left;
-    margin-right: 10%;
-}
-.footerLeft > ul >li{
-    width: 100%;
-    line-height: 30px;
-}
-.footerLeft > ul >li >a{
-    font-size:20px;
-    color:#FFF;
-}
-.footerLeft > ul >li >ul{
+.fixedFooter {
+  position: fixed;
   width: 100%;
-}
-.footerLeft > ul >li >ul a{
-    font-size: 16px;
-    color:#FFF;
-    display: inline-block;
-    text-transform: uppercase;
-}
-.footerLeft > ul >li >ul a:hover{
-   transform: translateY(-3px);
-}
-.footerLeft p{
+  height: 100%;
+  overflow: hidden;
+  left: 0;
+  top: 0px;
+  .touchHeight {
     width: 100%;
-    display: block;
-    font-size: 14px;
-    color: #fff;
-    padding-top: 20px;
-}
-.footerLeft p img{
-    display: inline-block;
-    vertical-align: middle;
-    padding-left: 10px;
-}
-.footerRight{
-    float: right;
-    width: 40%;
-    text-align: center;
-}
-.footerRight img{
-  width: 60%;
-  display: block;
-}
-.footercopy{
-  width: 100%;
-  display: inline-block;
-  margin-top: 20px;
-}
-.footercopy span:nth-child(1){
-  float: left;
-  color:#FFF;
-  font-size: 14px;
-}
-.footercopy span:nth-child(1) img{
-  display: inline-block;
-  vertical-align:middle;
-  padding-left: 10px;
-  height: 35px;
-}
-.footercopy span:nth-child(2){
-  float: right;
-  width: 40%;
-  // text-align: center;
-  color:#FFF;
-  font-size: 14px;
-  display: flex;
-
-  >p{
-    flex-shrink: 0;
-    margin-top: 10px;
-    margin-right: 10px;
+    height: 100%;
+    overflow: auto;
   }
 }
-.footercopy span:nth-child(2) img{
-  display: inline-block;
-  vertical-align:middle;
-  margin: 5px;
-  height: 32px;
+#footer {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  .touchHeight {
+    width: 100%;
+  }
+  .BottomBg {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    background: url('/images/mobile/mpic_05.jpg') no-repeat center center;
+    background-size: cover;
+    padding-bottom: 2rem;
+  }
+  .HkLiveBox {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+  }
+   /deep/ .nav_menu {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+     > ul {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      position: relative;
+      top: 0;
+      left: 0;
+      >li {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        text-align: left;
+        >ul {
+          position: relative;
+          left:0;
+          top: 0;
+          display: block;
+          width: 100%;
+          border: 0px;
+          li {
+            background: transparent;
+            border: 0px;
+            >a {
+            color:#999;
+            padding: 0px;
+            font-size: 1.2rem;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            text-transform: uppercase;
+            }
+          }
+        }
+        >a {
+          color:#c6b17b;
+          padding: 0px;
+          font-size: 1.2rem;
+          padding-top: 1rem;
+          padding-bottom: 1rem;
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+  .InnerBox {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 2rem;
+    .RegnpayForm {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      /deep/ #preview {
+        .title {
+          color: #fff;
+          font-size:1.4rem;
+        }
+        >div {
+          font-size: 1.2rem;
+          color: #fff;
+          margin-bottom: 1rem;
+          margin-top: 1rem;
+        }
+        .confirm {
+          width: 45%;
+          height: 3rem;
+          padding: 0px;
+          margin: 0;
+          box-sizing: border-box;
+          background: #c6b17b;
+          font-size: 1.2rem;
+          border: 2px solid #c6b17b;
+          color: #fff;
+          margin-right: 2%;
+        }
+        .back {
+          width: 45%;
+          height: 3rem;
+          padding: 0px;
+          margin: 0;
+          box-sizing: border-box;
+          background: #ccc;
+          font-size: 1.2rem;
+          border: 2px solid #ccc;
+          color: #fff;
+        }
+      }
+      #content {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        /deep/ .content {
+          width: 100%;
+          display: flex;
+          flex-wrap: wrap;
+          p[name='error'] {
+            color: #c6b17b;
+          }
+          form {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            position: relative;
+            .save {
+              position: absolute;
+              right: 0;
+              top:0;
+              width: 15%;
+              height: 3rem;
+              padding: 0px;
+              margin: 0;
+              box-sizing: border-box;
+              background: #c6b17b;
+              font-size: 1.2rem;
+              border: 2px solid #c6b17b;
+              color: #fff;
+            }
+            #Anwers {
+              width: 100%;
+              display: flex;
+              flex-wrap: wrap;
+              .form-group {
+                width: 85%;
+                display: flex;
+                flex-wrap: wrap;
+                .fieldset  {
+                    border: 0px;
+                    padding: 0px;
+                    margin: 0px;
+                    box-sizing: border-box;
+                    width: 100%;
+                  input[type="email"] {
+                    width: 100%;
+                    border: 0px;
+                    padding: 0px;
+                    box-sizing: border-box;
+                    height: 3rem;
+                    outline: 0;
+                    border-radius: 0px;
+                    padding-left: 10px;
+                    background: transparent;
+                    border: 1px solid #c6b17b;
+                    color: #fff;
+                    &::placeholder{
+                      counter-reset: #fff;
+                    }
+                  }
+                }
+              }
+              .control-label {
+                display: none;
+              }
+            }
+          }
+        }
+      }
+
+    }
+    .MeunMain {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .NormalTitle {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      font-size: 1.2rem;
+      color: #c6b17b;
+      text-transform: uppercase;
+      padding-bottom: .5rem;
+      padding-top: 1rem;
+    }
+    .NormalImg {
+      padding-bottom: 0.5rem;
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      a {
+        height: 2.5rem;
+        display: inline-block;
+        margin-right: .5rem;
+        img {
+          height: 100%;
+        }
+      }
+      .payImg {
+        height: 2.5rem;
+      }
+    }
+    .copyRight {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2rem;
+      span {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #999999;
+        img {
+          width: 50px;
+        }
+      }
+    }
+  }
 }
 </style>

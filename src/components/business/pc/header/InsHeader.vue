@@ -20,7 +20,18 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
   }
 })
 export default class InsHeader extends Vue {
-  layout: string = 'headerLayout1';
+  getMenu () {
+    this.$Api.promotion.getMenu().then((result) => {
+      this.$store.dispatch('setHeaderMenus', result.ReturnValue.HeaderMenus);
+      this.$store.dispatch('setFooterMenus', result.ReturnValue.FooterMenus);
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+
+  created () {
+    this.getMenu();
+  }
 }
 </script>
 

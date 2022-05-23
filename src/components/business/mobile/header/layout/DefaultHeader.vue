@@ -38,8 +38,7 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
   components: {
     InsLogo: () => import('@/components/base/mobile/InsLogo.vue'),
     InsLogin: () => import('@/components/business/mobile/header/InsLogin.vue'),
-    shopcart: () => import('@/components/business/mobile/header/InsShoppingCart.vue'),
-    InsMenu: () => import('@/components/business/mobile/header/InsMenu.vue')
+    shopcart: () => import('@/components/business/mobile/header/InsShoppingCart.vue')
   }
 })
 export default class DefaultHeader extends Vue {

@@ -324,8 +324,8 @@ export default class InsLogin extends Vue {
 /*头部登录弹框 css*/
 .handle-icon {
     display: block;
-    width:25px;
-    height: 25px;
+    width: 2rem;
+    height: 2rem;
     color: #cccccc;
     -webkit-transition-duration: 0.1s;
     transition-duration: 0.1s;
@@ -334,8 +334,16 @@ export default class InsLogin extends Vue {
     -webkit-transition-timing-function: ease-out;
     transition-timing-function: ease-out;
 }
+.handle-one {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    position: relative;
+}
 .member-icon {
-    background: url('/images/pc/pcindex_06.png') no-repeat center center;
+    background: url('/images/mobile/mpic_01.png') no-repeat center center;
     background-size: contain;
 }
 
@@ -378,7 +386,7 @@ export default class InsLogin extends Vue {
 .top-member-detail {
   width: 300px;
   left: -234px;
-  top: 50px;
+  top: 4rem;
 }
 
 .top-member-detail .window-top {

@@ -38,6 +38,7 @@ export default class HkLiveBox extends Vue {
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
+    padding-top: 8rem;
     .fb {
       /deep/ img {
         width: 100%;

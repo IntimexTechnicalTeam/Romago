@@ -60,7 +60,7 @@
         </div>
         <div class="fb-credit">
           <a href="https://www.facebook.com/hktastefood/" target="_blank"
-            >Facebook Chat Widget by Style3-New</a
+            >Facebook Chat Widget by Romago</a
           >
         </div>
         <div id="fb-root"></div>

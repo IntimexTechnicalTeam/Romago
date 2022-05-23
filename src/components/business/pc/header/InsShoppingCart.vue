@@ -94,7 +94,7 @@ export default class InsShoppingCart extends Vue {
   shopCart: ShopCart = new ShopCart();
   hiddenClick: boolean = true;
   toggleDialog() {
-    this.isShow = !this.isShow;
+    window.location.href = '/account/shoppingcart';
   }
 
   closeDialog() {
@@ -214,8 +214,8 @@ export default class InsShoppingCart extends Vue {
 /*头部购物车弹框 css*/
 .handle-icon {
   display: block;
-  width: 25px;
-  height: 25px;
+  width: 2rem;
+  height: 2rem;
   color: #cccccc;
   -webkit-transition-duration: 0.1s;
   transition-duration: 0.1s;
@@ -225,7 +225,7 @@ export default class InsShoppingCart extends Vue {
   transition-timing-function: ease-out;
 }
 .cart-icon {
-  background: url("/images/pc/pcindex_07.png") no-repeat center center;
+  background: url("/images/mobile/mpic_07.png") no-repeat center center;
   background-size: contain;
   position: relative;
   cursor: pointer;

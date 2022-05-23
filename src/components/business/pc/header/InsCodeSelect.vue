@@ -1,10 +1,9 @@
 <template>
   <div class="main-code">
-    <select id="code-select" v-model="codeId" @change="changeCurrency(codeId)">
-      <option value="1" style="color:#000">HKD</option>
-      <option value="2" style="color:#000">USD</option>
-      <option value="3" style="color:#000">RMB</option>
-    </select>
+        <p class="back" @click="backMeun()"><i class="el-icon-arrow-left"></i></p>
+        <p @click="changeCurrency('2')" :class="{'active': currency === 2}"  class="code">美元 | USD</p>
+        <p @click="changeCurrency('1')" :class="{'active': currency === 1}" class="code">港元 | HKD</p>
+        <p @click="changeCurrency('3')" :class="{'active': currency === 3}" class="code">人民幣 | RMB</p>
   </div>
 </template>
 
@@ -19,36 +18,56 @@ export default class InsCodeSelect extends Vue {
         message: this.$t('changeCurSuccess') as string,
         type: 'success'
       });
-
       this.$Storage.set('currency', result.Currency.Id);
       this.Reload();
     }).catch((error) => {
       console.log(error);
     });
   }
-
+  get currency () {
+     return this.$Storage.get('currency');
+  }
   created() {
     this.codeId = this.$Storage.get('currency');
   }
-
+  backMeun () {
+    this.$store.dispatch('isShowCodeSelect', false);
+    this.$store.dispatch('isShowMenu', true);
+  }
   mounted () {
 
   }
 }
 </script>
+<style lang="less">
+.messageboxNoraml{
+  z-index: 1000000000!important;
+}
+</style>
 <style scoped lang="less">
 .main-code {
-  display: inline-block;
-
-  select {
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  p {
     width: 100%;
-    font-size: 15px;
-    background: none;
-    color: #333;
-    border: none;
-    outline: none;
-    height: 31px;
-    margin-left: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    color: #fff;
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+  }
+  .back {
+    i {
+      font-size: 1.6rem;
+    }
+  }
+  .code {
+    padding-left: 2rem;
+  }
+  .active {
+    color: #c6b17b!important;
   }
 }
 </style>

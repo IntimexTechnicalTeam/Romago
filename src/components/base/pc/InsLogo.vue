@@ -1,7 +1,7 @@
 <template>
   <div class="logo">
     <router-link to="/">
-      <img src="@/assets/Images/forweb/logo.png" />
+      <img src="/images/mobile/mpic_06.png" />
     </router-link>
   </div>
 </template>

@@ -1,13 +1,11 @@
 <template>
   <div>
-      <div class="drawer-bg" :style="{backgroundColor: $Settings.slideMenu.maskBg, Opacity: $Settings.slideMenu.maskOpacity}" v-show="showMenu" @click="handleClickOutside"/>
+      <div class="drawer-bg" :style="{backgroundColor: $Settings.slideMenu.maskBg, Opacity: $Settings.slideMenu.maskOpacity}" v-show="LangSwitch" @click="handleClickOutside"/>
 
-      <div class="sidebar-container" :class="{'hiddenMenu': !showMenu,'left': direction == 'left','top': direction == 'top', 'right': direction == 'right'}" :style="{width: width, height: height}">
+      <div class="sidebar-container" :class="{'hiddenMenu': !LangSwitch,'left': direction == 'left','top': direction == 'top', 'right': direction == 'right'}" :style="{width: width, height: height}">
           <el-scrollbar wrap-class="scrollbar-wrapper">
-              <slot />
-
+              <ins-lang-switch />
           </el-scrollbar>
-
       </div>
   </div>
 </template>
@@ -15,7 +13,11 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 
-@Component
+@Component({
+  components: {
+    InsLangSwitch: () => import('@/components/business/mobile/header/InsLangSwitch.vue')
+  }
+})
 export default class InsSlideMenu extends Vue {
   // @Prop({ default: 'left' }) private direction !: string;
   private direction: string = ''; // 菜單滑出方向: 'top', 'left', 'right'
@@ -28,13 +30,13 @@ export default class InsSlideMenu extends Vue {
     return this.$store.state.showFixedHeader;
   }
 
-  // 是否顯示滑動側欄菜單
-  get showMenu () {
-    return this.$store.state.isShowMenu;
+  // 是否顯示语言菜单
+  get LangSwitch () {
+    return this.$store.state.isShowLangSwitch;
   }
 
   handleClickOutside () {
-    this.$store.dispatch('isShowMenu', false);
+    this.$store.dispatch('isShowLangSwitch', false);
   }
 
   created () {
@@ -87,9 +89,6 @@ export default class InsSlideMenu extends Vue {
 }
 </script>
 <style scoped lang="less">
-  /deep/ .el-scrollbar__wrap {
-    overflow: auto!important;
-  }
 .drawer-bg {
   width: 100%;
   top: 0;

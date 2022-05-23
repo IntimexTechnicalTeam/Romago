@@ -1,123 +1,52 @@
 <template>
-  <div class="indexHotVideo">
-    <div class="TitleBg"><div class="innerBox">{{$t('Cms.WhatNews')}}</div></div>
-    <div class="HotVideoMain">
-      <div class="leftVideo">
-        <p v-html="videoContent.Body"></p>
-      </div>
-      <div class="rightVideo"><p v-html="fbContent.Body"></p></div>
-    </div>
+  <div class="liveBox" style="text-align: center;">
+        <div class="mapBg">
+           <p v-html="fbContent.Body" class="fb"></p>
+        </div>
   </div>
 </template>
-<script lang="ts" scoped>
-import { Component, Prop, Vue } from 'vue-property-decorator';
-@Component
-export default class PkLiveBox extends Vue {
-  videoContent:string='';
+<script lang="ts">
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+@Component({
+})
+export default class HkLiveBox extends Vue {
   fbContent:string='';
-  getVideoContent () {
-    this.$Api.cms.getContentByDevice({ ContentId: 20294, IsMobile: false }).then(result => {
-      this.videoContent = result.CMS;
-    });
-  }
   getFbContent () {
-    this.$Api.cms.getContentByDevice({ ContentId: 20299, IsMobile: false }).then(result => {
+    this.$Api.cms.getContentByDevice({ Key: 'Facebook', IsMobile: true }).then(result => {
       this.fbContent = result.CMS;
     });
+  }
+  created () {
+    this.getFbContent();
   }
   get lang () {
     return this.$Storage.get('locale');
   }
-  created () {
-    this.getVideoContent();
-    this.getFbContent();
-  }
 }
 </script>
-<style  lang="less">
-.HotVideoMain .leftVideo iframe{
-  width: 100%;
-  height: 500px;
-}
-.HotVideoMain .leftVideo img{
-  width: 100%;
-}
-.HotVideoMain .rightVideo iframe{
-  width: 100%;
-  height: 500px;
-}
-.HotVideoMain .rightVideo img{
-  width: 100%;
-}
-</style>
 <style scoped lang="less">
-.TitleBg{
-  width: 500px;
-  height: 70px;
-  border:1px solid #4d4d4d;
-  margin: 0 auto;
-  padding: 10px;
-  margin-bottom: 20px;
-  .innerBox{
-    width: 100%;
-    height: 100%;
-    background:#4d4d4d;
-    color: #FFF;
+.liveBox {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  background: url('/images/mobile/mpic_02.jpg') no-repeat center center;
+  background-size: cover;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  .mapBg {
+    width: 90%;
+    margin: 0 auto;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 40px;
-    font-weight: 700;
-    font-family: 'Arial';
+    flex-wrap: wrap;
+    padding-top: 8rem;
+    .fb {
+      /deep/ img {
+        width: 100%;
+      }
+      /deep/ iframe {
+        width: 100%;
+      }
+    }
   }
-}
-.indexHotVideo{
-    width: 100%;
-    background-size: 100% 100%;
-    display: inline-block;
-    padding-top: 90px;
-    padding-bottom: 90px;
-    background: url('/images/pc/pcindex_04.jpg') no-repeat center center;
-    background-size: cover;
-}
-.HotVideoMain{
-    width: 1200px;
-    margin: 0 auto;
-}
-.HotVideoMain .leftVideo{
-    width: 55%;
-    float: left;
-    margin-right: 5%;
-    background-size: 100% 100%;
-    box-sizing: border-box;
-    padding: 30px;
-}
-.HotVideoMain .leftVideo img{
-    width: 100%;
-    margin: 0 auto;
-}
-.HotVideoMain .rightVideo{
-    width: 40%;
-    float: left;
-    background-size: 100% 100%;
-    box-sizing: border-box;
-    padding: 30px;
-}
-.HotVideoMain .rightVideo img{
-    width: 100%;
-}
-.indexVideoTitle{
-    width: 544px;
-    height: 114px;
-    background-size: 100%;
-    margin: 0 auto;
-    margin-bottom: 70px;
-}
-.indexVideoTitleE{
-    width: 544px;
-    height: 114px;
-    background-size: 100%;
-    margin: 0 auto;
-    margin-bottom: 70px;
 }
 </style>

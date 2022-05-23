@@ -1,6 +1,6 @@
 <template>
  <div id="footer" :class="{'fixedFooter':RoutePath==='/'}">
- <div class="touchHeight" @scroll="scrollEvent" @touchend="handleTouchEnd">
+ <div class="touchHeight" @scroll="scrollEvent" @touchend="handleTouchEnd" v-show="isActive">
       <div class="HkLiveBox" v-show="RoutePath==='/'"><HkLiveBox/></div>
           <div class="BottomBg">
             <div class="InnerBox">
@@ -64,6 +64,9 @@ export default class InsFooter extends Vue {
     get RoutePath() {
       return this.$route.path;
     }
+  get isActive () {
+    return this.$store.state.isActive;
+  }
     created () {
       var date = new Date();
       this.currentYear = date.getFullYear();
