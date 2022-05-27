@@ -3,7 +3,7 @@
     <!-- 正常菜单 -->
       <div class="header-box header-normal">
         <div class="headerTop">
-            <img class="slide-menu" src="/images/mobile/mpic_09.png" @click="showSlideMenu" />
+            <span @click="showSlideMenu" class="slide-menu"><b class="MeunImg"></b><i>Menu</i></span>
             <ins-logo />
             <div class="rightSide">
                 <div class="searchMain">
@@ -17,7 +17,7 @@
       <!-- 固定菜单 -->
       <div class="header-box header-fixed">
         <div class="headerTop">
-            <img class="slide-menu" src="/images/mobile/mpic_09.png" @click="showSlideMenu" />
+            <span @click="showSlideMenu" class="slide-menu"><b class="MeunImg"></b><i>Menu</i></span>
             <ins-logo />
             <div class="rightSide">
                 <div class="searchMain">
@@ -117,6 +117,11 @@ export default class DefaultHeader extends Vue {
         width: 2rem;
         height: 2rem;
         background-size: contain;
+        transition: all .3s;
+        &:hover {
+          background: url('/images/mobile/mpic_08_hover.png') no-repeat center center;
+          background-size: contain;
+        }
     }
     .header-box {
       .flex-box {
@@ -136,6 +141,9 @@ export default class DefaultHeader extends Vue {
         .slide-menu {
           cursor: pointer;
           width: 2rem;
+          img {
+            width: 2rem;
+          }
         }
         .close-meun {
           cursor: pointer;
@@ -157,10 +165,40 @@ export default class DefaultHeader extends Vue {
     display: flex;
   }
   .slide-menu {
-    width: 2rem;
-    height: 2rem;
+    margin-top: 0.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-top: .5rem;
     cursor: pointer;
+    transition: all .3s;
+    &:hover {
+      .MeunImg {
+        background: url('/images/mobile/mpic_09_hover.png') no-repeat center center;
+        background-size: contain;
+      }
+      i{
+        color:#c6b17b;
+      }
+    }
+    .MeunImg {
+      background: url("/images/mobile/mpic_09.png") no-repeat center center;
+      background-size: contain;
+      position: relative;
+      cursor: pointer;
+      transition: all .3s;
+      display: inline-block;
+      width: 2rem;
+      height: 2rem;
+    }
+    i {
+      padding-left: .5rem;
+      color: #fff;
+      font-size: 1.2rem;
+      font-style: normal;
+      font-family: 'PoppinsBold', 'Microsoft YaHei';
+    }
   }
   .shoppingcart{
       padding-right: 0rem;

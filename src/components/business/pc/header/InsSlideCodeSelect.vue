@@ -1,6 +1,6 @@
 <template>
   <div>
-      <div class="drawer-bg" :style="{backgroundColor: $Settings.slideMenu.maskBg, Opacity: $Settings.slideMenu.maskOpacity}" v-show="ShowCodeSelect" @click="handleClickOutside"/>
+      <div class="drawer-bg" :style="{backgroundColor: $Settings.PCslideMenu.maskBg, Opacity: $Settings.PCslideMenu.maskOpacity}" v-show="ShowCodeSelect" @click="handleClickOutside"/>
       <div class="sidebar-container" :class="{'hiddenMenu': !ShowCodeSelect,'left': direction == 'left','top': direction == 'top', 'right': direction == 'right'}" :style="{width: width, height: height}">
           <el-scrollbar wrap-class="scrollbar-wrapper">
               <ins-code-select />
@@ -15,15 +15,15 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 
 @Component({
   components: {
-    InsCodeSelect: () => import('@/components/business/mobile/header/InsCodeSelect.vue')
+    InsCodeSelect: () => import('@/components/business/pc/header/InsCodeSelect.vue')
   }
 })
-export default class InsSlideMenu extends Vue {
+export default class InsPCslideMenu extends Vue {
   // @Prop({ default: 'left' }) private direction !: string;
   private direction: string = ''; // 菜單滑出方向: 'top', 'left', 'right'
   private width: string = ''; // 菜單寬度：'top'默認'100%'，僅在position值非'top'的情況生效
   private height: string = ''; // 菜單最大高度：僅在position值'top'的情況生效，其餘值默認'100%'
-  private Embedded: boolean = this.$Settings.slideMenu.Embedded || false; // 菜單是否內嵌 => 默認值 false ，僅在position值為非'top'的情況生效
+  private Embedded: boolean = this.$Settings.PCslideMenu.Embedded || false; // 菜單是否內嵌 => 默認值 false ，僅在position值為非'top'的情況生效
 
   // 是否處於顯示固定頭部狀態
   get showFixedHeader () {
@@ -41,10 +41,10 @@ export default class InsSlideMenu extends Vue {
 
   created () {
     // 設置菜單參數值
-    this.direction = this.$Settings.slideMenu.direction || 'top';
-    this.width = this.direction !== 'top' && this.$Settings.slideMenu.width ? this.$Settings.slideMenu.width : '100%';
+    this.direction = this.$Settings.PCslideMenu.direction || 'top';
+    this.width = this.direction !== 'top' && this.$Settings.PCslideMenu.width ? this.$Settings.PCslideMenu.width : '100%';
     if (!this.Embedded) {
-      this.height = this.direction === 'top' && this.$Settings.slideMenu.height ? this.$Settings.slideMenu.height : '100%';
+      this.height = this.direction === 'top' && this.$Settings.PCslideMenu.height ? this.$Settings.PCslideMenu.height : '100%';
     } else {
       // console.log((document.getElementById('header') as HTMLElement).clientHeight, '頭部高度id');
       // console.log((document.querySelector('.header-box') as HTMLElement).clientHeight, '頭部高度querySelector');

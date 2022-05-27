@@ -24,7 +24,6 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import Cookie from 'js-cookie';
 @Component({
   components: {
-    PkcmsBanner: () => import('@/components/hkTasteBusiness/mobile/cms/PkcmsBanner.vue')
   }
 })
 export default class InsCmsContent extends Vue {
@@ -48,29 +47,6 @@ export default class InsCmsContent extends Vue {
   private waiting: boolean = true;
   OtherPageImg:string='';
   TitleName:string='';
-
-  getIndexshop () {
-    var _this = this;
-    this.$Api.cms.getContentsByCatId(40108, 1, 12).then(result => {
-      this.ShopList = result.Data;
-      result.Data.forEach(function (item) {
-        var colon = item.Desc.indexOf('*');
-        var a = item.Desc.substring(0, item.Desc.indexOf('*'));
-        var b = item.Desc.substr(
-          item.Desc.indexOf('*') + 1,
-          item.Desc.length
-        );
-        _this.$set(item, 'DescOne', a);
-        _this.$set(item, 'DescTwo', b);
-      });
-    });
-  }
-  showContent (val, index) {
-    this.$Api.cms.getContentByDevice({ ContentId: val, IsMobile: true }).then(result => {
-      this.MapInfo = result.CMS.Body;
-      this.cindex = index;
-    });
-  }
   get currentlang () {
     return this.$Storage.get('locale');
   }
@@ -167,8 +143,6 @@ export default class InsCmsContent extends Vue {
   created () {
     this.getContent();
     this.Regnay();
-    this.getIndexshop();
-    this.showContent(20288, 0);
   }
   mounted () {
     window['regAndPay'] = this.$Api.regAndPay;
@@ -253,6 +227,8 @@ export default class InsCmsContent extends Vue {
   .form-group{
     .fieldset {
       border: none;
+      margin: 0;
+      padding: 0;
     }
     h4{
       display: none;
@@ -303,6 +279,7 @@ export default class InsCmsContent extends Vue {
       margin-top: 1rem;
       font-size: 1.4rem;
       margin-bottom: 2rem;
+      font-family: 'PoppinsBold', 'Microsoft YaHei';
     }
     .dropdown_op {
       width: 100%;

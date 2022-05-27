@@ -151,7 +151,7 @@ export default class Banner extends Vue {
           z-index: 10;
         }
         .Inner {
-          width: 90%;
+          width: 85%;
           position: absolute;
           bottom: 20%;
           left: 50%;

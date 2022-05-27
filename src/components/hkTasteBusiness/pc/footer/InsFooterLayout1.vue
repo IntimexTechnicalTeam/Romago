@@ -4,32 +4,41 @@
       <div class="HkLiveBox" v-show="RoutePath==='/'"><HkLiveBox/></div>
           <div class="BottomBg">
             <div class="InnerBox">
-              <div class="MeunMain">
-                <Menu :backColor="'@base_color'" :textColor="'#fff'" :uniqueOpened="true" :type="'footer'" />
-              </div>
-                <p class="NormalTitle">{{$t('Message.SOCIALMEDIA')}}</p>
-                <p class="NormalImg">
-                    <a href="#" target="_blank"><img src="/images/mobile/mpic_11.png"></a>
-                    <a href="#" target="_blank"><img src="/images/mobile/mpic_12.png"></a>
-                    <a href="#" target="_blank"><img src="/images/mobile/mpic_13.png"></a>
-                    <a href="#" target="_blank"><img src="/images/mobile/mpic_14.png"></a>
-                    <a href="#" target="_blank"><img src="/images/mobile/mpic_15.png"></a>
-                    <a href="#" target="_blank"><img src="/images/mobile/mpic_16.png"></a>
-                    <a href="#" target="_blank"><img src="/images/mobile/mpic_17.png"></a>
-                </p>
-                <p class="NormalTitle">{{$t('CheckOut.PaymentMethod')}}</p>
-                <p class="NormalImg">
-                    <img src="/images/mobile/mpic_04.png" class="payImg">
-                </p>
-                <p class="NormalTitle">{{$t('Message.NEWSLETTER')}}</p>
-                <div class="RegnpayForm">
-                    <div v-html="htmlString" class="to_vertical" id="content"></div>
-                    <div id="preview" display="none"></div>
+              <div class="leftSide">
+                <div class="MeunMain">
+                  <Menu :backColor="'@base_color'" :textColor="'#fff'" :uniqueOpened="true" :type="'footer'" />
                 </div>
-                <p class="copyRight">
-                  <span>© Copyright 2022 Wise Leader Limited All Rights Reserved.</span>
-                  <span>Powered by Nstore<img src="/images/mobile/nstore.png"></span>
-                </p>
+                  <p class="copyRight">
+                    <span>© Copyright 2022 Wise Leader Limited All Rights Reserved.Powered by Nstore<img src="/images/mobile/nstore.png"></span>
+                  </p>
+              </div>
+              <div class="rightSide">
+                <p class="NormalTitle">{{$t('Message.SOCIALMEDIA')}}</p>
+                  <p class="NormalImg">
+                      <a href="#" target="_blank"><img src="/images/mobile/mpic_11.png"></a>
+                      <a href="#" target="_blank"><img src="/images/mobile/mpic_12.png"></a>
+                      <a href="#" target="_blank"><img src="/images/mobile/mpic_13.png"></a>
+                      <a href="#" target="_blank"><img src="/images/mobile/mpic_14.png"></a>
+                      <a href="#" target="_blank"><img src="/images/mobile/mpic_15.png"></a>
+                      <a href="#" target="_blank"><img src="/images/mobile/mpic_16.png"></a>
+                      <a href="#" target="_blank"><img src="/images/mobile/mpic_17.png"></a>
+                  </p>
+                  <p class="NormalTitle">{{$t('CheckOut.PaymentMethod')}}</p>
+                  <p class="NormalImg">
+                      <img src="/images/mobile/mpic_04.png" class="payImg">
+                  </p>
+                  <p class="NormalTitle">{{$t('Message.NEWSLETTER')}}</p>
+                  <div class="RegnpayForm">
+                      <div v-html="htmlString" class="to_vertical" id="content"></div>
+                      <div id="preview" display="none"></div>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="cookieTips">
+            <div class="Inner">
+              <p>We use cookies to give you the best possible experience on our website.</p>
+              <p>By continuing to browse this site, you give consent for cookies to be used. For more details please read our Cookie Policy.</p>
             </div>
           </div>
       </div>
@@ -164,11 +173,31 @@ export default class InsFooter extends Vue {
   .touchHeight {
     width: 100%;
   }
+  .cookieTips {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background: #000;
+    .Inner {
+      width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      p{
+        color: #999999;
+        font-size: 16px;
+      }
+    }
+  }
   .BottomBg {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    background: url('/images/mobile/mpic_05.jpg') no-repeat center center;
+    background: url('/images/pc/pcNew_05.jpg') no-repeat center center;
     background-size: cover;
     padding-bottom: 2rem;
   }
@@ -188,8 +217,10 @@ export default class InsFooter extends Vue {
       position: relative;
       top: 0;
       left: 0;
+      align-items: baseline;
+      justify-content: space-between;
       >li {
-        width: 100%;
+        width: 23%;
         display: flex;
         flex-wrap: wrap;
         text-align: left;
@@ -206,30 +237,43 @@ export default class InsFooter extends Vue {
             >a {
             color:#999;
             padding: 0px;
-            font-size: 1.2rem;
-            padding-top: 1rem;
-            padding-bottom: 1rem;
+            font-size: 18px;
+            padding-top: 5px;
+            padding-bottom: 5px;
             text-transform: uppercase;
+            transition: all .3s;
+              &:hover {
+                color:#c6b17b;
+                text-decoration: underline;
+              }
             }
           }
         }
         >a {
           color:#c6b17b;
           padding: 0px;
-          font-size: 1.2rem;
-          padding-top: 1rem;
-          padding-bottom: 1rem;
+          font-size: 20px;
+          padding-top: 5px;
+          padding-bottom: 5px;
           text-transform: uppercase;
+          font-family: 'PoppinsBold', 'Microsoft YaHei';
         }
       }
     }
   }
   .InnerBox {
-    width: 90%;
+    width: 1200px;
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
     padding-top: 2rem;
+    justify-content: space-between;
+    .leftSide {
+      width: 68%;
+    }
+    .rightSide {
+      width: 30%;
+    }
     .RegnpayForm {
       width: 100%;
       display: flex;
@@ -349,11 +393,11 @@ export default class InsFooter extends Vue {
       width: 100%;
       display: flex;
       flex-wrap: wrap;
-      font-size: 1.2rem;
+      font-size: 20px;
       color: #c6b17b;
       text-transform: uppercase;
       padding-bottom: .5rem;
-      padding-top: 1rem;
+      font-family: 'PoppinsBold', 'Microsoft YaHei';
     }
     .NormalImg {
       padding-bottom: 0.5rem;

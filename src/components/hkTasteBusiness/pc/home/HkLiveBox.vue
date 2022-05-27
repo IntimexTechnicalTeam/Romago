@@ -29,7 +29,7 @@ export default class HkLiveBox extends Vue {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  background: url('/images/mobile/mpic_02.jpg') no-repeat center center;
+  background: url('/images/pc/pcNew_04.jpg') no-repeat center center;
   background-size: cover;
   padding-top: 3rem;
   padding-bottom: 3rem;
@@ -38,6 +38,8 @@ export default class HkLiveBox extends Vue {
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
     padding-top: 8rem;
     .fb {
       /deep/ img {

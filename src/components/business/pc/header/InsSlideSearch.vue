@@ -14,7 +14,7 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 
 @Component({
   components: {
-    InsSearch: () => import('@/components/business/mobile/header/InsSearch.vue')
+    InsSearch: () => import('@/components/business/pc/header/InsSearch.vue')
   }
 })
 export default class InsSlideMenu extends Vue {

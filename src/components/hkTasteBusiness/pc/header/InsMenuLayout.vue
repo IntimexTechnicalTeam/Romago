@@ -2,7 +2,7 @@
   <div class="MeunMain">
     <div class="MenuContainer">
         <div class="topbar">
-          <div class="closeBtn" @click="closeSlideMenu"><img src="/images/mobile/mpic_19.png"></div>
+          <div class="closeBtn" @click="closeSlideMenu"><img src="/images/mobile/mpic_19.png"><span class="Meun">Meun</span></div>
           <div class="functionBtn">
             <span class="fav" @click="goFav()"><img src="/images/mobile/mpic_21.png"></span>
             <span class="code" @click="showSlideCode()"><img src="/images/mobile/mpic_22.png"></span>
@@ -70,7 +70,7 @@ export default class InsMenuLayout extends Vue {
 
 <style lang="less">
 .sidebar-container {
-    background:rgba(0,0,0,.7) !important;
+    background:rgba(0,0,0,.9) !important;
 }
 .menu_footer span{
     display: flex;
@@ -165,89 +165,6 @@ export default class InsMenuLayout extends Vue {
     }
   }
 }
-
-// #menu {
-//     .el-submenu__icon-arrow {
-//         display: none;
-//     }
-
-//     .el-submenu__title {
-//         padding-top: 0.5rem;
-//         padding-bottom: 0.5rem;
-//         padding-left: 0px!important;
-//         height: auto!important;
-//         line-height: unset;
-//         background-color:transparent!important;
-//         .name{
-//             font-size: 1.4rem!important;
-//             color:#fff;
-//             height: auto!important;
-//             line-height: unset!important;
-//         }
-//     }
-
-//     .el-menu {
-//         width: 90%;
-//         margin: 0 auto;
-//         background-color: transparent;
-//         border: 0;
-//         .el-submenu__icon-arrow {
-//             display: block;
-//             font-size: 1.4rem;
-//         }
-
-//         > li {
-//             height: auto;
-//             line-height: unset;
-//             text-align: left;
-//              >a {
-//                  color:#666666;
-//                  background-size: 100% 100%;
-//                  display:block;
-//                  width: 100%;
-//                  padding-top: .5rem;
-//                  padding-bottom: .5rem;
-//                  margin: 0 auto;
-//                  font-weight: 500;
-//                  b{
-//                      color:#FFF;
-//                      display: block;
-//                      width: 100%;
-//                      font-weight: 500;
-//                      &:nth-child(1){
-//                         color:#fff;
-//                         font-weight: 500;
-//                         font-size: 1.4rem;
-//                      }
-//                      &:nth-child(2){
-//                          color:#fff;
-//                          font-size: 1.2rem;
-//                      }
-//                  }
-//             }
-
-//             a {
-//                 text-decoration: none;
-//             }
-//         }
-
-//         li {
-//             line-height: unset;
-//             padding: 0 !important;
-//             min-width: unset;
-//         }
-//     }
-// }
-// #menu .is-opened > .el-submenu__title{
-//     background:transparent!important;
-//     color:#fff!important;
-//     .name{
-//         color:#FFF!important;
-//     }
-// }
-// #menu .is-opened > .el-submenu__title .el-submenu__icon-arrow{
-//     color:#fff!important;
-// }
 </style>
 
 <style scoped lang="less">
@@ -295,9 +212,9 @@ export default class InsMenuLayout extends Vue {
             >a {
             color:#e5e5e5;
             padding: 0px;
-            font-size: 1.2rem;
-            padding-top: 1rem;
-            padding-bottom: 1rem;
+            font-size: 18px;
+            padding-top: .8rem;
+            padding-bottom: .8rem;
             text-transform: uppercase;
             }
           }
@@ -305,10 +222,15 @@ export default class InsMenuLayout extends Vue {
         >a {
           color:#fff;
           padding: 0px;
-          font-size: 1.4rem;
-          padding-top: 1rem;
-          padding-bottom: 1rem;
+          font-size: 20px;
+          padding-top: .8rem;
+          padding-bottom: .8rem;
           text-transform: uppercase;
+          font-family: 'PoppinsBold', 'Microsoft YaHei';
+          &:hover {
+              color:#c6b17b;
+              text-decoration: underline;
+          }
         }
       }
     }
@@ -324,15 +246,21 @@ export default class InsMenuLayout extends Vue {
   margin-bottom: 2rem;
   margin-top: 2rem;
   .closeBtn {
-    width:2.5rem;
     cursor: pointer;
+    display: flex;
+    align-items: center;
     img {
-      width: 100%;
+      width: 35px;
+    }
+    .Meun {
+      color: #fff;
+      font-size: 20px;
+      margin-left: 10px;
     }
   }
   .functionBtn {
     span{
-      width: 2.5rem;
+      width: 35px;
       display: inline-block;
       margin-left: 1rem;
       cursor: pointer;

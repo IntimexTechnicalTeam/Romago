@@ -310,6 +310,7 @@ export default class InsMenuLayout extends Vue {
           padding-top: 1rem;
           padding-bottom: 1rem;
           text-transform: uppercase;
+          font-family: 'PoppinsBold', 'Microsoft YaHei';
         }
       }
     }

@@ -1,68 +1,93 @@
 <template>
-  <div class="handle-one search-input-box">
-    <a href="javascript:;" class="handle-icon search-icon" @click="show = !show"></a>
-    <transition name="slide-fade">
-      <!-- <form name="search-form" method="post" action="/product/search"></form> -->
-      <input v-model="searchKey" v-if="show" @keyup.enter="search()" />
-    </transition>
+  <div class="Search">
+      <p class="back" @click="backMeun()"><i class="el-icon-close"></i></p>
+      <div class="search-box">
+        <input type="text" v-model="key" class="inputBox" />
+        <span class="searchBtn" @click="searchFun(key)"></span>
+      </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import Cookie from 'js-cookie';
 @Component
 export default class InsSearch extends Vue {
-  private searchKey: string = '';
-  show:boolean = false;
-
-  search () {
-    this.show = false;
-    this.$router.push({ path: `/product/search/${this.searchKey}` });
-    this.searchKey = '';
+  private key: string = '';
+  backMeun () {
+    this.$store.dispatch('isShowSearch', false);
+    this.$store.dispatch('isShowMenu', false);
+  }
+  searchFun (key) {
+    this.$store.dispatch('setSearchKey', key);
+    if (key !== '') {
+      this.$router.push({
+        path: '/product/search',
+        name: 'productSearch',
+        params: {
+          key: key
+        }
+      });
+    } else {
+      this.$router.push({
+        path: '/product/search/-'
+      });
+    }
   }
 }
 </script>
 <style scoped lang="less">
-/*头部购物车弹框 css*/
-.header_log .handle-icon {
-  width: 30px;
-  display: block;
-  height: 35px;
-  color: #cccccc;
-  line-height: 35px;
-  font-size: 17px;
-  -webkit-transition-duration: 0.1s;
-  transition-duration: 0.1s;
-  -webkit-transition-property: transform;
-  transition-property: transform;
-  -webkit-transition-timing-function: ease-out;
-  transition-timing-function: ease-out;
-}
-.search-icon {
-  background: url(../../../../assets/Images/forweb/searchbtn.png) no-repeat center
-    center;
-  background-size: 70%;
-}
-
-.search-input-box input {
-    height: 30px;
-    padding: 0 10px;
-    font-size: 16px;
-    position: absolute;
-    top: 110%;
-    right: 0;
-    z-index: 3;
-}
-
-.slide-fade-enter-active {
-  transition: all .3s ease;
-}
-.slide-fade-leave-active {
-  transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-}
-.slide-fade-enter, .slide-fade-leave-to
-/* .slide-fade-leave-active for below version 2.1.8 */ {
-  transform: translateX(10px);
-  opacity: 0;
+.Search {
+  width: 1200px;
+  margin: 0 auto;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  .back {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    color: #fff;
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+    justify-content: flex-end;
+    i {
+      font-size: 1.6rem;
+      color: #fff;
+      cursor: pointer;
+    }
+  }
+    .search-box {
+      width: 90%;
+      margin: 0 auto;
+      height: 40px;
+      z-index: 999;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #fff;
+      .searchBtn{
+            width: 40px;
+            height: 40px;
+            display: inline-block;
+            background: url('/images/mobile/mpic_08.png') no-repeat center center;
+            background-size: 30px;
+            cursor: pointer;
+        }
+      .inputBox {
+          width: calc(100% - 50px);
+          float: left;
+          border:none;
+          line-height: 38px;
+          text-indent: 10px;
+          height: 38px;
+          outline: 0;
+          background: transparent;
+          color: #fff;
+          &::placeholder {
+            color: #fff;
+          }
+      }
+    }
 }
 </style>

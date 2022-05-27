@@ -1,10 +1,10 @@
 <template>
-    <div class="langSwitch">
-        <p class="back" @click="backMeun()"><i class="el-icon-arrow-left"></i></p>
-        <p @click="changeLang('E')" :class="{'active': $Storage.get('locale') === 'E'}">International | EN</p>
-        <p @click="changeLang('S')" :class="{'active': $Storage.get('locale') === 'S'}">中国 | SC</p>
-        <p @click="changeLang('C')" :class="{'active': $Storage.get('locale') === 'C'}">香港 | TC</p>
-    </div>
+  <div class="langSwitch">
+      <p class="back" @click="backMeun()"><i class="el-icon-arrow-left"></i></p>
+      <p @click="changeLang('E')" :class="{'active': $Storage.get('locale') === 'E'}">International | EN</p>
+      <p @click="changeLang('S')" :class="{'active': $Storage.get('locale') === 'S'}">中国 | SC</p>
+      <p @click="changeLang('C')" :class="{'active': $Storage.get('locale') === 'C'}">香港 | TC</p>
+  </div>
 </template>
 
 <script lang="ts">
@@ -44,8 +44,13 @@ export default class InsLangSwitch extends Vue {
     display: flex;
     flex-wrap: wrap;
     color: #fff;
-    font-size: 1.4rem;
+    font-size: 20px;
     margin-bottom: 2rem;
+    cursor: pointer;
+    transition: all .3s;
+      &:hover {
+        color: #c6b17b!important;
+      }
   }
   .back {
     i {

@@ -229,6 +229,11 @@ export default class InsShoppingCart extends Vue {
   background-size: contain;
   position: relative;
   cursor: pointer;
+  transition: all .3s;
+    &:hover {
+      background: url('/images/mobile/mpic_07_hover.png') no-repeat center center;
+      background-size: contain;
+    }
   b {
     position: absolute;
     right: -6px;

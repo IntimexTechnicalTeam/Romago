@@ -72,11 +72,4 @@ export default class App extends Vue {
 .el-message {
   top: 5rem !important;
 }
-
-// 修正手機版側欄菜單點擊兩次問題 (element ui)
-.el-scrollbar{
-  >.el-scrollbar__bar{
-    opacity: 1!important;
-  }
-}
 </style>

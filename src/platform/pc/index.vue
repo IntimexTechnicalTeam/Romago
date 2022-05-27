@@ -5,7 +5,7 @@
     <Footer v-show="routerPath!=='/building'"/>
     <ins-sidebar />
     <ins-slide-search :direction="'right'"></ins-slide-search>
-    <ins-slide-code-select :direction="'right'"></ins-slide-code-select>
+    <ins-slide-code-select :direction="'right'" class="sliderCode"></ins-slide-code-select>
     <ins-slide-lang :direction="'right'"></ins-slide-lang>
     <ins-slide-menu :direction="'left'">
       <ins-menu-layout />
@@ -33,6 +33,10 @@ export default class pcIndex extends Vue {
   }
 }
 </script>
-
 <style lang="less" scoped>
+.sliderCode {
+  /deep/ .el-scrollbar > .el-scrollbar__bar {
+        opacity: 0!important;
+  }
+}
 </style>

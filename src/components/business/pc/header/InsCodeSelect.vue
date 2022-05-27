@@ -55,8 +55,13 @@ export default class InsCodeSelect extends Vue {
     display: flex;
     flex-wrap: wrap;
     color: #fff;
-    font-size: 1.4rem;
+    font-size: 20px;
     margin-bottom: 2rem;
+    cursor: pointer;
+    transition: all .3s;
+      &:hover {
+        color: #c6b17b!important;
+      }
   }
   .back {
     i {

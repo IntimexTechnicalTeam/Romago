@@ -345,6 +345,11 @@ export default class InsLogin extends Vue {
 .member-icon {
     background: url('/images/mobile/mpic_01.png') no-repeat center center;
     background-size: contain;
+    transition: all .3s;
+    &:hover {
+      background: url('/images/mobile/mpic_01_hover.png') no-repeat center center;
+      background-size: contain;
+    }
 }
 
 #topLoginMessage {
