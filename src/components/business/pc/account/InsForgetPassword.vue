@@ -1,6 +1,6 @@
 <template>
-  <div id="container">
-    <div class="DetailTitle"><img :src="ImgList" v-show="ImgList!==null"><div class="TitleBg"><div class="innerBoxText">{{$t('Forgetpassword.ForgetPassword')}}</div></div></div>
+  <div id="memberConterContainer">
+    <p class="pageTitle">{{$t('Forgetpassword.ForgetPassword')}}</p>
     <div class="maincontent forgetMain">
     <div class="ForgetPassMain">
       <div style="margin-top: 15px;" v-if="ResetPwd">
@@ -110,41 +110,12 @@ export default class InsForgetPassword extends Vue {
 }
 </script>
 <style lang="less" scoped>
-.DetailTitle{
-  width: 100%;
-  display: flex;
-  flex-wrap:wrap;
-  position: relative;
-  align-items: center;
-  justify-content: center;
-  img{
-    width: 100%;
-  }
-  .TitleBg{
-    width: 500px;
-    border: 1px solid #ffffff;
-    height: 70px;
-    line-height: 70px;
-    margin: 0 auto;
-    padding: 10px;
-    margin-bottom: 20px;
-    top: 50%;
-    position: absolute;
-    transform: translateY(-50%);
-    .innerBoxText{
-      background:#ffffff;
-      color: #333333;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 40px;
-      font-weight: 700;
-      font-family: 'Arial';
-    }
-  }
+#memberConterContainer {
+  padding-top: 130px;
+  padding-bottom: 50px;
+  min-height: 500px;
 }
 .forgetMain{
-  background: #FFF;
   margin-top: 20px;
   padding-top: 20px;
   padding-bottom: 60px;
@@ -161,7 +132,7 @@ export default class InsForgetPassword extends Vue {
   }
 }
 .ForgetPassMain {
-  width: 95%;
+  width: 100%;
   margin: 0 auto;
 }
 .ResetPwdTips {
@@ -169,6 +140,7 @@ export default class InsForgetPassword extends Vue {
     text-align: left;
     font-size: 16px;
     margin-bottom: 10px;
+    color: #fff;
 }
 .EmailSuccess{
   text-align: center;

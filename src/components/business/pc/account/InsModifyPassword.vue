@@ -14,9 +14,6 @@
         <el-form-item>
           <el-button round type="primary" class="submit-btn" @click="submitForm('pwdForm')">{{$t('DeliveryAddress.SaveBtn')}}</el-button>
         </el-form-item>
-        <el-form-item>
-          <el-button round class="reset-btn" @click="resetForm('pwdForm')">{{$t('DeliveryAddress.ResetBtn')}}</el-button>
-        </el-form-item>
       </el-form>
     </div>
    </div>
@@ -111,56 +108,63 @@ export default class InsModifyPassword extends Vue {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .ModifyPassword {
   .mid-box {
-    padding: 50px;
-
+    width: 720px;
+    margin: 0 auto;
+    padding-top: 50px;
+    padding-bottom: 50px;
     /deep/ .el-form {
-      width: 60%;
+      width: 100%;
       margin: 0 auto;
-
+      .el-form-item__label {
+        width: 100%;
+        text-align: left;
+        font-size: 18px;
+        color:#cccccc;
+      }
+      .el-input__inner{
+        border-radius: 0px;
+      }
+      .el-radio__label {
+        font-size: 18px;
+        color:#cccccc;
+      }
+      .el-form-item__content {
+        width: 100%;
+      }
       .el-radio__input {
         .el-radio__inner {
           outline: none;
           box-shadow: none;
 
           &:hover {
-            border-color: #333333;
+            border-color: #c6b17b;
           }
         }
 
         &.is-checked .el-radio__inner {
-          border-color: #333333;
-          background: #333333;
+          border-color: #c6b17b;
+          background: #c6b17b;
         }
 
         &.is-checked+.el-radio__label {
-          color: #333333;
+          color: #c6b17b;
         }
       }
 
       .submit-btn {
         display: block;
         width: 100%;
-        background: #333;
+        background: #c6b17b;
         border: none;
+        font-size: 20px;
         margin-top: 20px;
-
-        > span {
-          font-size: 20px;
-        }
-      }
-
-      .reset-btn {
-        display: block;
-        width: 100%;
-        color: #333;
-        background: #fff;
-        border: 1px solid #333;
-
-        > span {
-          font-size: 20px;
+        transition: all .3s;
+        border-radius: 0px;
+        &:hover {
+          background: #333;
         }
       }
     }

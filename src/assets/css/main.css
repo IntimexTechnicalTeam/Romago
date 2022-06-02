@@ -54,7 +54,7 @@ input,textarea,select {
 }
 .pageTitle{
   font-size: 30px;
-  width: 1200px;
+  width: 1185px;
   margin: 0 auto;
   margin-top: 20px;
   line-height: 1.8rem;
@@ -75,6 +75,22 @@ input,textarea,select {
   color: #fff;
   text-transform: uppercase;
   font-family: 'PoppinsBold', 'Microsoft YaHei';
+}
+#memberConterContainer {
+  width: 100%;
+  display: flex;
+  background:url('/images/pc/Personal-Center.jpg') no-repeat center center;
+  background-size: cover;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+#RomagoBg {
+  width: 100%;
+  display: flex;
+  background:url('/images/pc/Product-list.jpg') no-repeat center center;
+  background-size: cover;
+  flex-wrap: wrap;
+  flex-direction: column;
 }
 .clear {
   clear: both;

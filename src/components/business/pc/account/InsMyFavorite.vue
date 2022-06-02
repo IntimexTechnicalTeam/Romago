@@ -1,5 +1,5 @@
 <template>
-  <div id="container" style="padding-bottom:50px;">
+  <div id="memberConterContainer" style="padding-bottom:50px;">
     <accountHeader/>
     <!--main-content-->
     <div class="maincontent">

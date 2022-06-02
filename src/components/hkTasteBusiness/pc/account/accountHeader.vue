@@ -2,33 +2,38 @@
   <div class="accountHeader">
     <div class="memberBg">
       <div class="innerBox">
-        <p class="memberCenterTitle">{{ $t("Account.MemberCenter") }}</p>
+        <p class="pageTitle">{{ $t("Account.MemberCenter") }}</p>
         <div class="leftside">
-          <p>{{ MemberName }}</p>
+          <p class="MemberName">{{ MemberName }}</p>
           <div class="leftnav">
             <router-link to="/account/memberInfo" class="iconBg">
               <div class="innerStyle">
                 <span>{{ $t("Account.MemberInformation") }}</span>
+                <i class="icon el-icon-arrow-right"></i>
               </div>
             </router-link>
             <router-link to="/order/List" class="iconBg">
               <div class="innerStyle">
                 <span>{{ $t("Account.MyOrder") }}</span>
+                <i class="icon el-icon-arrow-right"></i>
               </div>
             </router-link>
             <router-link to="/account/notification" class="iconBg">
               <div class="innerStyle">
                 <span>{{ $t("Account.MyMessages") }}</span>
+                <i class="icon el-icon-arrow-right"></i>
               </div>
             </router-link>
             <router-link to="/account/myFavorite" class="iconBg">
               <div class="innerStyle">
                 <span>{{ $t("Account.MyFavorite") }}</span>
+                <i class="icon el-icon-arrow-right"></i>
               </div>
             </router-link>
             <router-link to="/account/myCoupon" class="iconBg">
               <div class="innerStyle">
                 <span>{{ $t("MyCoupon.MyCoupon") }}</span>
+                <i class="icon el-icon-arrow-right"></i>
               </div>
             </router-link>
           </div>
@@ -53,21 +58,11 @@ export default class accountHeader extends Vue {
       _this.MemberName = data.FirstName + '  ' + data.LastName;
     });
   }
-
-  // 获取会员总积分
-  getMemberTotal() {
-    this.$Api.points.getMemberTotalPoints().then((result) => {
-      this.TotalPoints = result.TotalPoints;
-    });
-  }
-
   get currentlang() {
     return this.$i18n.locale;
   }
-
   mounted() {
     this.getMemberInfo();
-    this.getMemberTotal();
   }
 }
 </script>
@@ -77,13 +72,13 @@ export default class accountHeader extends Vue {
   width: 100%;
   display: flex;
   .memberBg {
-    background: url("/images/pc/pcindex_05.jpg") no-repeat center center;
+    background: url("/images/pc/pcindex_07.jpg") no-repeat center center;
     background-size: 100% 100%;
     box-sizing: border-box;
     display: inline-block;
     width: 100%;
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding-top: 130px;
+    padding-bottom: 50px;
     .innerBox {
       width: 1200px;
       margin: 0 auto;
@@ -95,6 +90,12 @@ export default class accountHeader extends Vue {
         color: #fff;
         text-transform: uppercase;
       }
+      .leftnav {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
       .leftside {
         width: 100%;
         padding-top: 30px;
@@ -105,7 +106,7 @@ export default class accountHeader extends Vue {
         }
         a {
           display: inline-block;
-          margin-right: 15px;
+          width: 18%;
           &:last-child {
             margin-right: 0px !important;
           }
@@ -116,70 +117,63 @@ export default class accountHeader extends Vue {
       }
 
       .iconBg {
-        border: 1px solid #fff;
         background-size: contain;
         float: left;
-        width: 180px;
-        height: 111px;
         text-align: center;
-        padding: 10px;
         .innerStyle {
-          background: #fff;
           display: block;
           width: 100%;
           height: 100%;
           display: flex;
           align-items: center;
-          justify-content: center;
+          justify-content: space-between;
+          overflow: hidden;
+          border: 1px solid #fff;
         }
         &:hover {
           transform: translateY(-3px);
         }
         span {
-          width: 100%;
           display: inline-block;
-
-          color: #191919;
-          font-size: 20px;
+          color: #b2b2b2;
+          font-size: 16px;
           font-weight: 500;
-          text-transform: uppercase;
           padding: 10px;
+          font-family: 'PoppinsBold', 'Microsoft YaHei';
+        }
+        i{
+          color: #b2b2b2;
         }
         strong {
-          width: 100%;
           display: inline-block;
-          color: #262626;
+          color: #b2b2b2;
           font-size: 24px;
           font-weight: 600;
         }
         b {
           width: 100%;
           display: inline-block;
-          color: #262626;
+          color: #b2b2b2;
           font-size: 14px;
           font-weight: 600;
         }
       }
 
       .router-link-active {
-        border: 1px solid #fff;
-        background-size: contain;
-        float: left;
-        width: 200px !important;
-        height: 120px !important;
-        text-align: center;
-        padding: 10px;
         .innerStyle {
-          background: #fff;
+          background: #c6b17b;
           display: block;
           width: 100%;
           height: 100%;
           display: flex;
-          align-items: center;
-          justify-content: center;
+          border: 1px solid #c6b17b!important;
         }
         span {
           font-weight: 600 !important;
+          color: #fff;
+        }
+        i{
+          color: #fff;
         }
       }
     }

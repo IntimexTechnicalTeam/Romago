@@ -8,11 +8,11 @@
           <transition name="fade">
           <ul :class="{'open': isOpen}">
             <li>
-                <input type="checkbox" :id="searchGroup.Name+'-All'" v-model="isAll" @click="checkAll($event,searchGroup)">
+                <input type="checkbox" :id="searchGroup.Name+'-All'" v-model="isAll" @click="checkAll($event,searchGroup)"  style="display:none;">
                 <label :for="searchGroup.Name+'-All'" >{{$t('Message.All')}}</label>
             </li>
             <li v-for="(child, index2) in (searchType === 1 ? searchGroup.AttrValues : searchType === 2 ? searchGroup.Children : [])" :key="index2">
-                <input type="checkbox" :id="child.Name+index2" :value="child.Id" v-model="checkedValue" @click="selectAttr(searchGroup)">
+                <input type="checkbox" :id="child.Name+index2" :value="child.Id" v-model="checkedValue" @click="selectAttr(searchGroup)"  style="display:none;">
                 <label :for="child.Name+index2">{{child.Name}}</label>
             </li>
             <!-- <i class="el-icon-plus" @click="isOpen = !isOpen" v-if="!isOpen"></i>
@@ -103,23 +103,39 @@ export default class InsAdvancedSearch extends Vue {
 </script>
 <style scoped lang="less">
 .ReSearchItem {
-
+      .colorstyle {
+        color: @base_color;
+      }
+      .viewall {
+        border: 1px solid @base_color;
+        border-radius: 2rem;
+        margin-top: 1rem;
+        label {
+          color: @base_color!important;
+        }
+      }
       p.category {
         width: 100%;
-        font-size:1.6rem;
-        color: #333333;
-        background-color: #FFF;
+        font-size: 20px;
+        color: #fff;
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
-        justify-self: start;;
+        justify-self: start;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
         align-items: center;
+        -ms-flex-negative: 0;
         flex-shrink: 0;
-        padding-top: 2rem;
-        padding-bottom: 2rem;
         position: relative;
+        height: 3.5rem;
+        line-height: 3.5rem;
+        border-radius: 2rem;
+        font-family: 'PoppinsBold', 'Microsoft YaHei';
         i{
           position: absolute;
           right: 0px;
-          top: 2rem;
+          top: 20px;
           font-size: 1.6rem;
         }
     }
@@ -131,10 +147,9 @@ export default class InsAdvancedSearch extends Vue {
             display: flex;
             align-items: center;
             justify-content: flex-start;
-            padding-right: 1rem;
             input[type="checkbox"] {
-                width: 2rem;
-                height: 2rem;
+                width: 18px;
+                height: 18px;
                 background-color: #fff;
                 -webkit-appearance:none;
                 border: 1px solid #cccccc;
@@ -149,15 +164,21 @@ export default class InsAdvancedSearch extends Vue {
                 background-size: auto;
 
                 &+label {
-                    color: #000;
+                    color: #c6b17b;
+                    text-decoration: underline;
                 }
             }
 
             label {
             font-size: 18px;
-            color: #666666;
+            color: #cccccc;
             width: 90%;
-            margin-left: 5px;
+            margin: 0 auto;
+              &:hover {
+                  color: #c6b17b;
+                  text-decoration: underline;
+                  cursor: pointer;
+              }
             }
         }
 

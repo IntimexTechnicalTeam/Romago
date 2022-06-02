@@ -1,10 +1,10 @@
 <template>
-  <div id="container" v-cloak>
+  <div id="RomagoBg" v-cloak>
     <!--main-content-->
     <div id="main-content">
       <div class="favorite-box order-box">
         <div class="favorite-box-top">
-          <div class="login-register-title">{{$t('Shoppingcart.ShoppingcartTitle')}}</div>
+          <p class="pageTitle">{{$t('Shoppingcart.ShoppingcartTitle')}}</p>
           <div class="clear"></div>
         </div>
         <div class="favorite-box-content">
@@ -17,24 +17,26 @@
               <div class="clear"></div>
             </div>
             <div class="favorite-one merchant-one" v-for="(one,index) in items" :key="index">
-              <a class="product-img" v-bind:href="'/product/Detail/'+one.Product.Sku">
-                <img v-bind:src="one.Product.Img_M" alt />
-              </a>
-              <div class="favorite-one-messge">
-                <p class="product-title">{{one.Product.Name}}</p>
-                <p class="product-code">{{one.Product.Code}}</p>
-                <p class="product-code">
-                  <span v-if="one.AttrName1">{{one.AttrTypeName1}}：{{one.AttrName1}}</span>&nbsp;
-                  <span v-if="one.AttrName2">{{one.AttrTypeName2}}：{{one.AttrName2}}</span>&nbsp;
-                  <span v-if="one.AttrName3">{{one.AttrTypeName3}}：{{one.AttrName3}}</span>&nbsp;
-                </p>
-                <p class="product-price">
-                  <span
-                    class="p-price-discount"
-                  >{{Currency.Code}} {{(one.Product.SalePrice) | PriceFormat}}</span>
-                </p>
+              <div class="w50">
+                  <a class="product-img" v-bind:href="'/product/Detail/'+one.Product.Sku">
+                  <img v-bind:src="one.Product.Img_M" alt />
+                </a>
+                <div class="favorite-one-messge">
+                  <p class="product-title">{{one.Product.Name}}</p>
+                  <!-- <p class="product-code">{{one.Product.Code}}</p> -->
+                  <p class="product-code">
+                    <span v-if="one.AttrName1">{{one.AttrTypeName1}}：{{one.AttrName1}}</span>&nbsp;
+                    <span v-if="one.AttrName2">{{one.AttrTypeName2}}：{{one.AttrName2}}</span>&nbsp;
+                    <span v-if="one.AttrName3">{{one.AttrTypeName3}}：{{one.AttrName3}}</span>&nbsp;
+                  </p>
+                  <!-- <p class="product-price">
+                    <span
+                      class="p-price-discount"
+                    >{{Currency.Code}} {{(one.Product.SalePrice) | PriceFormat}}</span>
+                  </p> -->
+                </div>
               </div>
-              <div class="merchant-one-calc">
+              <div class="w20">
                 <div class="common-num">
                   <a
                     class="reduce-num"
@@ -55,19 +57,21 @@
                   <div class="clear"></div>
                 </div>
               </div>
-              <div class="merchant-total-price">
-                <p>{{Currency.Code}} {{(one.Product.SalePrice * one.Qty) | PriceFormat}}</p>
+              <div class="w20">
+                <div class="merchant-total-price">
+                  <p>{{Currency.Code}} {{(one.Product.SalePrice) | PriceFormat}}</p>
+                  <!-- <p>{{Currency.Code}} {{(one.Product.SalePrice * one.Qty) | PriceFormat}}</p> -->
+                </div>
               </div>
-              <div class="merchant-del-box">
-                <b class="cart-delete" v-on:click="removeItem(index)">X</b>
+              <div class="w10">
+                <b class="cart-delete " v-on:click="removeItem(index)"><i class="el-icon-close"></i></b>
               </div>
-              <div class="clear"></div>
             </div>
           </div>
         </div>
         <div class="shoppingcart-handle">
           <p>
-            <span>{{$t('Shoppingcart.Total')}}</span>
+            <span>{{$t('Shoppingcart.Total')}}:</span>
             <span class="total-price">{{Currency.Code}} {{(totalAmount) | PriceFormat}}</span>
           </p>
           <a href="javascript:;" class="btn" @click="submit">{{$t('Shoppingcart.CheckoutList')}}</a>
@@ -228,6 +232,35 @@ export default class InsShoppingcart extends Vue {
 }
 </script>
 <style scoped lang='less'>
+.TtitleBg {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 3rem;
+    margin-top: 1rem;
+    p {
+      font-size: 1.6rem;
+      color: #333333;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      &::after {
+        content: '';
+        width: 14rem;
+        display: inline-block;
+        background: url('/images/mobile/mindex_04.png') no-repeat center center;
+        height: 2rem;
+        background-size: 100%;
+        position: absolute;
+        top: 1.5rem;
+      }
+    }
+  }
 /*我的最爱*/
   .disabled {
       pointer-events: none;
@@ -238,6 +271,7 @@ export default class InsShoppingcart extends Vue {
 #main-content {
   width: 1200px;
   margin: 0 auto;
+  padding-top: 130px;
 }
 /*购物流程*/
 .favorite-box{
@@ -247,12 +281,6 @@ export default class InsShoppingcart extends Vue {
 .favorite-box-content {
   margin-top: 20px;
 }
-.favorite-one .product-img {
-  float: left;
-  width: 10%;
-  height: auto;
-  border: 1px solid #e6e6e6;
-}
 .num-content .input-text {
   display: inline-block;
   width: 38px;
@@ -260,14 +288,21 @@ export default class InsShoppingcart extends Vue {
   line-height: 30px;
   text-align: center;
   border: none;
-  color: #999999;
+  color: #fff;
   outline: none;
-  border-left: 1px solid #e0e0e0;
-  border-right: 1px solid #e0e0e0;
+  background: transparent;
 }
 .favorite-one-messge .product-title {
-  color: #333;
+  color: #fff;
   font-size: 18px;
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  font-family: 'PoppinsBold', 'Microsoft YaHei';
 }
 .favorite-one-messge .product-code {
   color: #b2b2b2;
@@ -286,11 +321,6 @@ export default class InsShoppingcart extends Vue {
   color: #d92526;
   font-size: 16px;
 }
-.shoppingcart-one-title .order-product-name {
-  width: 48.7%!important;
-  margin-left: 1.6%;
-  text-indent: 0px!important;
-}
 .shoppingcart-one-title span {
   font-size: 16px;
 }
@@ -302,110 +332,38 @@ export default class InsShoppingcart extends Vue {
 }
 .num-content {
   float: left;
-}
-.favorite-one .product-img img {
-  width: 100%;
-}
-.merchant-one .favorite-one-messge {
-  width: 38.7%;
-}
-.favorite-one-messge {
-  float: left;
-  margin-left: 1.7%;
-  width: 51.7%;
-  text-align: left;
+  height: 30px;
 }
 .shoppingcart-one {
   margin-bottom: 60px;
 }
 
-.shoppingcart-one-title {
-  border-bottom: 1px solid #1b1b1b;
-  padding: 0 0 0 20px;
-}
-
 .shoppingcart-one-title span {
   font-size: 16px;
 }
-
-.shoppingcart-one-title .order-merchant {
-  width: 10%;
-  color: #1b1b1b;
-  font-size: 18px;
-}
-
-.shoppingcart-one-title .order-product-name {
-  width: 38%;
-  margin-left: 1.6%;
-  text-indent: 130px;
-}
-
-.shoppingcart-one-title .order-quantity {
-  width: 11%;
-  margin-left: 4.2%;
-  text-align: center;
-}
-
-.shoppingcart-one-title .order-price {
-  margin-left: 5.9%;
-  width: 15.2%;
-  text-align: center;
-}
-
-.merchant-one {
-  border-top: 0;
-  border-bottom: 1px solid #e6e6e6;
-  cursor: pointer;
-}
-
-.merchant-one:hover {
-  border-bottom: 1px solid #e6e6e6;
-  background: #efefef;
-}
-
-.merchant-one .favorite-one-messge {
-  width: 38.7%;
-}
-
-.merchant-one-calc {
-  width: 11.2%;
-  margin-left: 4.3%;
-  float: left;
-  text-align: center;
-}
-
-.merchant-one-calc .common-num {
-  display: inline-block;
-  border: 1px solid #e0e0e0;
-  border-radius: 3px;
-}
-
-.merchant-total-quantity {
-  float: left;
-  width: 15.5%;
-  margin-left: 70px;
-}
-
-.merchant-total-quantity p {
-  font-size: 20px;
-  color: #d92526;
-  text-align: center;
-}
-
-.merchant-total-price {
-  float: left;
-  width: 180px;
-  margin-left: 6%;
-}
-
-.merchant-total-price p {
+.shoppingcart-one-title {
   width: 100%;
-  text-align: center;
-  font-size: 20px;
-  color: #d92526;
-  line-height: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #eaeaea;
+  span {
+    color: #999;
+    font-size: 18px;
+  }
+  .order-product-name {
+    width: 50%;
+  }
+  .order-quantity {
+    width: 20%;
+  }
+  .order-price {
+    width: 20%;
+  }
 }
-
 .merchant-del-box {
   float: right;
 }
@@ -416,28 +374,33 @@ export default class InsShoppingcart extends Vue {
 
 .shoppingcart-handle span {
   display: inline-block;
-  font-size: 20px;
-  color: #333;
+  font-size: 24px;
+  color: #999999;
   line-height: 25px;
+  margin-right: 5px;
 }
 
 .shoppingcart-handle .total-price {
-  width: 230px;
   font-size: 24px;
-  color: #d92526;
+  color: #c6b17b;
+  font-family: 'PoppinsBold', 'Microsoft YaHei';
 }
 
 .shoppingcart-handle .btn {
-  display: inline-block;
-  width: 340px;
-  height: 45px;
-  line-height: 45px;
-  color: #fff;
-  font-size: 26px;
-  text-align: center;
-  margin-top: 50px;
-  background-color: @primary_color;
-  border-radius: 5px;
+    display: inline-block;
+    width: 250px;
+    height: 45px;
+    line-height: 45px;
+    color: #fff;
+    font-size: 26px;
+    text-align: center;
+    margin-top: 50px;
+    background-color: #c6b17b;
+    transition: all .3s;
+    font-family: 'PoppinsBold', 'Microsoft YaHei';
+    &:hover {
+      background: #333;
+    }
 }
 .common-num a {
   float: left;
@@ -445,26 +408,28 @@ export default class InsShoppingcart extends Vue {
   height: 30px;
   line-height: 30px;
   text-align: center;
-  font-size: 20px;
-  color: #999999;
-}
-.cart-delete:hover {
-  background-color: #fa4343;
+  font-size: 24px;
+  color: #333333;
+  background: #fff;
+  font-family: 'PoppinsBold', 'Microsoft YaHei';
 }
 .cart-delete {
-  display: inline-block;
   width: 20px;
   height: 20px;
-  line-height: 20px;
   text-align: center;
-  background-color: #d9d9d9;
   color: #fff;
-  border-radius: 50%;
-  font-size: 12px;
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  i {
+    border-radius: 100%;
+    padding: 5px;
+    font-size: 24px;
+    &:hover {
+      background: #c6b17b;
+    }
+  }
 }
 .favorite-box .login-register-title {
   margin-left: 0;
@@ -489,12 +454,40 @@ export default class InsShoppingcart extends Vue {
   border-bottom: 1px solid #e6e6e6;
 }
 .favorite-one {
-  box-sizing: border-box;
-  padding: 30px 20px;
-  border-top: 1px solid #e6e6e6;
-  transition: 0.5s ease;
-  -webkit-transition: 0.5s ease;
-  -moz-transition: 0.5s ease;
-  -ms-transition: 0.5s ease;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  .product-img {
+    width: 20%;
+    img {
+      width: 100%;
+    }
+  }
+  .common-num {
+    display: inline-block;
+    border: 1px solid #e0e0e0;
+  }
+  .favorite-one-messge{
+    width: 75%;
+    margin-left: 5%;
+  }
+  .merchant-total-price {
+    p{
+      color: #c6b17b;
+      font-size: 20px;
+      font-family: 'PoppinsBold', 'Microsoft YaHei';
+    }
+  }
+  .w50 {
+    width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .w20 {
+    width: 20%;
+  }
 }
 </style>

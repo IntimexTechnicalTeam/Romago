@@ -1,5 +1,5 @@
 <template>
-  <div id="container">
+  <div id="memberConterContainer">
     <accountHeader/>
       <div class="maincontent">
       <p class="pageTitle">{{$t('Order.OrderTitle')}}</p>
@@ -168,8 +168,11 @@ export default class InsOrderList extends Vue {
 .OrderMain {
   width: 1200px;
   margin: 0 auto;
-  margin-top: 50px;
+  margin-top: 20px;
   position: relative;
+  background: #fff;
+  padding-bottom: 10px;
+  margin-bottom: 50px;
 }
 .OrderCard {
   padding-bottom: 10px;

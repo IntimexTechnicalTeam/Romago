@@ -1,66 +1,76 @@
 <template>
-  <div class="insLogin_warrper">
-      <div style="min-height:131px;" v-if="!isIe && $Settings.siteVersion !== 1">
-        <div class="insLogin_title">
-          <div class="facebook_login" @click="fbLogin">
-            <img src="/static/facebook.png" />
-            <span>{{$t('Login.FaceBookUse')}}</span>
+<div class="loginbg">
+   <div class="insLogin_warrper">
+        <div style="min-height:131px;" v-if="!isIe && $Settings.siteVersion !== 1">
+          <div class="insLogin_title">
+            <div class="facebook_login" @click="fbLogin">
+              <img src="/static/facebook.png" />
+              <span>{{$t('Login.FaceBookUse')}}</span>
+            </div>
+          </div>
+          <div class="insLogin_divide">
+              <div class="divide"></div>
+              <div class="divide_or">{{$t('Register.or')}}</div>
+              <div class="divide"></div>
           </div>
         </div>
-        <div class="insLogin_divide">
-            <div class="divide"></div>
-            <div class="divide_or">{{$t('Register.or')}}</div>
-            <div class="divide"></div>
-        </div>
-      </div>
-      <div class="insLogin_main">
-          <div class="login">
-              <div>
-                <div class="login_title">{{$t('Login.doLogin')}}</div>
-                <InsForm ref="loginForm" v-model="loginForm">
-                    <InsInput2 :placeholder="$t('Register.UserEmail')" width="100%" v-model="loginForm.email" />
-                    <InsInput2 :placeholder="$t('Register.UserRegPassword')" width="100%" v-model="loginForm.password" type="logopassword" />
-                    <div class="remember_warpper">
+        <div class="insLogin_main">
+            <div class="login">
+                <div>
+                  <div class="login_title">{{$t('Login.doLogin')}}</div>
+                  <InsForm ref="loginForm" v-model="loginForm">
+                      <InsInput2 :placeholder="$t('Register.UserEmail')" width="100%" v-model="loginForm.email" />
+                      <InsInput2 :placeholder="$t('Register.UserRegPassword')" width="100%" v-model="loginForm.password" type="logopassword" />
+                      <div class="remember_warpper">
+                          <div class="remember">
+                              <input
+                                  type="checkbox"
+                                  class="remember-btn"
+                                  name="remember-btn"
+                                  id="remember-btn"
+                                  value
+                              />
+                              <label for="remember-btn">{{$t('Login.RememberMe')}}</label>
+                          </div>
+                          <a class="forget" href="/account/forgetPassword">{{$t('Login.ForgetPwd')}}</a>
+                      </div>
+                  </InsForm>
+                </div>
+                <InsButton :nama="$t('Login.doLogin')" @click="login"  style="margin-top: 2rem;"/>
+            </div>
+            <div class="register">
+                <div>
+                  <div class="register_title">{{$t('Register.RegisterBtn')}}</div>
+                  <InsForm ref="registerForm" v-model="registerForm">
+                  <div class="register_half">
+                      <InsInput2 :placeholder="$t('Register.UserFirstName')" width="48%" v-model="registerForm.firstName" />
+                      <InsInput2 :placeholder="$t('Register.UserLastName')" width="48%" v-model="registerForm.lastName"/>
+                      <InsInput2 :placeholder="$t('Register.UserRegPassword')" width="100%" v-model="registerForm.password" type="password"/>
+                      <InsInput2 :placeholder="$t('Register.UserConfirmPassword')" width="100%" v-model="registerForm.confirmPassword" type="confirmpassword" :rule="registerForm.password" />
+                  </div>
+                  <div class="register_half">
+                      <InsInput2 :placeholder="$t('DeliveryAddress.Mobile')" width="100%" :must="false"  v-model="registerForm.Mobile"  type="phone"/>
+                  </div>
+                  <InsInput2 :placeholder="$t('Register.UserEmail')" v-model="registerForm.email" width="100%" type="email" />
+                  </InsForm>
+                  <!-- <div></div> -->
+                <div class="remember_warpper">
                         <div class="remember">
-                            <input
-                                type="checkbox"
-                                class="remember-btn"
-                                name="remember-btn"
-                                id="remember-btn"
-                                value
-                            />
-                            <label for="remember-btn">{{$t('Login.RememberMe')}}</label>
+                              <input
+                                  type="checkbox"
+                                  class="remember-btn"
+                                  name="remember-btn"
+                                  id="regbtn"
+                                  value
+                              />
+                              <router-link to="/CMS/content/20298" target="_blank">{{$t('Register.RegisterAgree')}}</router-link>
+                          </div>
                         </div>
-                        <a class="forget" href="/account/forgetPassword">{{$t('Login.ForgetPwd')}}</a>
-                    </div>
-                </InsForm>
-              </div>
-              <InsButton :nama="$t('Login.doLogin')" @click="login"  style="margin-top: 12.5rem;"/>
-          </div>
-          <div class="register">
-              <div>
-                <div class="register_title">{{$t('Register.RegisterBtn')}}</div>
-                <InsForm ref="registerForm" v-model="registerForm">
-                <div class="register_half">
-                    <InsInput2 :placeholder="$t('Register.UserFirstName')" width="48%" v-model="registerForm.firstName" />
-                    <InsInput2 :placeholder="$t('Register.UserLastName')" width="48%" v-model="registerForm.lastName"/>
-                    <InsInput2 :placeholder="$t('Register.UserRegPassword')" width="100%" v-model="registerForm.password" type="password"/>
-                    <InsInput2 :placeholder="$t('Register.UserConfirmPassword')" width="100%" v-model="registerForm.confirmPassword" type="confirmpassword" :rule="registerForm.password" />
                 </div>
-                <div class="register_half">
-                     <InsInput2 :placeholder="$t('DeliveryAddress.Mobile')" width="100%" :must="false"  v-model="registerForm.Mobile"  type="phone"/>
-                </div>
-                <InsInput2 :placeholder="$t('Register.UserEmail')" v-model="registerForm.email" width="100%" type="email" />
-                </InsForm>
-                <!-- <div></div> -->
-                <el-checkbox-group v-model="terms" style="margin: 10px 0 0 0">
-                    <el-checkbox name="type"></el-checkbox><span><router-link to="/CMS/content/20298" target="_blank" style="font-size: 14px;padding-left: 14px;color: #666666;
-    text-decoration: none;">{{$t('Register.RegisterAgree')}}</router-link></span>
-                </el-checkbox-group>
-              </div>
-              <InsButton :nama="$t('Forgetpassword.NextStep')" @click="register" style="margin-top:.4rem;" />
-          </div>
-      </div>
+                <InsButton :nama="$t('Forgetpassword.NextStep')" @click="register" style="margin-top:.4rem;" />
+            </div>
+        </div>
+    </div>`
   </div>
 </template>
 
@@ -224,83 +234,220 @@ export default class InsLoginN extends Vue {
 }
 </style>
 <style lang="less" scoped>
-.insLogin_warrper{
-    width: 1200px;
-    margin: 100px auto;
-    .insLogin_title{
-        width: 1060px;
-        margin: 0 auto;
-        text-align: center;
-        border: solid 1px rgba(0, 0, 0, .2);
-        padding: 20px;
-        box-sizing: border-box;
-        .facebook_login{
-          display: inline-block;
-          background-color: #3975ea;
-          color: white;
-          padding: 8px 16px;
-          cursor: pointer;
-          border-radius: 8px;
-          font-weight: bold;
-          user-select: none;
-          span{
-            vertical-align: middle;
-          }
-          img{
-            height: 32px;
-            vertical-align: middle;
-            padding-right: 16px;
-          }
-        }
+/deep/ .input_outer {
+  .input_warpper .input_main input {
+    background: transparent!important;
+    border-bottom:1px solid #ccc!important;
+    color: #ccc;
+    padding-left: 0px;
+    &::placeholder {
+      color: #ccc!important;
     }
-    .insLogin_divide{
-        white-space: nowrap;
-        width: 1060px;
-        margin: 20px auto;
-        .divide{
-            display: inline-block;
-            width: 500px;
-            margin: 20px 0;
-            border-top: solid 1px rgba(0, 0, 0, .2);
-            vertical-align: bottom;
-        }
-        .divide_or{
-            vertical-align: bottom;
-            display: inline-block;
-            line-height: 41px;
-            margin: 0 20px;
-            font-size: 20px;
-        }
-    }
-    .insLogin_main{
-        width: 1060px;
-        box-sizing: border-box;
-        margin: 0 auto;
-        padding: 40px;
-        border: solid 1px rgba(0, 0, 0, .2);
-        display: flex;
-        .login{
-          float: left;
-          width: 47.5%;
-          margin-right: 2.5%;
-            .remember_warpper{
-                padding: 0 0 0 20px;
-                margin: 30px 0 0 0;
-                display: flex;
-                justify-content: space-between;
-            }
-        }
-        .register{
-            width: 47.5%;
-            float: left;
-            padding-left: 2.5%;
-            border-left: solid 1px rgba(0, 0, 0, .2);
-            .register_half{
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: space-between;
-            }
-        }
-    }
+  }
 }
+.loginbg {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 7rem;
+    padding-bottom: 5rem;
+    background:url('/images/pc/Register-Login.jpg') no-repeat center center;
+    background-size: cover;
+    .insLogin_warrper{
+      width: 1200px;
+      margin: 0px auto;
+      /deep/ .in_btn {
+        background: #c6b17b;
+        span {
+          font-size: 20px;
+          font-family: 'PoppinsBold', 'Microsoft YaHei';
+        }
+      }
+      .login_title{
+          color: #c6b17b;
+          font-size: 24px;
+          font-family: 'PoppinsBold', 'Microsoft YaHei';
+      }
+      .insLogin_title{
+          width: 1060px;
+          margin: 0 auto;
+          text-align: center;
+          border: solid 1px rgba(0, 0, 0, .2);
+          padding: 20px;
+          box-sizing: border-box;
+          .facebook_login{
+            display: inline-block;
+            background-color: #4267b2;
+            color: white;
+            padding: 8px 30px;
+            cursor: pointer;
+            font-weight: bold;
+            user-select: none;
+            span{
+              vertical-align: middle;
+            }
+            img{
+              height: 32px;
+              vertical-align: middle;
+              padding-right: 16px;
+            }
+          }
+      }
+      .insLogin_divide{
+          white-space: nowrap;
+          width: 1060px;
+          margin: 0px auto;
+          .divide{
+              display: inline-block;
+              width: 500px;
+              margin: 20px 0;
+              border-top: solid 1px #666666;
+              vertical-align: bottom;
+          }
+          .divide_or{
+              vertical-align: bottom;
+              display: inline-block;
+              line-height: 41px;
+              margin: 0 20px;
+              font-size: 20px;
+              color:#cccccc;
+          }
+      }
+      .insLogin_main{
+          width: 1060px;
+          box-sizing: border-box;
+          margin: 0 auto;
+          padding: 40px;
+          border: solid 1px rgba(0, 0, 0, .2);
+          display: flex;
+          .login{
+            float: left;
+            width: 47.5%;
+            margin-right: 2.5%;
+            .remember_warpper{
+                padding: 0 0 0 0px;
+                margin: 20px  0;
+                display: flex;
+                justify-content: space-between;
+                text-transform: uppercase;
+                a{
+                    color: #bfbfbf;
+                    text-decoration: none;
+                    font-size: 1rem;
+                    text-decoration: underline;
+                    text-transform: uppercase;
+                  }
+                .remember{
+                  display: flex;
+                  align-items: center;
+                  label {
+                    color: #bfbfbf;
+                    font-size: 1rem;
+                  }
+                 input[type=checkbox] {
+                      background: none;
+                      width: 15px;
+                      height: 15px;
+                      -moz-appearance: none;
+                      appearance: none;
+                      -webkit-appearance: none;
+                      -webkit-box-sizing: border-box;
+                      box-sizing: border-box;
+                      outline: none;
+                      vertical-align: sub;
+                      margin: 0;
+                      margin-right: .5rem;
+                      border: 1px solid #c6b17c;
+                      position: relative;
+                  }
+                  input[type=checkbox]:checked {
+                      border: 1px solid #c6b17c;
+                      background: #fff;
+                  }
+                   input[type=checkbox]:checked::after {
+                         position: absolute;
+                        content: "";
+                        width: 5px;
+                        height: 10px;
+                        top: -1px;
+                        left: 3px;
+                        border: 1px solid #c6b17c;;
+                        border-top: none;
+                        border-left: none;
+                        -webkit-transform: rotate(45deg);
+                        transform: rotate(45deg);
+                   }
+                }
+            }
+          }
+          .register{
+              width: 47.5%;
+              float: left;
+              padding-left: 2.5%;
+              border-left: solid 1px #666666;
+                .remember_warpper{
+                    padding: 0 0 0 0px;
+                    margin: 20px  0;
+                    display: flex;
+                    justify-content: space-between;
+                    text-transform: uppercase;
+                }
+                .remember{
+                  display: flex;
+                  align-items: center;
+                  a {
+                    color: #666666;
+                    font-size: 1rem;
+                    text-transform: uppercase;
+                  }
+                 input[type=checkbox] {
+                      background: none;
+                      width: 15px;
+                      height: 15px;
+                      -moz-appearance: none;
+                      appearance: none;
+                      -webkit-appearance: none;
+                      -webkit-box-sizing: border-box;
+                      box-sizing: border-box;
+                      outline: none;
+                      vertical-align: sub;
+                      margin: 0;
+                      margin-right: .5rem;
+                      border: 1px solid #c6b17c;
+                      position: relative;
+                  }
+                  input[type=checkbox]:checked {
+                      border: 1px solid #c6b17c;
+                      background: #fff;
+                  }
+                   input[type=checkbox]:checked::after {
+                         position: absolute;
+                        content: "";
+                        width: 5px;
+                        height: 10px;
+                        top: -1px;
+                        left: 3px;
+                        border: 1px solid #c6b17c;;
+                        border-top: none;
+                        border-left: none;
+                        -webkit-transform: rotate(45deg);
+                        transform: rotate(45deg);
+                   }
+                }
+              .register_title {
+                color: #c6b17b;
+                font-size: 24px;
+                font-family: 'PoppinsBold', 'Microsoft YaHei';
+              }
+              .register_half{
+                  display: flex;
+                  flex-wrap: wrap;
+                  justify-content: space-between;
+              }
+          }
+      }
+  }
+}
+
 </style>

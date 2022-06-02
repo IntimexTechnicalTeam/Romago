@@ -1,14 +1,7 @@
 <template>
-  <div id="container">
-    <div class="ProducBanner">
-      <ProductListSwiper
-        class="innerBanner"
-        :TitleName="$t('product.Producttitle')"
-      />
-    </div>
+  <div id="RomagoBg">
     <div class="ProductSearch">
       <div class="SearchSlide">
-        <div class="bg" @click="closeSub"></div>
         <div class="leftSide">
           <advancedSearch
             @advancedChange="advancedChange"
@@ -20,15 +13,12 @@
       </div>
       <div class="selectBar">
         <ul>
-          <li @click="showSearchSlide">
-            <span class="el-icon-s-operation"></span
-            ><b>{{ $t("product.Screening") }}</b>
-          </li>
-          <li style="width: 810px;border: none;">
-            {{ $t("product.Total") }} {{ totalRecord }}
-            {{ $t("product.Product") }}
-          </li>
-          <li style="width: 140px;">
+        <li @click="showSearchSlide" class="left"><span class="filterIcon"></span><b>{{$t('product.Filter')}}</b></li>
+        <li class="center">
+            <!-- {{ $t("product.Total") }} {{ totalRecord }}
+            {{ $t("product.Product") }} -->
+        </li>
+        <li class="right">
             <select v-model="PriceItem" @change="getselect(PriceItem)">
               <option value="">{{ $t("product.Paixu") }}</option>
               <option value="desc">{{ $t("product.PriceHL") }}</option>
@@ -79,21 +69,16 @@ import $ from 'jquery';
     InsPage: () =>
       import(
         /* webpackChunkName: 'product' */ '@/components/base/pc/InsPage.vue'
-      ),
-    ProductListSwiper: () =>
-      import(
-        /* webpackChunkName: 'product' */ '@/components/hkTasteBusiness/pc/product/HkProductListSwiper.vue'
       )
   }
 })
 export default class InsProductSearch extends Vue {
   proList: YouWouldLike[] = []; // 产品数据
   currentPage: number = 1; // 当前页
-  pageSize: number = 2; // 每页显示条目个数
+  pageSize: number = 12; // 每页显示条目个数
   totalRecord: number = 0; // 总条目数
   private tips: boolean = true;
   private LoadingInstance!: any;
-
   attrs: object[] = []; // 选中的产品属性数组
   searchCatalogs: number[] = []; // 选中的产品目录数组
   searchType: number = 1; // 搜索类型（0 => 叠加，1 => 筛选）
@@ -277,9 +262,8 @@ export default class InsProductSearch extends Vue {
 }
 .ProductSearch {
   .InsAdvancedSearch {
-    background: #fff;
-    height: 100vh;
-    overflow-y: scroll;
+    background: rgba(0,0,0,.9);
+    min-height: 100vh;
   }
 }
 .SearchSlide {
@@ -288,21 +272,12 @@ export default class InsProductSearch extends Vue {
   left: 0;
   top: 0px;
   bottom: 0px;
+  background: rgba(0, 0, 0, 0);
   z-index: 999999;
   display: none;
-
-  > .bg {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
-    background: rgba(0,0,0,.6);
-  }
-
   .leftSide {
-    width: 25%;
-    left: -25%;
+    width: 20%;
+    left: -20%;
     min-height: 100%;
     position: absolute;
     transition: all 0.5s;
@@ -310,8 +285,10 @@ export default class InsProductSearch extends Vue {
 }
 .ProductSearch {
   width: 1200px;
-  margin: 50px auto 150px;
-
+  margin: 0 auto;
+  padding-top: 130px;
+  margin-bottom: 50px;
+  min-height: 500px;
   .prolist-box {
     .pager {
       text-align: center;
@@ -351,11 +328,39 @@ export default class InsProductSearch extends Vue {
   ul {
     width: 100%;
     margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    .left {
+      width: 20%;
+      border: 1px solid #fff;
+      cursor: pointer;
+        .filterIcon  {
+          background: url('/images/mobile/ohters_02.png') no-repeat center center;
+          width: 1.5rem;
+          height: 1.5rem;
+          background-size: 20px;
+          display: inline-block;
+        }
+        b{
+          text-align: center;
+          font-size: 18px;
+          font-weight: 500;
+          margin-left: .5rem;
+          color: #fff;
+        }
+    }
+    .right {
+      width: 20%;
+      border: 1px solid #fff;
+    }
+    .center {
+      font-size: 18px;
+      color: #96b1ad;
+    }
   }
   li {
     float: left;
-    margin-right: 4%;
-    border: 1px solid #eee;
     height: 40px;
     line-height: 40px;
     list-style: none;
@@ -363,45 +368,21 @@ export default class InsProductSearch extends Vue {
     justify-items: center;
     justify-content: center;
     align-items: center;
-    span {
-      width: 20%;
-      display: inline-block;
-      font-size: 20px;
-      text-align: center;
-      color: #909399;
-    }
-    b {
-      width: 60%;
-      display: inline-block;
-      text-align: center;
-      font-size: 16px;
-      font-weight: 500;
-      color: #333333;
-    }
     select {
       width: 100%;
       border: none;
       padding-left: 0.5rem;
       height: 40px;
       line-height: 40px;
-      font-size: 14px;
+      font-size: 18px;
       -webkit-appearance: none;
       -moz-appearance: none;
       appearance: none;
-      background: url(/images/mobile/arrow-down-back.png) 90% 17px no-repeat;
-      background-size: auto;
+      background: transparent url(/images/mobile/mobileIndex_14.png) 98% 50% no-repeat;
+      background-size: 20px;
       outline: none;
       cursor: pointer;
-    }
-    &:last-child {
-      margin-right: 0px !important;
-      background: #fff !important;
-      color: #333333;
-      cursor: pointer;
-    }
-    &:first-child {
-      width: 140px;
-      cursor: pointer;
+      color: #fff;
     }
   }
 }

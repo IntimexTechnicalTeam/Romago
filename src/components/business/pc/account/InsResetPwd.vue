@@ -1,6 +1,6 @@
 <template>
-  <div id="container" class="resetPWD">
-      <div class="DetailTitle"><img :src="ImgList" v-show="ImgList!==null"><div class="TitleBg"><div class="innerBoxText">{{$t('Forgetpassword.ResetPwd')}}</div></div></div>
+  <div id="memberConterContainer" class="resetPWD">
+        <p class="pageTitle">{{$t('Forgetpassword.ResetPwd')}}</p>
          <div class="resetPwdMain">
           <InsForm ref="pwdForm" v-model="pwdForm">
             <div class="login-register-content">
@@ -112,8 +112,10 @@ export default class InsResetPwd extends Vue {
   font-size: 20px;
 }
 .login-register-content .input_warpper .input_main input{
-  background: #fff;
-  border:1px solid #ddd;
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 0px;
+    height: 3rem;
 }
 </style>
 <style lang="less">
@@ -122,45 +124,17 @@ export default class InsResetPwd extends Vue {
 }
 </style>
 <style lang="less" scoped>
+#memberConterContainer {
+  padding-top: 130px;
+  padding-bottom: 50px;
+  min-height: 500px;
+}
 .resetPwdMain{
   width: 800px;
   margin: 0 auto;
 }
 .login-register-content{
   margin-bottom: 30px;
-}
-.DetailTitle{
-  width: 100%;
-  display: flex;
-  flex-wrap:wrap;
-  position: relative;
-  align-items: center;
-  justify-content: center;
-  img{
-    width: 100%;
-  }
-  .TitleBg{
-    width: 500px;
-    border: 1px solid #ffffff;
-    height: 70px;
-    line-height: 70px;
-    margin: 0 auto;
-    padding: 10px;
-    margin-bottom: 20px;
-    top: 50%;
-    position: absolute;
-    transform: translateY(-50%);
-    .innerBoxText{
-      background:#ffffff;
-      color: #333333;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 40px;
-      font-weight: 700;
-      font-family: 'Arial';
-    }
-  }
 }
 .login-form{
   width: 900px;
@@ -182,8 +156,8 @@ export default class InsResetPwd extends Vue {
   padding-bottom: 60px;
 }
 .resetBtn{
-    background-color:  @base_color;
-    border: 1px solid @base_color;
+    background-color:  #c6b17b;
+    border: 1px solid #c6b17b;
     width: 100%;
     span{
       font-size: 20px;

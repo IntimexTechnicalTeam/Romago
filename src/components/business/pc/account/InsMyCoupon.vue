@@ -1,5 +1,5 @@
 <template>
-  <div id="container" class="couponContainer"  style="padding-bottom:50px;">
+  <div id="memberConterContainer" class="couponContainer"  style="padding-bottom:50px;">
     <accountHeader/>
     <!--main-content-->
     <div class="maincontent">

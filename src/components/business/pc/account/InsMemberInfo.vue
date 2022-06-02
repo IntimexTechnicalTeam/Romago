@@ -6,7 +6,6 @@
             :model="ruleForm"
             :rules="rules"
             :label-position="'right'"
-            label-width="120px"
             ref="ruleForm"
             class="demo-ruleForm"
           >
@@ -207,7 +206,7 @@ export default class InsMemberInfo extends Vue {
           async function (response) {
             that.$message({
               message: response.Message,
-              type: 'success', 
+              type: 'success',
               customClass: 'messageboxNoraml'
             });
             await that.getProfile();
@@ -216,7 +215,7 @@ export default class InsMemberInfo extends Vue {
           function (response) {
             that.$message({
               message: response.Message,
-              type: 'error', 
+              type: 'error',
               customClass: 'messageboxNoraml'
             });
           }
@@ -252,34 +251,54 @@ export default class InsMemberInfo extends Vue {
     /deep/ .el-form {
       width: 60%;
       margin: 0 auto;
-
+      .el-form-item__label {
+        width: 100%;
+        text-align: left;
+        font-size: 18px;
+        color:#cccccc;
+      }
+      .el-input__inner{
+        border-radius: 0px;
+      }
+      .el-radio__label {
+        font-size: 18px;
+        color:#cccccc;
+      }
+      .el-form-item__content {
+        width: 100%;
+      }
       .el-radio__input {
         .el-radio__inner {
           outline: none;
           box-shadow: none;
 
           &:hover {
-            border-color: #333333;
+            border-color: #c6b17b;
           }
         }
-        
+
         &.is-checked .el-radio__inner {
-          border-color: #333333;
-          background: #333333;
+          border-color: #c6b17b;
+          background: #c6b17b;
         }
 
         &.is-checked+.el-radio__label {
-          color: #333333;
+          color: #c6b17b;
         }
       }
 
       .submit-btn {
         display: block;
         width: 100%;
-        background: #333;
+        background: #c6b17b;
         border: none;
         font-size: 20px;
         margin-top: 20px;
+        transition: all .3s;
+        border-radius: 0px;
+        &:hover {
+          background: #333;
+        }
       }
     }
   }

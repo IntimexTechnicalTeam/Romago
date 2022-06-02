@@ -1,5 +1,5 @@
 <template>
-  <div id="container"  style="padding-bottom:50px;">
+  <div id="memberConterContainer"  style="padding-bottom:50px;">
     <accountHeader/>
     <div class="maincontent">
     <p class="pageTitle">{{$t('Message.UploadEvidence')}}</p>

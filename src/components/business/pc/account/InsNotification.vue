@@ -1,5 +1,5 @@
 <template>
-  <div id="container" class="NotificationMain" style="padding-bottom:50px;">
+  <div id="memberConterContainer" class="NotificationMain" style="padding-bottom:50px;">
     <accountHeader />
     <div class="maincontent">
       <p class="pageTitle">{{ $t("Notification.MyMessages") }}</p>
@@ -201,6 +201,9 @@ export default class InsNotification extends Vue {
 </style>
 <style lang="less">
 /*我的最爱*/
+#main-content {
+  margin-top: 20px;
+}
 #container .el-form-item__content {
   text-align: left;
 }

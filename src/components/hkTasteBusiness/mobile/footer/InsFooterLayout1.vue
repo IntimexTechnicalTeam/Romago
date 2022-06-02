@@ -1,6 +1,6 @@
 <template>
  <div id="footer" :class="{'fixedFooter':RoutePath==='/'}">
- <div class="touchHeight" @scroll="scrollEvent" @touchend="handleTouchEnd" v-show="isActive">
+ <div class="touchHeight" @scroll="scrollEvent" @touchend="handleTouchEnd">
       <div class="HkLiveBox" v-show="RoutePath==='/'"><HkLiveBox/></div>
           <div class="BottomBg">
             <div class="InnerBox">

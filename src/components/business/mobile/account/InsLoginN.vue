@@ -460,11 +460,12 @@ export default class InsLoginN extends Vue {
                       vertical-align: sub;
                       margin: 0;
                       margin-right: .5rem;
-                      border: 1px solid @base_color;
+                      border: 1px solid #c6b17c;
                       position: relative;
                   }
                   input[type=checkbox]:checked {
-                      border: 1px solid @base_color;
+                      border: 1px solid #c6b17c;
+                      background: #fff;
                   }
                    input[type=checkbox]:checked::after {
                          position: absolute;
@@ -473,7 +474,7 @@ export default class InsLoginN extends Vue {
                         height: 10px;
                         top: -1px;
                         left: 3px;
-                        border: 1px solid @base_color;
+                        border: 1px solid #c6b17c;;
                         border-top: none;
                         border-left: none;
                         -webkit-transform: rotate(45deg);

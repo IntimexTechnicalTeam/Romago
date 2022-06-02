@@ -62,37 +62,48 @@ export default class InsMenberCenter extends Vue {
   text-align: left !important;
 }
 .MemberPc {
-  background: #ffffff;
-  display: inline-block;
-  background-size: 100% 100%;
   width: 100%;
+  display: inline-block;
+  background:url('/images/pc/Personal-Center.jpg') no-repeat center center;
+  background-size: cover;
 }
 .MemberPc .MemberInfoNavPC {
-  width: 100%;
-  display: inline-block;
-  background: #e6e6e6;
+  width: 720px;
+  margin: 0 auto;
   margin-top: 20px;
   ul {
-    width: 1200px;
-    margin: 0 auto;
+    width: calc(100% - 2px);
+    display: flex;
+    flex-wrap: wrap;
+    border: 1px solid #fff;
+    overflow: hidden;
+    >div {
+    flex: 1;
+    border-right: 1px solid #fff;
+    &:last-child{
+      border-right: 0px!important;
+      width: 33.4%!important;
+    }
+    }
   }
 }
 .MemberPc .MemberInfoNavPC li {
   float: left;
   list-style: none;
   cursor: pointer;
-  width: 33.3%;
+  width: 100%;
 }
 .MemberPc .MemberInfoNavPC li a {
   text-align: center;
   text-decoration: none;
   display: block;
-  line-height: 3.5rem;
-  color: #333333;
-  font-size: 22px;
+  line-height: 3rem;
+  color: #fff;
+  font-size: 18px;
 }
 .MemberPc .activeInfo a {
-  color: #fff !important;
-  background: #666666 !important;
+  color: #333333 !important;
+  background: #ffffff !important;
+  font-family: 'PoppinsBold', 'Microsoft YaHei';
 }
 </style>

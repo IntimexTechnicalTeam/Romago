@@ -70,6 +70,11 @@ export class DeliveryApi extends WSAPI {
     return this.instance.get(this.apiPath + '/Delivery/GetShunFengPointType').then(res => res.data);
   };
 
+  getAddress (callback: any) {
+    return this.instance.get(this.apiPath + '/Address/GetAddresses').then((result) => {
+      return result;
+    });
+  };
   /**
    * 獲取（新）順豐自提點城市列表
    * @param pid: number 省份id
