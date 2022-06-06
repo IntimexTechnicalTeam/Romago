@@ -1,16 +1,7 @@
 <template>
-  <div id="container" class="catDetail">
-    <div class="DetailTitle">
-      <img :src="cmsCategory.ImagePath">
-      <div class="TitleBg">
-        <div class="innerBoxText">{{cmsCategory.Name}}</div>
-      </div>
-    </div>
-
+  <div id="RomagoBg" class="catDetail">
     <div class="catContent">
-        <template v-if="cmsCategory.PageStyle === '0' || cmsCategory.PageStyle === '1'">
-          <div v-html="cmsCategory.Content" class="layer"></div>
-        </template>
+        <ins-cat-layout1  v-if="PageStyle === '0' || PageStyle === '1'"/>
 
         <ins-cat-layout2 :catData="cmsCatTree" :cmsData="contentList" @changeCatSelect="changeCatSelect" v-if="cmsCategory.PageStyle === '2'" />
 
@@ -26,6 +17,7 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 @Component({
   components: {
     // InsBanner: () => import('@/components/base/InsBanner.vue'),
+    InsCatLayout1: () => import('@/components/business/pc/cms/InsCatLayout1.vue'),
     InsCatLayout2: () => import('@/components/business/pc/cms/InsCatLayout2.vue'),
     InsCatLayout3: () => import('@/components/business/pc/cms/InsCatLayout3.vue'),
     InsCatLayout4: () => import('@/components/business/pc/cms/InsCatLayout4.vue')
@@ -181,8 +173,7 @@ export default class insNews extends Vue {
   .catContent {
       width: 1200px;
       margin: 0 auto;
-      padding: 15px 0;
-
+      padding-top: 130px;
       .layer {
           font-size: 16px;
       }

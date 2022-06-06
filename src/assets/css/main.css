@@ -54,15 +54,24 @@ input,textarea,select {
 }
 .pageTitle{
   font-size: 30px;
-  width: 1185px;
+  width: 1200px;
   margin: 0 auto;
   margin-top: 20px;
   line-height: 1.8rem;
-  border-left: 5px solid #c6b17c;
-  padding-left: 10px;
   color: #fff;
   text-transform: uppercase;
   font-family: 'PoppinsBold', 'Microsoft YaHei';
+  display: flex;
+  align-items: center;
+}
+.pageTitle::before{
+  content: '';
+  height: 1.8rem;
+  line-height: 1.8rem;
+  background: #c6b17b;
+  width: 5px;
+  margin-right: 10px;
+  display: inline-block;
 }
 .pageTitleSmall{
   font-size: 24px;
@@ -102,4 +111,7 @@ input[type=button], button { cursor: pointer; -webkit-appearance: none; }
 }
 .el-scrollbar__wrap {
   overflow: auto!important;
+}
+.messageboxNoraml {
+  z-index: 100000!important;
 }

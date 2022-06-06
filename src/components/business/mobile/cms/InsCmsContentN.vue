@@ -1,10 +1,10 @@
 <template>
   <div class="InsCmsContentN">
-    <!-- 联络我们页面 -->
-    <!-- 其他页面 -->
-    <p class="pageTitle">{{TitleName}}</p>
-    <p class="coverImg"><img :src="content.Cover"></p>
+    <p class="pageTitle">{{CateName}}</p>
     <div class="CmsContent">
+      <p class="coverImg"><img :src="content.Cover"></p>
+      <p class="title">{{content.Title}}</p>
+      <p class="contentTime">{{ContentDateTime}}</p>
       <p v-html="content.Body" class="Main"></p>
     </div>
   </div>
@@ -16,6 +16,8 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 export default class InsCmsContentN extends Vue {
   content:any[]=[];
   TitleName:string='';
+  ContentDateTime:string='';
+  CateName:string='';
   get currentlang () {
     return this.$Storage.get('locale');
   }
@@ -23,9 +25,13 @@ export default class InsCmsContentN extends Vue {
     return this.$route.params.id ? this.$route.params.id : '';
   }
   getContent () {
-    this.$Api.cms.getContentByDevice({ Key: this.id, ContentId: this.id, IsMobile: false }).then(result => {
+    this.$Api.cms.getContentByDevice({ Key: this.id, ContentId: this.id, IsMobile: true }).then(result => {
       this.content = result.CMS;
       this.TitleName = result.CMS.Title;
+      var newDate = new Date(result.CMS.CreateDate.replace(/-/g, '/'));
+      result.CMS.CreateDate = newDate.getDate() + '.' + (newDate.getMonth() + 1) + '.' + +newDate.getFullYear();
+      this.ContentDateTime = result.CMS.CreateDate;
+      this.CateName = result.CMS.Category.Name;
       if (result.CMS.Title) document.title = result.CMS.Title;
     });
   }
@@ -68,10 +74,35 @@ export default class InsCmsContentN extends Vue {
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
+    .title {
+        font-size: 1.6rem;
+        line-height: 1.8rem;
+        color: #fff;
+        text-overflow: -o-ellipsis-lastline;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+        margin-top: .5rem;
+        margin-bottom: .5rem;
+        font-family: 'PoppinsBold', 'Microsoft YaHei';
+        width: 100%;
+    }
+    .contentTime {
+        color:#c6b17b;
+        font-size:1.2rem;
+        width: 100%;
+    }
     .Main {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 30px;
       /deep/ p {
         font-size: 1.2rem;
-        color: #fff;
+        color: #e5e5e5;
         line-height: 2rem;
       }
     }

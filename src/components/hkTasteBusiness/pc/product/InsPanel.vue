@@ -7,11 +7,10 @@
         :key="index"
         placeholder="请选择"
         v-model="ProductInfor['Attr'+(index+1)]"
-        styla="padding: 0 10px;"
         @input="changeAttr"
         @changePrice="AdditionalPrice"
       ></inSelect>
-      <inNum  :label="$i18n.t('product.countTitle')" v-model="ProductInfor.Qty" :v="ProductInfor.Qty" size="middle" :min="panelDetail.MinPurQty" :max="panelDetail.MaxPurQty" styla="padding: 0 10px;"></inNum>
+      <inNum   v-model="ProductInfor.Qty" :v="ProductInfor.Qty" size="middle" :min="panelDetail.MinPurQty" :max="panelDetail.MaxPurQty" ></inNum>
       <div class="in_panel_iconList">
         <div v-for="item in panelDetail.icons" :key="item.id" class="in_panel_icon_warpper">
           <img :src="item.src" />
@@ -37,6 +36,23 @@
     <div class="in_panel_footer" v-else>
         <button type="button" :disabled="SoldOutAttr" @click="click('addToCart')" class="CartBtn">{{$t('product.addToCart')}}</button>
         <button type="button" :disabled="SoldOutAttr" @click="click('buy')" class="BuyBtn">{{$t('product.buy')}}</button>
+    </div>
+    <div class="shareMain">
+        <div class="shareBtn">
+            <div class="PerBtn">
+              <a>
+                <img :src="panelDetail.IsFavorite ? '/images/mobile/ohters_03.png': '/images/mobile/ohters_04.png'" @click="addFavorite"/>
+                <span>Follow</span>
+              </a>
+              </div>
+            <div class="PerBtn">
+              <a
+              onclick="window.open('http://www.facebook.com/share.php?u=' + window.location.href+'&t=' + document.title);">
+              <img src="/images/mobile/mpic_11.png"/>
+              <span>Facebook</span>
+            </a>
+          </div>
+        </div>
     </div>
     <!-- <inRecommend :Skus="ProductSku"></inRecommend> -->
   </div>
@@ -80,31 +96,36 @@ export default class Panel extends Vue {
         Attr3: this.ProductInfor.Attr3,
         Qty: this.ProductInfor.Qty
       };
-
       if (action === 'addToCart') {
         this.Loading = true;
-        this.$Api.shoppingCart.addItem(param).then(result => {
-          this.$message({
-            message: result.Message as string,
-            type: result.Succeeded ? 'success' : 'error'
-          });
-          this.Loading = false;
-        }).then(() => {
-          this.$store.dispatch('setShopCart', this.$Api.shoppingCart.getShoppingCart());
-        });
-      } else if (action === 'buy') {
-        this.buyLoading = true;
-        this.$Api.shoppingCart.addItem(param).then(result => {
-          this.buyLoading = false;
-          if (result.Succeeded === true) {
-            this.$router.push({ name: 'shoppingcart' });
-          } else {
+        this.$Api.shoppingCart.addItem(param)
+          .then(
+            (result) => {
               this.$message({
                 message: result.Message as string,
-                type: 'error'
+                type: 'success',
+                customClass: 'messageboxNoraml'
               });
-          }
-        });
+              this.Loading = false;
+            }).then(() => {
+            this.$store.dispatch('setShopCart', this.$Api.shoppingCart.getShoppingCart());
+          });
+      } else if (action === 'buy') {
+        this.buyLoading = true;
+        this.$Api.shoppingCart.addItem(param)
+          .then(
+            (result) => {
+              this.buyLoading = false;
+               if (result.Succeeded === true) {
+                  this.$router.push({ name: 'shoppingcart' });
+              } else {
+                  this.$message({
+                    message: result.Message as string,
+                    type: 'success',
+                    customClass: 'messageboxNoraml'
+                  });
+              }
+            });
       }
     } else {
       Vue.prototype.$Confirm('action', Object.create(this.ProductInfor));
@@ -112,13 +133,13 @@ export default class Panel extends Vue {
   }
   addFavorite () {
     if (this.panelDetail.IsFavorite) {
-      this.$Api.member.removeFavorite(this.ProductSku).then((result) => {
+      this.$Api.product.removeFavorite(this.ProductSku).then((result) => {
         if (result.Succeeded) { Vue.prototype.$Confirm(this.$t('Message.Message'), this.$t('product.successInRemoving')); this.panelDetail.IsFavorite = false; } else if (result.ReturnValue.Code === 1000) {
           Vue.prototype.$Confirm(this.$t('product.logouted'), this.$t('product.loginow'), () => { this.$Login(this.addFavorite); });
         }
       });
     } else {
-      this.$Api.member.addFavorite(this.ProductSku).then((result) => {
+      this.$Api.product.addFavorite(this.ProductSku).then((result) => {
         if (result.Succeeded) { Vue.prototype.$Confirm(this.$t('Message.Message'), this.$t('product.successInAdding')); this.panelDetail.IsFavorite = true; } else if (result.ReturnValue.Code === 1000) {
           Vue.prototype.$Confirm(this.$t('product.logouted'), this.$t('product.loginow'), () => { this.$Login(this.addFavorite); });
         }
@@ -221,19 +242,6 @@ export default class Panel extends Vue {
 }
 </style>
 <style lang="less">
-.PcVersion .in_panel_footer .addToCart {
-    border: 1px solid #242424!important;
-    background: #fff!important;
-    color: #242424!important;
-    width: 35%!important;
-}
-.PcVersion .in_panel_footer .buyNow{
-    border: 1px solid #262626!important;
-    background: #262626!important;
-    background-size: contain;
-    color: #fff;
-    width: 35%!important;
-}
 .PcVersion  .el-button{
   padding: 20px 10px!important;
 }
@@ -251,66 +259,96 @@ export default class Panel extends Vue {
   font-size: 18px;
 }
 .PcVersion  .in_num_label{
-  display: inline-block;
   width: auto!important;
-  margin-right: 1rem;
-}
-.PcVersion  .el-input-number{
-  border:none!important;
-  box-sizing: border-box;
+  font-size: 18px;
+  color: #999999;
 }
 .PcVersion  .el-input__inner{
   border:none!important;
   box-sizing: border-box;
   width: 4rem;
 }
+.PcVersion  .el-input-number__decrease{
+  left: 0px;
+}
+.PcVersion .el-input-number__increase {
+  right: 0px;
+}
 .PcVersion  .el-input-number__decrease,.PcVersion .el-input-number__increase{
     width: 2rem !important;
-    border: 1px solid #000;
-    border-radius: 5px;
-    height: 2rem;
-    line-height: 2rem;
+    height: 41px;
+    background: #ffffff;
+    border-radius: 0px;
+    border: 0px!important;
+    top:0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .PcVersion .el-input-number__decrease i, .el-input-number__increase i{
   color:#000;
+  font-size: 18px;
+  font-weight: 700;
 }
 .PcVersion  .el-input-number{
   width: auto!important;
+  border:1px solid #eee;
 }
 .PcVersion .el-input-number .el-input__inner{
   padding-left: 0rem;
   padding-right: 0rem;
   background: transparent!important;
   width: 10rem;
-  line-height: 2rem!important;
-  height: 2rem!important;
-  color:#000!important;
+  color:#fff!important;
   font-weight: 500;
-  font-size: 1.4rem;
+  font-size: 22px;
 }
 </style>
 <style lang="less" scoped>
-.in_panel_footer .actionBtn{
-    width: 49%;
-    display: block;
-    text-align: center;
-}
-.in_panel_footer .addToCart{
-  border:1px solid #f8ae57;
-  background: #fff;
-  color:#f8ae57;
-}
-.in_panel_footer .buyNow{
-  border:1px solid #f8ae57;
-  background: url('/static/Image/buynowbg.jpg') repeat-x center center;
-  background-size: contain;
-  color:#fff;
+/deep/ .in_num_main {
+  display: inline-block;
 }
 @media screen and (max-width: 800px)  {
   .in_panel_warpper {
     padding: 0 2rem;
   }
 }
+  .shareMain {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+      .shareBtn {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        .PerBtn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-right: 10px;
+          &:hover {
+              span{
+                color: #fff;
+              }
+          }
+          a{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+          }
+          img {
+            width: 20px;
+          }
+          span {
+            font-size: 16px;
+            color: #b2b2b2;
+            margin-left: 5px;
+          }
+        }
+      }
+  }
 .Recommend{
   margin-top:12px;
 }
@@ -343,7 +381,6 @@ export default class Panel extends Vue {
   height: 60px;
   line-height: 60px;
   justify-content: space-between;
-  background-color: #f5f5f5;
   padding: 0 10px;
   margin: 10px 0;
 }
@@ -378,69 +415,69 @@ export default class Panel extends Vue {
     .in_panel_footer {
       .CartBtn{
         height: 50px;
-        font-size: 20px;
+        font-size: 24px;
         display: inline-flex;
         justify-content: center;
         align-items: center;
-        border: 1px solid #333333;
+        border: 1px solid #fff;
+        background: transparent;
         color: #fff;
-        border-radius: 3px;
         transition: .1s;
         text-transform: uppercase;
         width: 48%;
-        background-color: unset;
-        color: #333333;
+        color: #fff;
         margin-right: 4%;
+        transition: all .3s;
+        &:hover {
+          background: #fff;
+          color: #333;
+        }
         &:disabled{
           cursor:not-allowed;
-          background: #ccc;
           border: 1px solid #ccc;
           color: #333333;
-           &:hover{
-           transform: translateY(0px)!important;
-          }
         }
       }
       .BuyBtn{
         height: 50px;
-        font-size: 20px;
+        font-size: 24px;
         display: inline-flex;
         justify-content: center;
         align-items: center;
-        border: 1px solid #333333;
-        background-color: #333333;
-        color: #fff;
-        border-radius: 3px;
+        border: 1px solid #fff;
+        background-color: unset;
+        color:#fff;
         transition: .1s;
         text-transform: uppercase;
         width: 48%;
+        background: transparent;
+        transition: all .3s;
+        &:hover {
+          background: #fff;
+          color: #333;
+        }
         &:disabled{
           cursor:not-allowed;
-          background: #ccc;
           border: 1px solid #ccc;
           color: #333333;
-           &:hover{
-           transform: translateY(0px)!important;
-          }
         }
       }
       .in_btn {
-        height: 60px;
+        height: 50px;
         font-size: 24px;
-        color: @base_color;
+        color: #fff;;
         display: inline-flex;
         justify-content: center;
         align-items: center;
-        border: 1px solid @base_color;
+        border: 1px solid #fff;;
         background-color: unset;
-        border-radius: 5px;
-        transition: .1s;
-        &:hover{
-          transform: translateY(-3px);
+        background: transparent;
+        transition: all .3s;
+        &:hover {
+          background: #fff;
+          color: #333;
         }
         &:first-child {
-          background-color: @base_color;
-          color: #fff;
           margin-right: 4%;
         }
       }

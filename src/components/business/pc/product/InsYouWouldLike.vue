@@ -1,13 +1,13 @@
 <template>
   <div :style="styla" v-if="ShowItemsLength>0" class="PcVersionYouLike">
-    <div class="in_slider_title">{{title}}</div>
-    <swiper :options="SwiperOption" ref="mySwiper">
+    <p class="pageTitle">{{title}}</p>
+    <swiper :options="SwiperOption" ref="mySwiper" class="SwiperOptionTop">
       <!-- slides -->
       <swiperSlide v-for="(page,idx) in ShowItems" :key="idx">
         <div class="in_slider_page_container" @click="click">
           <div class="in_slider_page_item" v-for="(item,index) in page" :key="index">
             <div class="in_slider_page_item" v-if="!item.virtual">
-              <inProductWindow :item="item" :imgStyla="imgStyla" styla="width:80%;margin:0 auto;"></inProductWindow>
+              <inProductWindow :item="item" :imgStyla="imgStyla" styla="width:90%;margin:0 auto;"></inProductWindow>
             </div>
           </div>
         </div>
@@ -77,6 +77,9 @@ export default class InsYouWouldLike extends Vue {
       );
     }
   }
+  get lang () {
+    return this.$Storage.get('locale');
+  }
   @Watch('ProductSku')
   onProductSkuChange (o, n) {
     this.$Api.product.getRltProduct(this.ProductSku).then(result => {
@@ -86,22 +89,60 @@ export default class InsYouWouldLike extends Vue {
   }
 }
 </script>
-<style>
+<style lang="less">
 .PcVersionYouLike .swiper-button-prev{
-  background-image:url('/images/pc/cleft.png')!important;
-  left:-10px!important;
+      width: 40px;
+      height: 40px;
+      background: #c6b17b url('/images/mobile/ohters_20.png') no-repeat center center!important;
+      background-size: 15px;
+      outline: 0;
+      left:.9rem;
 }
 .PcVersionYouLike .swiper-button-next{
-    background-image:url('/images/pc/cright.png')!important;
-    right:-10px!important;
-}
-.PcVersionYouLike  .swiper-button-prev,.PcVersionYouLike  .swiper-button-next{
-    width: 50px!important;
-    height: 50px!important;
-    background-size:100%!important;
+      width: 40px;
+      height: 40px;
+      background: #c6b17b url('/images/mobile/ohters_21.png') no-repeat center center!important;
+      background-size: 15px;
+      outline: 0;
+      right: .9rem;
 }
 </style>
-<style scoped>
+<style  lang="less"  scoped>
+.SwiperOptionTop {
+  margin-top: 20px;
+}
+.TtitleBg {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 3rem;
+    margin-top: 1rem;
+    p {
+      font-size: 1.6rem;
+      color: #333333;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      &::after {
+        content: '';
+        width: 15rem;
+        display: inline-block;
+        background: url('/images/mobile/mindex_04.png') no-repeat center center;
+        height: 2rem;
+        background-size: 100%;
+        position: absolute;
+        top: 1.2rem;
+      }
+    }
+  }
+.PcVersionYouLike {
+  margin-top: 80px;
+}
 .in_slider_title {
   text-align: center;
   margin: 4rem 0;
@@ -111,11 +152,77 @@ export default class InsYouWouldLike extends Vue {
   box-sizing: border-box;
   display: flex;
   flex-wrap: nowrap;
-  width: 95%;
+  width: 100%;
   margin: 0 auto;
   user-select: none;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 .in_slider_page_item {
    width: 100%;
+}
+    .titleCn {
+      width: 100%;
+      display: inline-block;
+      text-align: center;
+      margin-bottom: 2rem;
+      span {
+        font-size:1.7rem;
+        display: block;
+        width: 60%;
+        text-align: center;
+        margin: 0 auto;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: #37aca1;
+        &::before {
+          content: '';
+          border-top: 4px solid #37aca1;
+          width: 15%;
+          display: block;
+          margin: 0 auto;
+          margin-bottom: .5rem;
+        }
+        &::after {
+          content: '';
+          border-bottom:4px solid #37aca1;
+          width: 15%;
+          display: block;
+          margin: 0 auto;
+          margin-top: .5rem;
+        }
+      }
+    }
+.titleNameA {
+  width: 100%;
+  display: inline-block;
+  text-align: center;
+  margin-bottom: 2rem;
+  span {
+    font-size:32px;
+    display: block;
+    width: 60%;
+    text-align: center;
+    margin: 0 auto;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #37aca1;
+    &::before {
+      content: '';
+      border-top: 4px solid #37aca1;
+      width: 35%;
+      display: block;
+      margin: 0 auto;
+      margin-bottom: .5rem;
+    }
+    &::after {
+      content: '';
+      border-bottom:4px solid #37aca1;
+      width: 35%;
+      display: block;
+      margin: 0 auto;
+      margin-top: .5rem;
+    }
+  }
 }
 </style>

@@ -1,34 +1,27 @@
 <template>
-<div class="productDetailWarper PcVersion">
-
+<div class="productDetailWarper PcVersion" id="RomagoBg">
   <div v-if="this.Permission == 3" class="IsDetailshow">
-
      {{$t('messageTips.NoProduct')}}
-
   </div>
   <div v-else>
   <div class="productDetail_container">
     <div class="productDetail_main">
-      <!-- <inPreview style="width:50%" :imgList="ImgList" :pageNum="userAgent === 'mobile' ?  1 : 4" :ProductTitleName="ProductTitleName"></inPreview> -->
-      <HkProductSlider width="50%"  :imgList="ImgList"></HkProductSlider>
+      <HkProductSlider  :AdditionalImage="PanelDetail.AdditionalImage" class="HkProductSlider"></HkProductSlider>
       <div style="width:45%;margin-left:5%;float:right;">
-          <PkProductInfo :panelDetail.sync="PanelDetail"  :ProductSku="ProductCode" width="100%" :AddPrice="getNewsPrice" style="margin-top:4rem;margin-bottom: 2rem;"></PkProductInfo>
-          <div class="ProductRate"><el-rate  v-model="Score" disabled  disabled-void-color="#5f6548" disabled-void-icon-class="el-icon-star-off"></el-rate></div>
-          <PkProductDetailCate :source="ExtAttrList" :cateTree="CatalogTree"  width="100%" style="margin-top:2rem;"></PkProductDetailCate>
+          <PkProductInfo :panelDetail.sync="PanelDetail"  :ProductSku="ProductCode" width="100%" :AddPrice="getNewsPrice" style="margin-bottom: 2rem;"></PkProductInfo>
           <inPanel :panelDetail.sync="PanelDetail" :ProductSku="ProductCode" @getPrice="showPrice" width="100%"></inPanel>
       </div>
     </div>
     <div class="tab_warpper">
       <div class="tab_header">
         <div class="detail_title" @click="IsDetail=true" v-bind:class="{isActive:IsDetail}">{{$t('product.ProductIntroduction')}}</div>
-        <div class="comment_title" @click="IsDetail=false" v-bind:class="{isActive:!IsDetail}" v-if="$Settings.siteVersion !== 1">{{$t('product.comments.title')}}</div>
+        <div class="comment_title" @click="IsDetail=false" v-bind:class="{isActive:!IsDetail}"  v-if="$Settings.version !== 1">{{$t('product.comments.title')}}</div>
       </div>
       <div class="product_detail" v-html="Tabs.Detail" v-show="IsDetail" v-if="Tabs.Detail!==''"></div>
       <div class="product_detail"  v-show="IsDetail" v-if="Tabs.Detail==''">{{$t('messageTips.NoContent')}}</div>
-      <inComments :ProductSku="ProductCode" v-show="!IsDetail" style="background:#FFF;min-height: 300px;"></inComments>
+      <inComments :ProductSku="ProductCode" v-show="!IsDetail" style="min-height: 300px;"></inComments>
     </div>
   </div>
-    <div class="commentsLine"></div>
     <div class="maincontent">
     <inYouWouldLike
       styla="margin-bottom:50px;"
@@ -59,7 +52,6 @@ import PkProductDetailCate from '@/components/hkTasteBusiness/pc/product/HkProdu
 import PkProductInfo from '@/components/hkTasteBusiness/pc/product/PkProductInfo.vue';
 import ProductListSwiper from '@/components/hkTasteBusiness/pc/product/HkProductListSwiper.vue';
 @Component({ components: {
-  HkProductSlider,
   inPreview,
   inPanel,
   inTab,
@@ -68,7 +60,8 @@ import ProductListSwiper from '@/components/hkTasteBusiness/pc/product/HkProduct
   inProductUpOrDown,
   PkProductDetailCate,
   PkProductInfo,
-  ProductListSwiper
+  ProductListSwiper,
+  HkProductSlider
 } })
 export default class InsProductDetail extends Vue {
   private Slider: YouWouldLike[] = [];
@@ -188,16 +181,17 @@ export default class InsProductDetail extends Vue {
     display: flex;
     float: right;
     align-items: baseline;
-    height: 3rem;
     .huge{
       display: inline-block;
       &:nth-child(1){
-        font-size: 1.6rem;
+        font-size: 26px;
+        color:#c6b17b;
+        font-family: 'PoppinsBold', 'Microsoft YaHei';
       }
       &:nth-child(2){
-        font-size:2rem;
-        color:#b40606;
-        font-weight: 700;
+        font-size: 26px;
+        color:#c6b17b;
+        font-family: 'PoppinsBold', 'Microsoft YaHei';
       }
     }
   }
@@ -205,12 +199,12 @@ export default class InsProductDetail extends Vue {
     .huge{
       display: inline-block;
       &:nth-child(1){
-        font-size: 1rem;
+        font-size: 16px;
         color: #999;
         text-decoration: line-through;
       }
       &:nth-child(2){
-        font-size: 1rem;
+        font-size: 16px;
         color: #999;
         text-decoration: line-through;
       }
@@ -219,6 +213,10 @@ export default class InsProductDetail extends Vue {
 }
 </style>
 <style lang="less" scoped>
+.product_detail {
+  font-size: 20px;
+  color: #fff;
+}
 .ProducBanner{
     width: 100%;
     background-size: 100% 100%;
@@ -238,6 +236,7 @@ export default class InsProductDetail extends Vue {
   background: #fff;
   background-size: 100% 100%;
   box-sizing: border-box;
+  padding-top: 130px;
   .IsDetailshow {
     width: 1200px;
     margin: 0 auto;
@@ -255,8 +254,7 @@ export default class InsProductDetail extends Vue {
 }
 .isActive{
   color:#FFF!important;
-  background: #262626 !important;
-  border:1px solid #262626;
+  background: #c6b17b !important;
 }
 .productDetail_container {
   margin:0 auto;
@@ -269,37 +267,29 @@ export default class InsProductDetail extends Vue {
       width: 100%;
       justify-content: space-between;
       margin-bottom: 10px;
+      border-bottom: 1px solid #c6b17b;
       .comment_title,.detail_title{
         width: 20%;
         text-align: center;
         font-size: 20px;
-        padding-top: 1rem;
-        padding-bottom: 1rem;
-        border:1px solid #000;
         float: left;
         margin-right:24px;
         cursor: pointer;
-        background: #FFF;
-        border-radius: 5px;
-        color:#000;
-      }
-      .comment_title{
-        border:1px solid #000;
-        color:#000;
-        cursor: pointer;
+        color:#c6b17b;
+        height: 50px;
+        line-height: 50px;
       }
     }
     .product_detail{
-      background-color: white;
       padding: 1rem;
       display: block;
       clear: both;
       min-height: 300px;
-      border:1px solid #000;
-      border-radius: 5px;
-      p{
-        font-size: 1.6rem;
+      /deep/  p{
+        font-size: 20px;
+        color: #fff;
      }
+
     }
   }
 }
@@ -336,5 +326,11 @@ export default class InsProductDetail extends Vue {
   margin-left: 20px;
   font-size: 24px;
   text-decoration: line-through;
+}
+.HkProductSlider {
+  width: 50%;
+  display: flex;
+  flex-wrap: wrap;
+  float: left;
 }
 </style>

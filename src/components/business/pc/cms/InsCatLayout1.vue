@@ -2,14 +2,21 @@
     <div class="cms-list">
         <p class="pageTitle">{{CategoryName}}</p>
         <div class="Innerbox">
-            <div class="perData" v-for="(v,index) in ListData" :key="index">
+            <div class="perData" v-for="(v,index) in ListData" :key="index" :class="{'FirstData':index===0}">
                     <p class="imgs" @click="GoLink(v)"><img :src="v.Cover?v.Cover:NoImg"></p>
-                    <p class="title">{{v.Title}}</p>
-                    <p class="contentTime">{{v.ContentDateTime}}</p>
+                    <div class="BottomText">
+                        <p class="title">{{v.Title}}</p>
+                        <p class="contentTime">{{v.ContentDateTime}}</p>
+                    </div>
             </div>
         </div>
-        <div ref="load" class="loading" @touchstart="loading" v-if="totalRecord>pageSize"><p>{{tips?$t('Action.LoadMore'):$t('home.Thatsall')}}</p><p class="downIcon" v-if="tips"><i class="el-icon-arrow-down"></i></p></div>
-        <div class="loading" v-else>{{$t('home.Thatsall')}}</div>
+        <div class="pager" v-if="totalRecord > 5">
+          <InsPage
+            :total="totalRecord"
+            v-model="currentPage"
+            :pageNum="pageSize"
+          ></InsPage>
+        </div>
     </div>
 </template>
 
@@ -17,12 +24,12 @@
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 @Component({
   components: {
-    InsPage: () => import('@/components/base/mobile/InsPage.vue')
+    InsPage: () => import('@/components/base/pc/InsPage.vue')
   }
 })
 export default class InsCatLayout1 extends Vue {
     currentPage:number=1;
-    pageSize:number=6;
+    pageSize:number=5;
     totalRecord:number=0;
     ListData:any[]=[];
     NoImg:string='/images/pc/proddef.jpg';
@@ -43,13 +50,8 @@ export default class InsCatLayout1 extends Vue {
                 var newDate = new Date(i.ContentDateTime.replace(/-/g, '/'));
                 i.ContentDateTime = newDate.getDate() + '.' + (newDate.getMonth() + 1) + '.' + +newDate.getFullYear();
             });
-            if (flag === 'loadpage') {
-                this.ListData = this.ListData.concat(result.Data);
-                this.totalRecord = result.TotalRecord;
-            } else {
-                this.ListData = result.Data;
-                this.totalRecord = result.TotalRecord;
-            }
+            this.totalRecord = result.TotalRecord;
+            this.ListData = result.Data;
             this.$HiddenLayer();
         });
     }
@@ -64,20 +66,13 @@ export default class InsCatLayout1 extends Vue {
         text: 'Loading...'
       });
       setTimeout(() => {
-        this.load();
         this.LoadingInstance.close();
       }, 2000);
     }
   }
-  load () {
-    console.log(this.totalRecord, this.ListData.length);
-    if (this.totalRecord !== this.ListData.length) { this.currentPage++; } else { this.tips = false; }
-  }
   @Watch('currentPage', { deep: true })
   onCurrentPage () {
-    if (this.currentPage !== 1) {
-      this.getContentsByCatId('loadpage');
-    }
+    this.getContentsByCatId();
   }
 }
 </script>
@@ -147,21 +142,23 @@ export default class InsCatLayout1 extends Vue {
         display: flex;
         flex-wrap: wrap;
         .perData {
-            width: 100%;
+            width:49%;
             display: flex;
             flex-wrap: wrap;
             margin-bottom: 2rem;
+            &:nth-child(2n) {
+              margin-right: 2%;
+            }
             .imgs {
                 width: 100%;
                 display: flex;
                 flex-wrap: wrap;
                 img {
                     width: 100%;
-                    border-radius: 5px;
                 }
             }
             .title {
-                font-size: 1.4rem;
+                font-size: 20px;
                 color: #fff;
                 text-overflow: -o-ellipsis-lastline;
                 overflow: hidden;
@@ -173,11 +170,39 @@ export default class InsCatLayout1 extends Vue {
                 margin-top: .5rem;
                 margin-bottom: .5rem;
                 font-family: 'PoppinsBold', 'Microsoft YaHei';
+                width: 100%;
             }
             .contentTime {
                 color:#c6b17b;
-                font-size: 1.2rem;
+                font-size:20px;
+                 width: 100%;
             }
+        }
+        .FirstData {
+          width: 100%;
+          display: flex;
+          flex-wrap: wrap;
+          position: relative;
+          .BottomText {
+            position: absolute;
+            width: 50%;
+            bottom: 0px;
+            left: 0px;
+            background: #c6b17b;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            .title {
+              font-size: 40px;
+              line-height: 46px;
+              width: 90%;
+              margin: 0 auto;
+            }
+            .contentTime {
+              color: #fff;
+              width: 90%;
+              margin: 0 auto;
+            }
+          }
         }
     }
 }

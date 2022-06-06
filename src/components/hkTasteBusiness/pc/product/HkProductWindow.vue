@@ -132,6 +132,7 @@ export default class InsProductWindow extends Vue {
 .in_pdWindow_page_item {
   transition: all .3s;
   cursor: pointer;
+  border: 1px solid transparent;
   &:hover {
     border: 1px solid #fff;
     .in_pdWindow_item_title {

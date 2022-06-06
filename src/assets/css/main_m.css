@@ -136,11 +136,20 @@ div {
   margin: 0 auto;
   margin-top: 20px;
   line-height: 1.8rem;
-  border-left: 5px solid #c6b17c;
-  padding-left: 10px;
   color: #fff;
   text-transform: uppercase;
   font-family: 'PoppinsBold', 'Microsoft YaHei';
+  display: flex;
+  align-items: center;
+}
+.pageTitle::before{
+  content: '';
+  height: 1.8rem;
+  line-height: 1.8rem;
+  background: #c6b17b;
+  width: 5px;
+  margin-right: 10px;
+  display: inline-block;
 }
 #memberConterContainer {
   width: 100%;
@@ -166,4 +175,7 @@ div {
 input[type=button], button { cursor: pointer; -webkit-appearance: none; }
 .el-scrollbar  > .el-scrollbar__bar{
    opacity: 1!important;
+}
+.messageboxNoraml {
+  z-index: 100000!important;
 }

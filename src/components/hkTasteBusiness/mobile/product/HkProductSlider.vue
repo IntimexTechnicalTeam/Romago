@@ -19,9 +19,9 @@
           <transition name="el-fade-in">
             <div class="controlBar" v-show="isShow">
                 <div class="control">
-                  <span class="fa fa-moon-o" :style="{'color':fontcolor}"></span>
-                  <el-slider v-model="opt" @input="getColor($event)" :show-tooltip="false" :max="235"></el-slider>
                   <span class="fa fa-sun-o" :style="{'color':fontcolor}"></span>
+                  <el-slider v-model="opt" @input="getColor($event)" :show-tooltip="false" :max="235"></el-slider>
+                  <span class="fa fa-moon-o" :style="{'color':fontcolor}"></span>
                 </div>
             </div>
           </transition>
