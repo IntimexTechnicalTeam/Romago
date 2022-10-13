@@ -114,4 +114,7 @@ export default class InsRegAndPay extends Vue {
   flex-wrap: wrap;
   padding-top: 5rem;
 }
+/deep/ .RNPForm.default {
+  background: transparent!important;
+}
 </style>

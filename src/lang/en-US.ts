@@ -16,7 +16,9 @@ export default {
     logopassword: 'Please input passwords',
     confirmpassword: 'Two inconsistent input passwords',
     nomessage: 'No Message',
-    phoneincorrect: 'The phone number format is incorrect'
+    phoneincorrect: 'The phone number format is incorrect',
+    PAGENOTFOUND: 'Sorry, the page you are looking for does not exist',
+    selectPayment: 'Please choose a payment method'
   },
   Message: {
     Logout: 'Timeout ! login now ?',
@@ -62,7 +64,12 @@ export default {
     WarrantycardTips: 'Found on your International Limited Warranty card,please enter your timepiece’s serial number below:',
     WarrantycardFaq: 'Where can I find my serial number?',
     Continue: 'Continue',
-    robotTips: 'I’m not a robot'
+    robotTips: 'I’m not a robot',
+    Select: 'Select',
+    Reset: 'Reset',
+    Previous: 'Previous',
+    Limitedproduction: 'Limited production',
+    DownLoad: 'DownLoad'
   },
   RegNPay: {
     BackText: 'Back',

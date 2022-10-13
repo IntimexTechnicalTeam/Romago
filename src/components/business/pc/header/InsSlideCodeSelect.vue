@@ -1,7 +1,7 @@
 <template>
   <div>
       <div class="drawer-bg" :style="{backgroundColor: $Settings.PCslideMenu.maskBg, Opacity: $Settings.PCslideMenu.maskOpacity}" v-show="ShowCodeSelect" @click="handleClickOutside"/>
-      <div class="sidebar-container" :class="{'hiddenMenu': !ShowCodeSelect,'left': direction == 'left','top': direction == 'top', 'right': direction == 'right'}" :style="{width: width, height: height}">
+      <div class="sidebar-container right"  :class="{'hiddenMenu': !ShowCodeSelect}" :style="{width: width, height: height}">
           <el-scrollbar wrap-class="scrollbar-wrapper">
               <ins-code-select />
 

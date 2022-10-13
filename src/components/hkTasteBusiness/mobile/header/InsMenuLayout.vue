@@ -1,19 +1,22 @@
 <template>
-    <div class="MeunMain">
-      <div class="MenuContainer">
-          <div class="topbar">
-            <div class="closeBtn" @click="closeSlideMenu"><img src="/images/mobile/mpic_19.png"></div>
-            <div class="functionBtn">
-              <span class="fav" @click="goFav()"><img src="/images/mobile/mpic_21.png"></span>
-              <span class="code" @click="showSlideCode()"><img src="/images/mobile/mpic_22.png"></span>
-              <span class="lang" @click="showSlideLang()"><img src="/images/mobile/mpic_23.png"></span>
-            </div>
-          </div>
-          <div id="menu" class="MeunBar">
-              <Menu :backColor="'@base_color'" :textColor="'#fff'" :uniqueOpened="false"  :type="'header'"/>
+  <div class="MeunMain pcHeaderMain">
+    <div class="MenuContainer">
+        <div class="topbar">
+          <div class="closeBtn" @click="closeSlideMenu"><img src="/images/mobile/mpic_19.png"></div>
+          <div class="functionBtn">
+            <span class="fav" @click="goFav()"><img src="/images/mobile/mpic_21.png"></span>
+            <span class="lang" @click="showSlideLang()"><img src="/images/mobile/mpic_23.png"></span>
           </div>
         </div>
-    </div>
+        <div class="SearchboxMain">
+            <input type="text" v-model="key" class="inputBox" />
+            <span class="searchBtn" @click="searchFun(key)"></span>
+        </div>
+        <div id="menu" class="MeunBar">
+            <Menu :backColor="'@base_color'" :textColor="'#fff'" :uniqueOpened="false"  :type="'header'"/>
+        </div>
+      </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -22,14 +25,12 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 @Component({
   components: {
     InsLogo: () => import('@/components/base/mobile/InsLogo.vue'),
-    Menu: () => import('@/components/business/mobile/header/InsMenu.vue'),
-    InsLangSwitch: () => import('@/components/business/mobile/header/InsLangSwitch.vue')
+    Menu: () => import('@/components/business/mobile/header/InsElMenu.vue')
   }
 })
 export default class InsMenuLayout extends Vue {
   showMemNav: boolean = false;
   private key: string = '';
-
   showSlideCode () {
     this.$store.dispatch('isShowCodeSelect', true);
     this.$store.dispatch('isShowMenu', false);
@@ -41,6 +42,22 @@ export default class InsMenuLayout extends Vue {
     this.$store.dispatch('isShowMenu', false);
     this.$store.dispatch('isShowCodeSelect', false);
     this.$store.dispatch('isShowSearch', false);
+  }
+  searchFun (key) {
+    this.$store.dispatch('setSearchKey', key);
+    if (key !== '') {
+      this.$router.push({
+        path: '/product/search',
+        name: 'productSearch',
+        params: {
+          key: key
+        }
+      });
+    } else {
+      this.$router.push({
+        path: '/product/search/-'
+      });
+    }
   }
   handleOpen (key, keyPath) {
     console.log(key, keyPath);
@@ -68,189 +85,142 @@ export default class InsMenuLayout extends Vue {
     }
 }
 </script>
-
 <style lang="less">
 .sidebar-container {
-    background:rgba(0,0,0,.7) !important;
+    background-color: rgba(0,0,0,0.9) !important;
 }
-.menu_footer span{
-    display: flex;
-    float: left;
-    border:1px solid #eee;
-    padding-top: .5rem;
-    padding-bottom: .5rem;
-    padding-left: 2rem;
-    padding-right: 2rem;
-    margin-right: 1rem;
-    font-size: 1.4rem;
-}
-.innerShare{
-    width: 90%;
-    margin: 0 auto;
-    display: flex;
-    margin-top: 2rem;
-    padding-bottom: 5rem;
-    align-items: center;
-    justify-content: center;
-}
-.innerShare a {
-    display: inline-block;
-    margin-right: 1rem;
-    vertical-align: middle;
-}
-.innerShare a img {
-    width: 3rem;
-}
+.pcHeaderMain {
+  #menu {
+      .el-submenu__icon-arrow {
+          display: none;
+      }
 
-.search-box {
-    width: 90%;
-    height: 4rem;
-    margin: 0 auto;
-    margin-top: 3rem;
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 2rem;
-    border: 1px solid #666666;
-
-  /deep/ .el-select {
-    width: 20%;
-    position: absolute;
-    left: 0;
-    top: 0;
-
-    .el-input__inner {
-        height: 4rem;
-        border: 0;
-        border-right: 1px solid #DCDFE6;
-        border-radius: 0;
-        padding: 0 2rem 0 0.5rem;
-    }
-
-    .el-input__icon {
-      line-height: 4rem;
-      font-size: 1rem;
-    }
-  }
-
-  .search-input {
-    width: 100%;
-    height: 100%;
-
-    > input {
-        width: 100%;
-        height: 100%;
-        border: 0;
-        padding: 0 20% 0 22%;
-        box-sizing: border-box;
-        font-size: 1.2rem;
-        outline: none;
-    }
-
-    .searchBtn{
-        width: 4rem;
-        height: 4rem;
-        background: #666666;
-        display: inline-block;
-        cursor: pointer;
-        position: absolute;
-        right: 0;
-        top: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        img{
-            width: 50%;
-            margin: 0 auto;
+      .el-submenu__title {
+          background: transparent !important;
+          padding: 0px!important;
+          margin: 0 auto;
+          height: auto!important;
+          line-height: auto!important;
+          .name{
+            font-size: 1.4rem !important;
+            background-size: 100% 100%;
             display: block;
+            width: 90%;
+            padding-top: 0.9rem;
+            padding-bottom: 0.9rem;
+            margin: 0 auto;
+            font-weight: 500;
+            color: #fff;
+          }
+          i {
+            color: #fff;
+            background: url('/images/mobile/add.png') no-repeat center center;
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            background-size: contain;
+            &::before {
+              content: ''!important;
+            }
+          }
+      }
+
+      .el-menu {
+          margin: 0 auto;
+          background-color: transparent;
+          border: 0;
+          margin-bottom: 1rem;
+          margin-top: 1rem;
+          width: 100%;
+          .el-submenu__icon-arrow {
+              display: block;
+              font-size: 1.6rem;
+          }
+
+          > li {
+              height: auto;
+              line-height: unset;
+              >a {
+                  color:#333333;
+                  background-size: 100% 100%;
+                  display:block;
+                  width: 90%;
+                  padding-top: 1rem;
+                  padding-bottom: 1rem;
+                  margin: 0 auto;
+                  font-weight: 500;
+                  b{
+                      color:#FFF;
+                      display: block;
+                      width: 100%;
+                      font-weight: 500;
+                      &:nth-child(1){
+                          color:#fff;
+                          font-weight: 500;
+                          font-size: 1.4rem;
+                          white-space:break-spaces;
+                          word-break: break-word;
+                      }
+                      &:nth-child(2){
+                          color:#fff;
+                          font-size: 1.4rem;
+                      }
+                  }
+              }
+
+              a {
+                  text-decoration: none;
+              }
+          }
+
+          li {
+              line-height: unset;
+              padding: 0 !important;
+              min-width: unset;
+              background: transparent!important;
+          }
+      }
+      .el-menu--inline {
+        background: #fafafa;
+        margin-top: 0px!important;
+        margin-bottom: 0px!important;
+        li {
+          background: #5a5548!important;
+          border-bottom: 1px solid rgba(0,0,0,0.9)!important;
+          &:last-child {
+            border-bottom: 0px!important;
+          }
+          a {
+            &:hover {
+              b {
+                text-decoration: underline;
+              }
+            }
+          }
+          b {
+            font-size: 1.4rem!important;
+            color: #fff!important;
+          }
         }
-    }
+      }
+  }
+  #menu .is-opened > .el-submenu__title{
+      background: #c6b17b!important;
+      color:#fff!important;
+      .name{
+          color:#fff!important;
+      }
+  }
+  #menu .is-opened > .el-submenu__title .el-submenu__icon-arrow{
+      color:#fff!important;
+      background: url('/images/mobile/reduce.png') no-repeat center center;
+      width: 16px;
+      height: 16px;
+      display: inline-block;
+      background-size: contain;
   }
 }
-
-// #menu {
-//     .el-submenu__icon-arrow {
-//         display: none;
-//     }
-
-//     .el-submenu__title {
-//         padding-top: 0.5rem;
-//         padding-bottom: 0.5rem;
-//         padding-left: 0px!important;
-//         height: auto!important;
-//         line-height: unset;
-//         background-color:transparent!important;
-//         .name{
-//             font-size: 1.4rem!important;
-//             color:#fff;
-//             height: auto!important;
-//             line-height: unset!important;
-//         }
-//     }
-
-//     .el-menu {
-//         width: 90%;
-//         margin: 0 auto;
-//         background-color: transparent;
-//         border: 0;
-//         .el-submenu__icon-arrow {
-//             display: block;
-//             font-size: 1.4rem;
-//         }
-
-//         > li {
-//             height: auto;
-//             line-height: unset;
-//             text-align: left;
-//              >a {
-//                  color:#666666;
-//                  background-size: 100% 100%;
-//                  display:block;
-//                  width: 100%;
-//                  padding-top: .5rem;
-//                  padding-bottom: .5rem;
-//                  margin: 0 auto;
-//                  font-weight: 500;
-//                  b{
-//                      color:#FFF;
-//                      display: block;
-//                      width: 100%;
-//                      font-weight: 500;
-//                      &:nth-child(1){
-//                         color:#fff;
-//                         font-weight: 500;
-//                         font-size: 1.4rem;
-//                      }
-//                      &:nth-child(2){
-//                          color:#fff;
-//                          font-size: 1.2rem;
-//                      }
-//                  }
-//             }
-
-//             a {
-//                 text-decoration: none;
-//             }
-//         }
-
-//         li {
-//             line-height: unset;
-//             padding: 0 !important;
-//             min-width: unset;
-//         }
-//     }
-// }
-// #menu .is-opened > .el-submenu__title{
-//     background:transparent!important;
-//     color:#fff!important;
-//     .name{
-//         color:#FFF!important;
-//     }
-// }
-// #menu .is-opened > .el-submenu__title .el-submenu__icon-arrow{
-//     color:#fff!important;
-// }
 </style>
-
 <style scoped lang="less">
 .MeunBar {
   width: 90%;
@@ -280,7 +250,6 @@ export default class InsMenuLayout extends Vue {
           position: relative;
           left:0;
           top: 0;
-          display: block;
           width: 100%;
           border: 0px;
           li {
@@ -296,9 +265,9 @@ export default class InsMenuLayout extends Vue {
             >a {
             color:#e5e5e5;
             padding: 0px;
-            font-size: 1.2rem;
-            padding-top: 1rem;
-            padding-bottom: 1rem;
+            font-size: 18px;
+            padding-top: .8rem;
+            padding-bottom: .8rem;
             text-transform: uppercase;
             }
           }
@@ -307,10 +276,14 @@ export default class InsMenuLayout extends Vue {
           color:#fff;
           padding: 0px;
           font-size: 1.4rem;
-          padding-top: 1rem;
-          padding-bottom: 1rem;
+          padding-top: .8rem;
+          padding-bottom: .8rem;
           text-transform: uppercase;
           font-family: 'PoppinsBold', 'Microsoft YaHei';
+          &:hover {
+              color:#c6b17b;
+              text-decoration: underline;
+          }
         }
       }
     }
@@ -326,9 +299,16 @@ export default class InsMenuLayout extends Vue {
   margin-bottom: 2rem;
   margin-top: 2rem;
   .closeBtn {
-    width:2.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
     img {
-      width: 100%;
+      width: 2.5rem;
+    }
+    .Meun {
+      color: #fff;
+      font-size: 1.4rem;
+      margin-left: 10px;
     }
   }
   .functionBtn {
@@ -336,10 +316,42 @@ export default class InsMenuLayout extends Vue {
       width: 2.5rem;
       display: inline-block;
       margin-left: 1rem;
+      cursor: pointer;
       img {
         width: 100%;
       }
     }
   }
 }
+.SearchboxMain {
+    width: 90%;
+    height: 40px;
+    margin: 0 auto;
+    margin-top: 2rem;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2rem;
+    border: 1px solid #fff;
+    display: flex;
+    align-items: center;
+    .inputBox {
+      width: calc(100% - 30px);
+      height: 40px;
+      line-height: 40px;
+      border: 0px;
+      background: transparent;
+      color: #fff;
+      text-indent: 10px;
+      outline: 0;
+    }
+    .searchBtn {
+      width:25px;
+      height: 25px;
+      background: url('/images/mobile/mpic_20.png') no-repeat center center;
+      display: inline-block;
+      background-size: 25px;
+      margin-right: 5px;
+      cursor: pointer;
+    }
+  }
 </style>

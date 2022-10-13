@@ -38,7 +38,7 @@ export default class InsSearch extends Vue {
 </script>
 <style scoped lang="less">
 .Search {
-  width: 1200px;
+  width: 600px;
   margin: 0 auto;
   margin-top: 2rem;
   margin-bottom: 2rem;
@@ -59,6 +59,7 @@ export default class InsSearch extends Vue {
     .search-box {
       width: 90%;
       margin: 0 auto;
+      margin-top: 50%;
       height: 40px;
       z-index: 999;
       border: none;

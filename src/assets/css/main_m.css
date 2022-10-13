@@ -158,6 +158,15 @@ div {
   background-size: cover;
   flex-wrap: wrap;
 }
+#RomagoBg {
+  width: 100%;
+  display: flex;
+  background:url('/images/mobile/ohters_16.jpg') no-repeat center center;
+  background-size: cover;
+  flex-wrap: wrap;
+  flex-direction: column;
+  border-radius: 0px;
+}
 .mid-box {
   width: 92%;
   margin: 0 auto;

@@ -408,11 +408,11 @@ export default class InsCmsContent extends Vue {
     }
   .CmsNormal {
     width: 100%;
-    display: flex;
-    flex-wrap: wrap;
+    display: inline-block;
     padding-top:130px;
     background: #000;
     background-size: cover;
+    min-height: 500px;
   }
   .CmsContent {
     width: 100%;
@@ -452,6 +452,7 @@ export default class InsCmsContent extends Vue {
             width: 100%;
             display: flex;
             flex-wrap: wrap;
+            margin-bottom: .5rem;
             img {
               width: 100%;
             }

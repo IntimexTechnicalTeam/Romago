@@ -37,6 +37,18 @@ export const pRoutes = [
           import(/* webpackChunkName: "product" */ './components/service/InsBuilding.vue')
       },
       {
+        path: '/cms/404',
+        name: '404',
+        component: () =>
+          import(/* webpackChunkName: "product" */ './components/service/InsNotFound.vue')
+      },
+      {
+        path: '/product/WatchConfiguration',
+        name: 'WatchConfiguration',
+        component: () =>
+          import(/* webpackChunkName: "product" */ './components/hkTasteBusiness/pc/watch/InsWatchConfiguration.vue')
+      },
+      {
         path: '/product/detail/:id',
         name: 'ProductsDetail',
         component: () =>
@@ -401,6 +413,18 @@ export const mRoutes = [
           import(/* webpackChunkName: "product" */ './components/service/InsBuilding.vue')
       },
       {
+        path: '/product/WatchConfiguration',
+        name: 'WatchConfiguration',
+        component: () =>
+          import(/* webpackChunkName: "product" */ './components/hkTasteBusiness/mobile/watch/InsWatchConfiguration.vue')
+      },
+      {
+        path: '/cms/404',
+        name: '404',
+        component: () =>
+          import(/* webpackChunkName: "product" */ './components/service/InsNotFound.vue')
+      },
+      {
         path: '/product/detail/:id',
         name: 'ProductsDetail',
         component: () =>
@@ -630,10 +654,6 @@ export const mRoutes = [
       {
         path: '/account/completeCheckout/:id',
         name: 'completeCheckout',
-        meta: {
-          requiresAuth: true, // 是否进行登录验证
-          onlyFrom: '/account/checkout'
-        },
         component: () =>
           import(
             /* webpackChunkName: "checkout" */ './components/business/mobile/account/InsCompleteCheckout.vue'

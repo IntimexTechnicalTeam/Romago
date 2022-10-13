@@ -92,6 +92,7 @@ input,textarea,select {
   background-size: cover;
   flex-wrap: wrap;
   flex-direction: column;
+  border-radius: 0px;
 }
 #RomagoBg {
   width: 100%;
@@ -100,6 +101,7 @@ input,textarea,select {
   background-size: cover;
   flex-wrap: wrap;
   flex-direction: column;
+  border-radius: 0px;
 }
 .clear {
   clear: both;

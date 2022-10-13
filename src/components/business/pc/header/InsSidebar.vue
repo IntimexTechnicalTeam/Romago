@@ -45,9 +45,9 @@
         <div class="ctrlq fb-close"></div>
         <div
           class="fb-page"
-          data-href="https://www.facebook.com/hktastefood/"
+          data-href="https://www.facebook.com/reechooutdoor/"
           data-tabs="messages"
-          data-width="360"
+          data-width="300"
           data-height="400"
           data-small-header="true"
           data-hide-cover="true"
@@ -148,7 +148,7 @@ export default class InsSidebar extends Vue {
   background: #fff;
   z-index: 2;
   position: absolute;
-  width: 360px;
+  width: 300px;
   height: 435px;
   overflow: hidden;
   bottom: 0;

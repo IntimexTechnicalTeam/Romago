@@ -1,9 +1,6 @@
 <template>
   <div class="checkoutn_warpper PcV">
-    <div class="favorite-box-top">
-      <div class="login-register-title">{{$t('Action.Checkout')}}</div>
-      <div class="clear"></div>
-    </div>
+    <p class="pageTitle">{{$t('Action.Checkout')}}</p>
     <div class="main_warpper">
         <div class="checkoutl">
             <InsExpressWay
@@ -623,14 +620,18 @@ export default class InsCheckoutN extends Vue {
     -webkit-box-orient: vertical;
   }
 .checkoutn_warpper{
-  margin: 100px auto;
-  width: 1200px;
+  width: 100%;
+  padding-top: 130px;
+  background:url('/images/pc/Product-list.jpg') no-repeat center center;
+  background-size: cover;
   .main_warpper{
     display: flex;
     width: 1200px;
     margin: 0 auto;
+    margin-top: 50px;
     .checkoutl{
         width: 70%;
+        background: #fff;
         .payment_warpper{
             border: solid 1px rgba(0,0,0,.1);
             margin-top:20px ;
@@ -652,8 +653,9 @@ export default class InsCheckoutN extends Vue {
         }
     }
     .checkoutr{
-        padding: 0 20px;
-        width: 30%;
+        width: 28%;
+        margin-left: 2%;
+        background: #fff;
         // height: 500px;
         // background-color: blanchedalmond;
         .shopCart_warpper{
@@ -712,6 +714,8 @@ export default class InsCheckoutN extends Vue {
   }
   .btn_warpper{
     text-align: right;
+    width: 1200px;
+    margin: 0 auto;
   }
 }
 

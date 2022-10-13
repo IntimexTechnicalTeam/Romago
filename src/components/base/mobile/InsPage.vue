@@ -141,7 +141,7 @@ input[type="number"]{
 }
 .noClick{
   color: black;
-  background: white;
+  background: #eee;
   cursor: not-allowed;
   border: 1px solid #c6b17b;
   color: #c6b17b;

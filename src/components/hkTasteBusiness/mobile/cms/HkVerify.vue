@@ -94,6 +94,9 @@ export default class HkVerify extends Vue {
   flex-wrap: wrap;
   padding-top: 7rem;
   padding-bottom: 5rem;
+  .pageTitle {
+    width: 100%!important;
+  }
   .layerBox {
     position: fixed;
     z-index: 9999;

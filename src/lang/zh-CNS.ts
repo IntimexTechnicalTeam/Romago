@@ -16,7 +16,9 @@ export default {
     logopassword: '请输入密码',
     confirmpassword: '两次输入密码不一致',
     nomessage: '暂无数据',
-    phoneincorrect: '电话号码格式不正确'
+    phoneincorrect: '电话号码格式不正确',
+    PAGENOTFOUND: '抱歉，您所访问的页面不存在～',
+    selectPayment: '请选择付款方式'
   },
   Message: {
     Logout: '您尚未登陆或已登入超时，请重新登入',
@@ -62,7 +64,12 @@ export default {
     WarrantycardTips: '请在下方填上您的国际有限保修卡序列号:',
     WarrantycardFaq: '在哪里可以找到我的序列号？',
     Continue: '继续',
-    robotTips: '我不是机器人'
+    robotTips: '我不是机器人',
+    Select: '选择',
+    Reset: '重置',
+    Previous: '上一个',
+    Limitedproduction: '限量生产',
+    DownLoad: '下载'
   },
   Account: {
     MemberCenter: '会员中心',

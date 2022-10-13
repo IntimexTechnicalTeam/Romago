@@ -1,13 +1,16 @@
 <template>
-  <div class="MeunMain">
+  <div class="MeunMain pcHeaderMain">
     <div class="MenuContainer">
         <div class="topbar">
           <div class="closeBtn" @click="closeSlideMenu"><img src="/images/mobile/mpic_19.png"><span class="Meun">Meun</span></div>
           <div class="functionBtn">
             <span class="fav" @click="goFav()"><img src="/images/mobile/mpic_21.png"></span>
-            <span class="code" @click="showSlideCode()"><img src="/images/mobile/mpic_22.png"></span>
             <span class="lang" @click="showSlideLang()"><img src="/images/mobile/mpic_23.png"></span>
           </div>
+        </div>
+        <div class="SearchboxMain">
+            <input type="text" v-model="key" class="inputBox" />
+            <span class="searchBtn" @click="searchFun(key)"></span>
         </div>
         <div id="menu" class="MeunBar">
             <Menu :backColor="'@base_color'" :textColor="'#fff'" :uniqueOpened="false"  :type="'header'"/>
@@ -22,13 +25,12 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 @Component({
   components: {
     InsLogo: () => import('@/components/base/mobile/InsLogo.vue'),
-    Menu: () => import('@/components/business/pc/header/InsMenu.vue')
+    Menu: () => import('@/components/business/pc/header/InsElMenu.vue')
   }
 })
 export default class InsMenuLayout extends Vue {
   showMemNav: boolean = false;
   private key: string = '';
-
   showSlideCode () {
     this.$store.dispatch('isShowCodeSelect', true);
     this.$store.dispatch('isShowMenu', false);
@@ -40,6 +42,22 @@ export default class InsMenuLayout extends Vue {
     this.$store.dispatch('isShowMenu', false);
     this.$store.dispatch('isShowCodeSelect', false);
     this.$store.dispatch('isShowSearch', false);
+  }
+  searchFun (key) {
+    this.$store.dispatch('setSearchKey', key);
+    if (key !== '') {
+      this.$router.push({
+        path: '/product/search',
+        name: 'productSearch',
+        params: {
+          key: key
+        }
+      });
+    } else {
+      this.$router.push({
+        path: '/product/search/-'
+      });
+    }
   }
   handleOpen (key, keyPath) {
     console.log(key, keyPath);
@@ -67,106 +85,142 @@ export default class InsMenuLayout extends Vue {
     }
 }
 </script>
-
 <style lang="less">
 .sidebar-container {
-    background:rgba(0,0,0,.9) !important;
+    background-color: rgba(0,0,0,0.9) !important;
 }
-.menu_footer span{
-    display: flex;
-    float: left;
-    border:1px solid #eee;
-    padding-top: .5rem;
-    padding-bottom: .5rem;
-    padding-left: 2rem;
-    padding-right: 2rem;
-    margin-right: 1rem;
-    font-size: 1.4rem;
-}
-.innerShare{
-    width: 90%;
-    margin: 0 auto;
-    display: flex;
-    margin-top: 2rem;
-    padding-bottom: 5rem;
-    align-items: center;
-    justify-content: center;
-}
-.innerShare a {
-    display: inline-block;
-    margin-right: 1rem;
-    vertical-align: middle;
-}
-.innerShare a img {
-    width: 3rem;
-}
+.pcHeaderMain {
+  #menu {
+      .el-submenu__icon-arrow {
+          display: none;
+      }
 
-.search-box {
-    width: 90%;
-    height: 4rem;
-    margin: 0 auto;
-    margin-top: 3rem;
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 2rem;
-    border: 1px solid #666666;
-
-  /deep/ .el-select {
-    width: 20%;
-    position: absolute;
-    left: 0;
-    top: 0;
-
-    .el-input__inner {
-        height: 4rem;
-        border: 0;
-        border-right: 1px solid #DCDFE6;
-        border-radius: 0;
-        padding: 0 2rem 0 0.5rem;
-    }
-
-    .el-input__icon {
-      line-height: 4rem;
-      font-size: 1rem;
-    }
-  }
-
-  .search-input {
-    width: 100%;
-    height: 100%;
-
-    > input {
-        width: 100%;
-        height: 100%;
-        border: 0;
-        padding: 0 20% 0 22%;
-        box-sizing: border-box;
-        font-size: 1.2rem;
-        outline: none;
-    }
-
-    .searchBtn{
-        width: 4rem;
-        height: 4rem;
-        background: #666666;
-        display: inline-block;
-        cursor: pointer;
-        position: absolute;
-        right: 0;
-        top: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        img{
-            width: 50%;
-            margin: 0 auto;
+      .el-submenu__title {
+          background: transparent !important;
+          padding: 0px!important;
+          margin: 0 auto;
+          height: auto!important;
+          line-height: auto!important;
+          .name{
+            font-size: 20px !important;
+            background-size: 100% 100%;
             display: block;
+            width: 90%;
+            padding-top: 0.49rem;
+            padding-bottom: 0.49rem;
+            margin: 0 auto;
+            font-weight: 500;
+            color: #fff;
+          }
+          i {
+            color: #fff;
+            background: url('/images/mobile/add.png') no-repeat center center;
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            background-size: contain;
+            &::before {
+              content: ''!important;
+            }
+          }
+      }
+
+      .el-menu {
+          margin: 0 auto;
+          background-color: transparent;
+          border: 0;
+          margin-bottom: 1rem;
+          margin-top: 1rem;
+          width: 100%;
+          .el-submenu__icon-arrow {
+              display: block;
+              font-size: 1.6rem;
+          }
+
+          > li {
+              height: auto;
+              line-height: unset;
+              >a {
+                  color:#333333;
+                  background-size: 100% 100%;
+                  display:block;
+                  width: 90%;
+                  padding-top: 1rem;
+                  padding-bottom: 1rem;
+                  margin: 0 auto;
+                  font-weight: 500;
+                  b{
+                      color:#FFF;
+                      display: block;
+                      width: 100%;
+                      font-weight: 500;
+                      &:nth-child(1){
+                          color:#fff;
+                          font-weight: 500;
+                          font-size: 20px;
+                          white-space:break-spaces;
+                          word-break: break-word;
+                      }
+                      &:nth-child(2){
+                          color:#fff;
+                          font-size: 20px;
+                      }
+                  }
+              }
+
+              a {
+                  text-decoration: none;
+              }
+          }
+
+          li {
+              line-height: unset;
+              padding: 0 !important;
+              min-width: unset;
+              background: transparent!important;
+          }
+      }
+      .el-menu--inline {
+        background: #fafafa;
+        margin-top: 0px!important;
+        margin-bottom: 0px!important;
+        li {
+          background: #5a5548!important;
+          border-bottom: 1px solid rgba(0,0,0,0.9)!important;
+          &:last-child {
+            border-bottom: 0px!important;
+          }
+          a {
+            &:hover {
+              b {
+                text-decoration: underline;
+              }
+            }
+          }
+          b {
+            font-size: 20px!important;
+            color: #fff!important;
+          }
         }
-    }
+      }
+  }
+  #menu .is-opened > .el-submenu__title{
+      background: #c6b17b!important;
+      color:#fff!important;
+      .name{
+          color:#fff!important;
+      }
+  }
+  #menu .is-opened > .el-submenu__title .el-submenu__icon-arrow{
+      color:#fff!important;
+      background: url('/images/mobile/reduce.png') no-repeat center center;
+      width: 16px;
+      height: 16px;
+      display: inline-block;
+      background-size: contain;
   }
 }
 </style>
-
 <style scoped lang="less">
 .MeunBar {
   width: 90%;
@@ -196,7 +250,6 @@ export default class InsMenuLayout extends Vue {
           position: relative;
           left:0;
           top: 0;
-          display: block;
           width: 100%;
           border: 0px;
           li {
@@ -256,6 +309,7 @@ export default class InsMenuLayout extends Vue {
       color: #fff;
       font-size: 20px;
       margin-left: 10px;
+      text-transform: uppercase;
     }
   }
   .functionBtn {
@@ -270,4 +324,35 @@ export default class InsMenuLayout extends Vue {
     }
   }
 }
+.SearchboxMain {
+    width: 90%;
+    height: 40px;
+    margin: 0 auto;
+    margin-top: 2rem;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2rem;
+    border: 1px solid #fff;
+    display: flex;
+    align-items: center;
+    .inputBox {
+      width: calc(100% - 30px);
+      height: 40px;
+      line-height: 40px;
+      border: 0px;
+      background: transparent;
+      color: #fff;
+      text-indent: 10px;
+      outline: 0;
+    }
+    .searchBtn {
+      width:25px;
+      height: 25px;
+      background: url('/images/mobile/mpic_20.png') no-repeat center center;
+      display: inline-block;
+      background-size: 25px;
+      margin-right: 5px;
+      cursor: pointer;
+    }
+  }
 </style>

@@ -394,6 +394,7 @@ export default class InsCmsContent extends Vue {
             width: 100%;
             display: flex;
             flex-wrap: wrap;
+            margin-bottom: .5rem;
             img {
               width: 100%;
             }

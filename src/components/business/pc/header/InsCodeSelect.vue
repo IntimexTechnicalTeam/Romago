@@ -32,7 +32,6 @@ export default class InsCodeSelect extends Vue {
   }
   backMeun () {
     this.$store.dispatch('isShowCodeSelect', false);
-    this.$store.dispatch('isShowMenu', true);
   }
   mounted () {
 

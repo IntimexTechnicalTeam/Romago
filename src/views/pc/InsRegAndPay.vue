@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="RomagoBg">
       <div class="RNPForm default">
       <div class="FormMain">
         <div v-html="htmlString" class="to_vertical" id="content"></div>
@@ -111,4 +111,11 @@ export default class InsRegAndPay extends Vue {
 </style>
 <style lang="less" scoped>
 @import "../../assets/less/regnpay.less";
+/deep/ .RNPForm.default {
+  background: transparent!important;
+  padding-top: 130px;
+  #preview {
+    background: #fff;
+  }
+}
 </style>

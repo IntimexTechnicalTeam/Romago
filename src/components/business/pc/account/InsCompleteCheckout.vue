@@ -1,6 +1,6 @@
 <template>
 
-    <div class="cco_warpper" id="container">
+    <div class="cco_warpper" id="RomagoBg">
         <div class="maincontent">
           <div class="title">{{$t('CheckOut.OrderSent')}}</div>
           <div class="title">{{$t('CheckOut.PaymentProcess')}}</div>
@@ -18,7 +18,7 @@
                     <a @click="pay" v-show="currentlang==='C'"><img src="/images/pc/PayMeButton Round.png"></a>
                     <a @click="pay" v-show="currentlang==='S'"><img src="/images/pc/PayMeButton Round.png"></a>
                   </div>
-                  <div  v-else><ins-button :nama="$t('CheckOut.pay')" action="pay" type="primary" @click="pay" size="huge" style="margin-top: 3.3rem;width:60%;margin:0 auto;cursor: pointer;"/></div>
+                 <div  class="payBtn" v-else><ins-button :nama="$t('CheckOut.pay')" action="pay" type="primary" @click="pay" size="huge" style="margin-top:1rem;cursor: pointer;font-size:1.6rem;padding-top: .5rem;padding-bottom: .5rem;"/></div>
               </div>
           </div>
         </div>
@@ -77,6 +77,10 @@ export default class InsCompleteCheckout extends Vue {
 }
 </script>
 <style lang="less" scoped>
+.maincontent {
+  padding-top: 130px;
+  padding-bottom: 50px;
+}
 .evidenceBtn{
   background: @base_color;
   color: #fff;
@@ -88,35 +92,44 @@ export default class InsCompleteCheckout extends Vue {
   padding-top: .5rem;
   padding-bottom: .5rem;
 }
-.payBtn{
-  text-align: center;
-  a{
-    cursor: pointer;
-  }
-}
 .cco_warpper{
   min-height: 12rem;
-  background-color: white;
-  padding: 2rem 1rem;
-  border-radius: .5rem;
   .title{
     font-size: 2rem;
     font-weight: 600;
     text-align: center;
     padding: .5rem 0 .5rem 0;
+    color: #fff;
   }
   .container{
     div{
         font-size: 1.6rem;
-        padding: 0.5rem;
-        width: 50%;
         margin: 0 auto;
+        color: #c6b17b;
       span{
         width: 50%;
         display: inline-block;
         text-align: right;
+        color: #fff;
       }
     }
+  }
+}
+.payBtn{
+  text-align: center;
+  background: #c6b17b;
+  width: 50%;
+  margin: 0 auto;
+  >div {
+      background: #c6b17b;
+      color: #fff!important;
+      cursor: pointer!important;
+      font-family: 'PoppinsBold', 'Microsoft YaHei';
+      text-transform: uppercase;
+  }
+  a{
+    cursor: pointer;
+    color: #fff;
   }
 }
 </style>

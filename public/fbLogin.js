@@ -141,9 +141,9 @@ if (flag) {
   flag = false;
   // window.alert('ssss');
   regAndPay.saveSubmit(obj).then(function(result) {
-    if (result.data.Succeeded) {
+    if (result.Succeeded) {
           console.log('22222');
-            router.push({ path: '/regnpay/result/' + result.data.ReturnValue });
+            router.push({ path: '/regnpay/result/' + result.ReturnValue });
     } else {
      window.alert(result.data.Message);
      flag = true;

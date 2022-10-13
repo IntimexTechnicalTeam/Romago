@@ -1,12 +1,14 @@
 <template>
     <li class="ReSearchItem">
-          <p class="category">
-          {{searchGroup.Name}}
-            <i class="el-icon-arrow-up"  @click="isOpen = !isOpen" v-if="!isOpen"></i>
-            <i class="el-icon-arrow-down" @click="isOpen = !isOpen" v-else></i>
-        </p>
+        <div class="category" :class="{'titleBg': !isOpen}">
+          <div class="InnerBox">
+            {{searchGroup.Name}}
+              <i class="el-icon-minus"  @click="isOpen = !isOpen" v-if="!isOpen"></i>
+              <i class="el-icon-plus" @click="isOpen = !isOpen" v-else></i>
+          </div>
+        </div>
           <transition name="fade">
-          <ul :class="{'open': isOpen}">
+          <ul :class="{'selectBg': !isOpen,'open':isOpen}">
             <li>
                 <input type="checkbox" :id="searchGroup.Name+'-All'" v-model="isAll" @click="checkAll($event,searchGroup)"  style="display:none;">
                 <label :for="searchGroup.Name+'-All'" >{{$t('Message.All')}}</label>
@@ -102,6 +104,14 @@ export default class InsAdvancedSearch extends Vue {
 }
 </script>
 <style scoped lang="less">
+.titleBg {
+  background: #c6b17b;
+  color: #fff;
+}
+.selectBg {
+  background: #5a5548;
+  color: #fff;
+}
 .ReSearchItem {
       .colorstyle {
         color: @base_color;
@@ -114,10 +124,8 @@ export default class InsAdvancedSearch extends Vue {
           color: @base_color!important;
         }
       }
-      p.category {
+      .category {
         width: 100%;
-        font-size: 20px;
-        color: #fff;
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
@@ -127,16 +135,22 @@ export default class InsAdvancedSearch extends Vue {
         align-items: center;
         -ms-flex-negative: 0;
         flex-shrink: 0;
-        position: relative;
         height: 3.5rem;
         line-height: 3.5rem;
-        border-radius: 2rem;
         font-family: 'PoppinsBold', 'Microsoft YaHei';
-        i{
-          position: absolute;
-          right: 0px;
-          top: 20px;
-          font-size: 1.6rem;
+        .InnerBox {
+          width: 90%;
+          margin: 0 auto;
+          position: relative;
+          font-size: 20px;
+          color: #fff;
+            i{
+              position: absolute;
+              right: 0px;
+              top: 1rem;
+              font-size: 1.4rem;
+              cursor: pointer;
+            }
         }
     }
 
@@ -147,6 +161,7 @@ export default class InsAdvancedSearch extends Vue {
             display: flex;
             align-items: center;
             justify-content: flex-start;
+            border-bottom: 1px solid #2c2d31;
             input[type="checkbox"] {
                 width: 18px;
                 height: 18px;
@@ -157,23 +172,23 @@ export default class InsAdvancedSearch extends Vue {
             }
 
             input[type="checkbox"]:checked {
-                border: 1px solid #666666;
+                border: 1px solid #fefefe;
                 background-image: url('/images/mobile/checked.png'); /*复选框的背景图*/
                 background-repeat: no-repeat;
                 background-position: center;
                 background-size: auto;
 
                 &+label {
-                    color: #c6b17b;
                     text-decoration: underline;
                 }
             }
 
             label {
             font-size: 18px;
-            color: #cccccc;
+            color: #fefefe;
             width: 90%;
             margin: 0 auto;
+            cursor: pointer;
               &:hover {
                   color: #c6b17b;
                   text-decoration: underline;

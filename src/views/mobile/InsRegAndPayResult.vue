@@ -97,7 +97,7 @@ export default class Result extends Vue {
         });
         if (result.ReturnValue.IsPayed) this.$Confirm(this.$t('Message.Message'), this.$t('Order.Paid'));
         if (result.ReturnValue.Amount > 0 && !result.ReturnValue.IsPayed) {
-          this.loadPaymentMethod();
+          this.paymentMethods = result.data.ReturnValue.PaymentType;
         } else if (this.result.NextFormKey) {
           let NextFormKey = this.result.NextFormKey;
           setTimeout(() => {
@@ -122,7 +122,7 @@ export default class Result extends Vue {
     // 立即支付
     pay () {
       if (!this.paymentMethod.Id || this.paymentMethod.Id === '') {
-        alert('请选择付款方式');
+        alert(this.$t('Input.selectPayment') as string);
       } else {
         this.$Api.regAndPay.savePayMethod(this.paymentMethod.Id, this.result.Id).then(result => {
           if (result.data.Succeeded) {
@@ -156,6 +156,15 @@ export default class Result extends Vue {
 </script>
 <style scoped lang="less">
 @import '../../assets/less/regnpay_m.less';
+/deep/ .RNPResult.default {
+    width: 95%;
+    margin: 0 auto;
+    background: transparent;
+    padding: 0px!important;
+    #rnp-main-content {
+      margin-bottom: 50px;
+    }
+}
 .Banner {
   width: 100%;
   height:500px;

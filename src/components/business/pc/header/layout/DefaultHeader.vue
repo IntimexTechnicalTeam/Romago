@@ -6,9 +6,7 @@
             <span @click="showSlideMenu" class="slide-menu"><b class="MeunImg"></b><i>Menu</i></span>
             <ins-logo />
             <div class="rightSide">
-                <div class="searchMain">
-                    <a href="javascript:;" class="searchImg" @click="showsearch"></a>
-                </div>
+                <span class="code" @click="showSlideCode()"></span>
                 <ins-login />
                 <shopcart class="shoppingcart" />
             </div>
@@ -20,9 +18,7 @@
             <span @click="showSlideMenu" class="slide-menu"><b class="MeunImg"></b><i>Menu</i></span>
             <ins-logo />
             <div class="rightSide">
-                <div class="searchMain">
-                    <a href="javascript:;" class="searchImg" @click="showsearch"></a>
-                </div>
+                <span class="code" @click="showSlideCode()"></span>
                 <ins-login />
                 <shopcart class="shoppingcart" />
             </div>
@@ -51,6 +47,12 @@ export default class DefaultHeader extends Vue {
   }
   showsearch () {
     this.$store.dispatch('isShowSearch', true);
+  }
+  showSlideCode () {
+    this.$store.dispatch('isShowCodeSelect', true);
+    this.$store.dispatch('isShowMenu', false);
+    this.$store.dispatch('isShowLangSwitch', false);
+    this.$store.dispatch('isShowSearch', false);
   }
   get showHomePage () {
     return this.$route.path;
@@ -163,6 +165,22 @@ export default class DefaultHeader extends Vue {
   .rightSide {
     float: right;
     display: flex;
+    align-items: center;
+    .code {
+      width: 2rem;
+      height: 2rem;
+      background: url('/images/mobile/mpic_22.png') no-repeat center center;
+      display: inline-block;
+      background-size: contain;
+      cursor: pointer;
+      transition: all .3s;
+      &:hover {
+        width: 2rem;
+        height: 2rem;
+        background: url('/images/mobile/mpic_22_hover.png') no-repeat center center!important;
+        background-size: contain;
+      }
+    }
   }
   .slide-menu {
     margin-top: 0.5rem;
@@ -198,6 +216,7 @@ export default class DefaultHeader extends Vue {
       font-size: 1.2rem;
       font-style: normal;
       font-family: 'PoppinsBold', 'Microsoft YaHei';
+      text-transform: uppercase;
     }
   }
   .shoppingcart{

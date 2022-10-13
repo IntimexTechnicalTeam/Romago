@@ -16,7 +16,9 @@ export default {
     logopassword: '請輸入密碼',
     confirmpassword: '兩次輸入密碼不一致',
     nomessage: '暫無數據',
-    phoneincorrect: '電話號碼格式不正確'
+    phoneincorrect: '電話號碼格式不正確',
+    PAGENOTFOUND: '抱歉，您所訪問的頁面不存在～',
+    selectPayment: '請選擇付款方式'
   },
   Message: {
     Logout: '您尚未登陸或已登入超時，請重新登入',
@@ -62,7 +64,12 @@ export default {
     WarrantycardTips: '請在下方填上您的國際有限保修卡序列號:',
     WarrantycardFaq: '在哪裡可以找到我的序列號？',
     Continue: '繼續',
-    robotTips: '我不是機器人'
+    robotTips: '我不是機器人',
+    Select: '選擇',
+    Reset: '重置',
+    Previous: '上一個',
+    Limitedproduction: '限量生產',
+    DownLoad: '下載'
   },
   Account: {
     MemberCenter: '會員中心',

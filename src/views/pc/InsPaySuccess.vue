@@ -1,6 +1,6 @@
 <template>
 <div class="pc">
-  <div id="container" class="paySuccess">
+  <div id="RomagoBg" class="paySuccess">
     <div class="payment-box">
         <div class="logo">
             <span class="el-icon-circle-check"></span>
@@ -47,16 +47,16 @@ export default class paySuccess extends Vue {
         .payment-box {
             width: 1200px;
             margin: 0 auto;
-            padding: 100px 0;
+            padding: 130px 0;
             text-align: center;
-
+            min-height: 500px;
             .logo {
                 img {
                     max-width: 35%;
                 }
                 span{
                     font-size: 4rem;
-                    color: #59ab61;
+                    color: #c6b17b;
                     text-align: center;
                 }
             }
@@ -64,6 +64,7 @@ export default class paySuccess extends Vue {
             .tips {
                 font-size: 20px;
                 margin: 50px 0;
+                color: #fff;
             }
 
             .payment-btn {
@@ -71,7 +72,7 @@ export default class paySuccess extends Vue {
                     display: inline-block;
                     padding: 10px 35px;
                     margin: 0 20px;
-                    background-color: #59ab61;
+                    background-color: #c6b17b;
                     color: #fff;
                     border-radius: 5px;
                     font-size: 16px;
@@ -103,7 +104,7 @@ export default class paySuccess extends Vue {
                     display: inline-block;
                     padding: 0.8rem 1.2rem;
                     margin: 0 1rem;
-                    background-color: #59ab61;
+                    background-color: #c6b17b;
                     color: #fff;
                     border-radius: 5px;
                     font-size: 1.2rem;

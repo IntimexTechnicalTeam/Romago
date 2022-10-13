@@ -81,6 +81,10 @@ class WSAPI {
         } else {
           Vue.prototype.$Confirm(this.msgTitle, this.codeMessage[status]);
         }
+        // 产品详情页API报错时的跳转处理
+        if (status === 302) {
+          window.location.href = '/cms/404';
+        }
       }
     );
     return ins;

@@ -6,9 +6,7 @@
             <img class="slide-menu" src="/images/mobile/mpic_09.png" @click="showSlideMenu" />
             <ins-logo />
             <div class="rightSide">
-                <div class="searchMain">
-                    <a href="javascript:;" class="searchImg" @click="showsearch"></a>
-                </div>
+                <span class="code" @click="showSlideCode()"></span>
                 <ins-login />
                 <shopcart class="shoppingcart" />
             </div>
@@ -20,9 +18,7 @@
             <img class="slide-menu" src="/images/mobile/mpic_09.png" @click="showSlideMenu" />
             <ins-logo />
             <div class="rightSide">
-                <div class="searchMain">
-                    <a href="javascript:;" class="searchImg" @click="showsearch"></a>
-                </div>
+                <span class="code" @click="showSlideCode()"></span>
                 <ins-login />
                 <shopcart class="shoppingcart" />
             </div>
@@ -48,6 +44,12 @@ export default class DefaultHeader extends Vue {
   showSlideMenu () {
     let isShow = !JSON.parse(JSON.stringify(this.menuShow));
     this.$store.dispatch('isShowMenu', isShow);
+  }
+  showSlideCode () {
+    this.$store.dispatch('isShowCodeSelect', true);
+    this.$store.dispatch('isShowMenu', false);
+    this.$store.dispatch('isShowLangSwitch', false);
+    this.$store.dispatch('isShowSearch', false);
   }
   showsearch () {
     this.$store.dispatch('isShowSearch', true);
@@ -156,6 +158,16 @@ export default class DefaultHeader extends Vue {
   .rightSide {
     float: right;
     display: flex;
+    align-items: center;
+    .code {
+      width: 2rem;
+      height: 2rem;
+      background: url('/images/mobile/mpic_22.png') no-repeat center center;
+      display: inline-block;
+      background-size: contain;
+      cursor: pointer;
+      transition: all .3s;
+    }
   }
   .slide-menu {
     width: 2rem;

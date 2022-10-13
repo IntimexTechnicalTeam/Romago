@@ -95,6 +95,9 @@ export default class InsCatLayout1 extends Vue {
 }
 </style>
 <style scoped lang="less">
+.pager {
+  width: 100%;
+}
 .loading{
     text-align: center;
     height: 3rem;
@@ -142,12 +145,26 @@ export default class InsCatLayout1 extends Vue {
         display: flex;
         flex-wrap: wrap;
         .perData {
-            width:49%;
+            width:calc(49% - 2px);
             display: flex;
             flex-wrap: wrap;
             margin-bottom: 2rem;
+            border: 1px solid transparent;
+            transition: all .3s;
+            cursor: pointer;
+            &:hover {
+              border: 1px solid #c6b17b;
+              .title {
+                color: #c6b17b;
+              }
+            }
             &:nth-child(2n) {
               margin-right: 2%;
+            }
+            .BottomText {
+              width: 100%;
+              display: flex;
+              flex-wrap: wrap;
             }
             .imgs {
                 width: 100%;
@@ -170,12 +187,15 @@ export default class InsCatLayout1 extends Vue {
                 margin-top: .5rem;
                 margin-bottom: .5rem;
                 font-family: 'PoppinsBold', 'Microsoft YaHei';
-                width: 100%;
+                width: 98%;
+                margin: 0 auto;
+                transition: all .3s;
             }
             .contentTime {
                 color:#c6b17b;
                 font-size:20px;
-                 width: 100%;
+                width: 98%;
+                margin: 0 auto;
             }
         }
         .FirstData {
@@ -183,6 +203,11 @@ export default class InsCatLayout1 extends Vue {
           display: flex;
           flex-wrap: wrap;
           position: relative;
+          &:hover {
+            .title {
+              color: #fff!important;
+            }
+          }
           .BottomText {
             position: absolute;
             width: 50%;
