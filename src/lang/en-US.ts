@@ -18,7 +18,9 @@ export default {
     nomessage: 'No Message',
     phoneincorrect: 'The phone number format is incorrect',
     PAGENOTFOUND: 'Sorry, the page you are looking for does not exist',
-    selectPayment: 'Please choose a payment method'
+    selectPayment: 'Please choose a payment method',
+    SerialNumber: 'Please enter serial number',
+    Backtotop: 'Back to top'
   },
   Message: {
     Logout: 'Timeout ! login now ?',
@@ -69,7 +71,9 @@ export default {
     Reset: 'Reset',
     Previous: 'Previous',
     Limitedproduction: 'Limited production',
-    DownLoad: 'DownLoad'
+    DownLoad: 'DownLoad',
+    Menu: 'Menu',
+    DISCOVERTHECOLLECTION: 'DISCOVER THE COLLECTION'
   },
   RegNPay: {
     BackText: 'Back',

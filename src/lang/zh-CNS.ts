@@ -18,7 +18,9 @@ export default {
     nomessage: '暂无数据',
     phoneincorrect: '电话号码格式不正确',
     PAGENOTFOUND: '抱歉，您所访问的页面不存在～',
-    selectPayment: '请选择付款方式'
+    selectPayment: '请选择付款方式',
+    SerialNumber: '请输入序列号',
+    Backtotop: '返回顶部'
   },
   Message: {
     Logout: '您尚未登陆或已登入超时，请重新登入',
@@ -69,7 +71,9 @@ export default {
     Reset: '重置',
     Previous: '上一个',
     Limitedproduction: '限量生产',
-    DownLoad: '下载'
+    DownLoad: '下载',
+    Menu: '列表',
+    DISCOVERTHECOLLECTION: '系列产品'
   },
   Account: {
     MemberCenter: '会员中心',

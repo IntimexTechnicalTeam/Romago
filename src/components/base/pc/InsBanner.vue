@@ -1,7 +1,7 @@
 <template>
   <div class="banner" :class="isActive ?'bannerNormal':''" v-show="!isActive">
     <div class="sup_contbox_content">
-              <swiper  ref="videoSwiper"  :options="swiperOptionVideos" @slideChange="slideChange"   v-if="VideoData.length > 0 && initSwiper">
+              <swiper  ref="videoSwiper"  :options="swiperOptionVideos" @slideChange="slideChange"    v-if="VideoData.length > 0 && initSwiper">
                 <swiper-slide class="swiper-item" v-for='(item,index) of VideoData' :key='index'>
                   <div class="qhbox">
                     <div class="vrteacher" style="height:100vh;">
@@ -47,10 +47,11 @@ export default class Banner extends Vue {
     slidesPerView: 'auto', // 记得这里写 auto 不要默认写1哦
     observer: true, // 修改swiper自己或子元素时，自动初始化swiper
     observeParents: true, // 修改swiper的父元素时，自动初始化swiper
+    freeMode: false, // 自由控制
     mousewheel: true,
     autoplay: {
       delay: 15000,
-      stopOnLastSlide: true,
+      stopOnLastSlide: false,
       disableOnInteraction: true
     },
       on: {
@@ -61,6 +62,9 @@ export default class Banner extends Vue {
         touchStart: (event) => {
             $('.ptitle').removeClass('animate__animated animate__backInLeft');
             $('.pdesc').removeClass('animate__animated animate__backInLeft');
+            if (this.videoSwiper.isEnd && this.videoSwiper.swipeDirection === 'next') {
+                console.log('最后一页了开始');
+            }
         },
         touchEnd: (event) => {
             $('.ptitle').addClass('animate__animated animate__backInLeft');
@@ -69,6 +73,7 @@ export default class Banner extends Vue {
                 this.$store.dispatch('isActive', true);
             }
         }
+
     }
   }
   get videoSwiper() {
@@ -123,6 +128,7 @@ export default class Banner extends Vue {
   height: 100vh;
   position: fixed;
   z-index: 99;
+  background: #000;
   .swiper-container {
     width: 100%;
     height: 100%;

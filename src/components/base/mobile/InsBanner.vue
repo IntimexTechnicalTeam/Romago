@@ -123,6 +123,7 @@ export default class Banner extends Vue {
   height: 100vh;
   position: fixed;
   z-index: 99;
+  background: #000;
   .swiper-container {
     width: 100%;
     height: 100%;

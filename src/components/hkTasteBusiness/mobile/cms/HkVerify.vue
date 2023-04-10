@@ -11,7 +11,7 @@
             <router-link to="/CMS/content/30309" class="UrlText">{{$t('Message.WarrantycardFaq')}}</router-link>
           </el-form-item>
           <el-form-item  prop="VerifyChoice">
-              <el-checkbox :label="$t('Message.robotTips')" name="VerifyChoice" v-model="ruleForm.VerifyChoice" @change="VerifyLayerShow()"></el-checkbox>
+               <p class="Verify"  @click="VerifyLayerShow()"><span class="check"><i class="checkadd" v-if="isVerify"></i></span><span class="tips">{{$t('Message.robotTips')}}</span></p>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="submitForm()">{{$t('Message.Continue')}}</el-button>
@@ -39,8 +39,7 @@ export default class HkVerify extends Vue {
          '/images/mobile/ohters_07.jpg'
       ];
     ruleForm ={
-      VerifyText: '',
-      VerifyChoice: ''
+      VerifyText: ''
     }
       get rules () {
         return {
@@ -49,11 +48,6 @@ export default class HkVerify extends Vue {
               required: true,
               message: this.$t('MemberInfo.EnterUserName'),
               trigger: 'blur'
-            }
-          ],
-          VerifyChoice: [
-            {
-                required: true, message: '请至少选择一个活动性质', trigger: 'change'
             }
           ]
         };
@@ -77,11 +71,15 @@ export default class HkVerify extends Vue {
     }
     submitForm() {
       (this.$refs.ruleForm as any).validate(valid => {
-        if (valid && this.isVerify) {
-          alert('submit!');
+        if (this.isVerify) {
+          if (valid) {
+            alert('submit!');
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
         } else {
-          console.log('error submit!!');
-          return false;
+          alert('请勾选验证!');
         }
       });
     }
@@ -139,6 +137,38 @@ export default class HkVerify extends Vue {
       line-height: 2rem;
       margin-top: 1rem;
       margin-bottom: 1rem;
+    }
+        .Verify {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      cursor: pointer;
+      .tips {
+        color: #fff;
+        font-size: 16px;
+      }
+      .check {
+        width: 20px;
+        height: 20px;
+        border: 1px solid #fff;
+        margin-right: 10px;
+        position: relative;
+        .checkadd {
+          width: 1rem;
+          height: 0.5rem;
+          display: inline-block;
+          border: 1px solid #fff;
+          border-width: 0 0 2px 2px;
+          transform: rotate(-45deg);
+          -ms-transform: rotate(-45deg);
+          -moz-transform: rotate(-45deg);
+          -webkit-transform: rotate(-45deg);
+          -o-transform: rotate(-45deg);
+          position: absolute;
+          left: 0px;
+          top: 0px;
+        }
+      }
     }
     .UrlText {
       color: #fff;

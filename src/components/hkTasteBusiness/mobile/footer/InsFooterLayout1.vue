@@ -9,13 +9,13 @@
               </div>
                 <p class="NormalTitle">{{$t('Message.SOCIALMEDIA')}}</p>
                 <p class="NormalImg">
-                    <a href="#" target="_blank"><img src="/images/mobile/mpic_11.png"></a>
-                    <a href="#" target="_blank"><img src="/images/mobile/mpic_12.png"></a>
-                    <a href="#" target="_blank"><img src="/images/mobile/mpic_13.png"></a>
-                    <a href="#" target="_blank"><img src="/images/mobile/mpic_14.png"></a>
-                    <a href="#" target="_blank"><img src="/images/mobile/mpic_15.png"></a>
-                    <a href="#" target="_blank"><img src="/images/mobile/mpic_16.png"></a>
-                    <a href="#" target="_blank"><img src="/images/mobile/mpic_17.png"></a>
+                      <a href="https://www.facebook.com/romagoswiss.ch/" target="_blank"><img src="/images/mobile/mpic_11.png"></a>
+                      <a href="https://www.instagram.com/romago.swiss/" target="_blank"><img src="/images/mobile/mpic_12.png"></a>
+                      <a href="https://www.youtube.com/channel/UChmJOMmn3UwILnDBrmlKCQw" target="_blank"><img src="/images/mobile/mpic_13.png"></a>
+                      <a href="https://twitter.com/ROMAGO10" target="_blank"><img src="/images/mobile/mpic_14.png"></a>
+                      <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&amp;__biz=MjM5OTAxODI4OQ==&amp;scene=124#wechat_redirect" target="_blank"><img src="/images/mobile/mpic_15.png"></a>
+                      <a href="https://www.weibo.com/u/2669053602?is_hot=1#_loginLayer_1510625853844" target="_blank"><img src="/images/mobile/mpic_16.png"></a>
+                      <a href="https://www.pinterest.com/leader2043/pins/" target="_blank"><img src="/images/mobile/mpic_17.png"></a>
                 </p>
                 <p class="NormalTitle">{{$t('CheckOut.PaymentMethod')}}</p>
                 <p class="NormalImg">
@@ -116,6 +116,9 @@ export default class InsFooter extends Vue {
     get queryLang () {
       return this.$route.query.Lang || '';
     }
+    GoscrollTop () {
+      this.$store.dispatch('isActive', false);
+    }
     scrollEvent () {
           let _this = this;
           let scroll = _this.$el.querySelector('.touchHeight') as any;
@@ -138,7 +141,8 @@ export default class InsFooter extends Vue {
       window['Elalert'] = this.$alert;
     }
   @Watch('$route', { deep: true })
-  onIdChange () {
+  onRouteChange (n, o) {
+      this.$store.dispatch('isActive', false);
   }
 }
 </script>

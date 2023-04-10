@@ -151,8 +151,7 @@ export default class InsProductWindow extends Vue {
 }
 .picBox {
   width: 100%;
-  display: flex;
-  flex-wrap: wrap;
+  display: inline-block;
   position: relative;
   img {
     width: 100%;

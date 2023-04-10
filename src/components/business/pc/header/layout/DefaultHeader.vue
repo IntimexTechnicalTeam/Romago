@@ -3,7 +3,7 @@
     <!-- 正常菜单 -->
       <div class="header-box header-normal">
         <div class="headerTop">
-            <span @click="showSlideMenu" class="slide-menu"><b class="MeunImg"></b><i>Menu</i></span>
+            <span @click="showSlideMenu" class="slide-menu"><b class="MeunImg"></b><i>{{$t('Message.Menu')}}</i></span>
             <ins-logo />
             <div class="rightSide">
                 <span class="code" @click="showSlideCode()"></span>
@@ -15,7 +15,7 @@
       <!-- 固定菜单 -->
       <div class="header-box header-fixed">
         <div class="headerTop">
-            <span @click="showSlideMenu" class="slide-menu"><b class="MeunImg"></b><i>Menu</i></span>
+            <span @click="showSlideMenu" class="slide-menu"><b class="MeunImg"></b><i>{{$t('Message.Menu')}}</i></span>
             <ins-logo />
             <div class="rightSide">
                 <span class="code" @click="showSlideCode()"></span>

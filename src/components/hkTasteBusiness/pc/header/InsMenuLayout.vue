@@ -2,7 +2,7 @@
   <div class="MeunMain pcHeaderMain">
     <div class="MenuContainer">
         <div class="topbar">
-          <div class="closeBtn" @click="closeSlideMenu"><img src="/images/mobile/mpic_19.png"><span class="Meun">Meun</span></div>
+          <div class="closeBtn" @click="closeSlideMenu"><img src="/images/mobile/mpic_19.png"><span class="Meun">{{$t('Message.Menu')}}</span></div>
           <div class="functionBtn">
             <span class="fav" @click="goFav()"><img src="/images/mobile/mpic_21.png"></span>
             <span class="lang" @click="showSlideLang()"><img src="/images/mobile/mpic_23.png"></span>

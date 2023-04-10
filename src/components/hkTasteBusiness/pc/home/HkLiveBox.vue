@@ -12,7 +12,7 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 export default class HkLiveBox extends Vue {
   fbContent:string='';
   getFbContent () {
-    this.$Api.cms.getContentByDevice({ Key: 'Facebook', IsMobile: true }).then(result => {
+    this.$Api.cms.getContentByDevice({ Key: 'Facebook', IsMobile: false }).then(result => {
       this.fbContent = result.CMS;
     });
   }
@@ -29,10 +29,6 @@ export default class HkLiveBox extends Vue {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  background: url('/images/pc/pcNew_04.jpg') no-repeat center center;
-  background-size: cover;
-  padding-top: 3rem;
-  padding-bottom: 3rem;
   .mapBg {
     width: 90%;
     margin: 0 auto;
@@ -43,9 +39,6 @@ export default class HkLiveBox extends Vue {
     padding-top: 8rem;
     .fb {
       /deep/ img {
-        width: 100%;
-      }
-      /deep/ iframe {
         width: 100%;
       }
     }

@@ -43,9 +43,6 @@ export default class HkLiveBox extends Vue {
       /deep/ img {
         width: 100%;
       }
-      /deep/ iframe {
-        width: 100%;
-      }
     }
   }
 }

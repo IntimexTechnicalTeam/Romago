@@ -155,7 +155,7 @@ export default class InsAdvancedSearch extends Vue {
       });
 
       // this.$router.push(`${this.$route.path}?attrs=${JSON.stringify(this.selectedAttrs)}&catalogs=${JSON.stringify(this.selectedCats)}&type=${this.routerType}`);
-      history.pushState(null, '', this.$route.path + '?attrs=' + JSON.stringify(this.selectedAttrs) + '&catalogs=' + JSON.stringify(this.paramCats) + '&type=' + this.routerType);
+      window.history.replaceState(null, '', this.$route.path + '?attrs=' + JSON.stringify(this.selectedAttrs) + '&catalogs=' + JSON.stringify(this.paramCats) + '&type=' + this.routerType);
       this.$emit('advancedChange', this.selectedAttrs, this.paramCats);
     }
 
@@ -183,7 +183,7 @@ export default class InsAdvancedSearch extends Vue {
       }
 
       // this.$router.push(`${this.$route.path}?attrs=${JSON.stringify(this.selectedAttrs)}&catalogs=${JSON.stringify(this.selectedCats)}&type=1`);
-      history.pushState(null, '', this.$route.path + '?attrs=' + JSON.stringify(this.selectedAttrs) + '&catalogs=' + JSON.stringify(this.paramCats) + '&type=1');
+      window.history.replaceState(null, '', this.$route.path + '?attrs=' + JSON.stringify(this.selectedAttrs) + '&catalogs=' + JSON.stringify(this.paramCats) + '&type=1');
       this.$emit('advancedChange', this.selectedAttrs, this.paramCats);
     }
 
@@ -225,7 +225,7 @@ export default class InsAdvancedSearch extends Vue {
       });
 
       // this.$router.push(`${this.$route.path}?attrs=${JSON.stringify(this.selectedAttrs)}&catalogs=${JSON.stringify(this.selectedCats)}&type=1`);
-      history.pushState(null, '', this.$route.path + '?attrs=' + JSON.stringify(this.selectedAttrs) + '&catalogs=' + JSON.stringify(this.paramCats) + '&type=1');
+      window.history.replaceState(null, '', this.$route.path + '?attrs=' + JSON.stringify(this.selectedAttrs) + '&catalogs=' + JSON.stringify(this.paramCats) + '&type=1');
       this.$emit('advancedChange', this.selectedAttrs, this.paramCats);
     }
 

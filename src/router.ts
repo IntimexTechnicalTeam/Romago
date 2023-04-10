@@ -83,6 +83,14 @@ export const pRoutes = [
           )
       },
       {
+        path: '/cms/collection/:id',
+        name: 'collection',
+        component: () =>
+          import(
+            /* webpackChunkName: "cms" */ './components/hkTasteBusiness/pc/cms/HkCollection.vue'
+          )
+      },
+      {
         path: '/cms/contentN/:id',
         name: 'cmsContent',
         component: () =>

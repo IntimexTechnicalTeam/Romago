@@ -4,33 +4,26 @@
       <a href="javascript:void(0);" @click="show = !show"
         ><img :src="show?'/images/mobile/mpic_10.png':'/images/mobile/open.png'"
       /></a>
-        <a href="javascript:;" class="livechat" @click="showLivechat"
+        <a href="https://www.facebook.com/romagoswiss.ch/" class="livechat" target="_blank"
         ><img src="/images/mobile/mpic_11.png"
       /></a>
-      <a href="javascript:;" class="livechat"
+      <a href="https://www.instagram.com/romago.swiss/" class="livechat" target="_blank"
         ><img src="/images/mobile/mpic_12.png"
       /></a>
-      <a href="javascript:;" class="livechat"
+      <a href="https://www.youtube.com/channel/UChmJOMmn3UwILnDBrmlKCQw" class="livechat" target="_blank"
         ><img src="/images/mobile/mpic_13.png"
       /></a>
       <span v-show="show">
-        <a href="javascript:;" class="livechat"
+        <a href="https://twitter.com/ROMAGO10" class="livechat" target="_blank"
           ><img src="/images/mobile/mpic_14.png"
         /></a>
-        <div class="wechat">
-          <a href="javascript:;" @mouseover="showWeChat = true;" @mouseout="showWeChat = false;">
+        <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&amp;__biz=MjM5OTAxODI4OQ==&amp;scene=124#wechat_redirect" class="livechat" target="_blank">
             <img src="/images/mobile/mpic_15.png" />
           </a>
-          <transition name="slide-fade">
-            <span class="wechat_img" v-show="showWeChat">
-              <img src="/static/Image/wechat_code.png" />
-            </span>
-          </transition>
-        </div>
-        <a href="javascript:;" class="livechat"
+        <a href="https://www.weibo.com/u/2669053602?is_hot=1#_loginLayer_1510625853844" class="livechat" target="_blank"
           ><img src="/images/mobile/mpic_16.png"
         /></a>
-        <a href="javascript:;" class="livechat"
+        <a href="https://www.pinterest.com/leader2043/pins/" class="livechat" target="_blank"
           ><img src="/images/mobile/mpic_17.png"
         /></a>
       </span>
@@ -54,19 +47,19 @@
           data-show-facepile="false"
         >
           <blockquote
-            cite="https://www.facebook.com/hktastefood/"
+            cite="https://www.facebook.com/romagoswiss.ch/"
             class="fb-xfbml-parse-ignore"
           ></blockquote>
         </div>
         <div class="fb-credit">
-          <a href="https://www.facebook.com/hktastefood/" target="_blank"
+          <a href="https://www.facebook.com/romagoswiss.ch/" target="_blank"
             >Facebook Chat Widget by Romago</a
           >
         </div>
         <div id="fb-root"></div>
       </div>
       <a
-        href="https://www.facebook.com/hktastefood/"
+        href="https://www.facebook.com/romagoswiss.ch/"
         title="Send us a message on Facebook"
         class="ctrlq fb-button"
       ></a>
@@ -214,7 +207,7 @@ export default class InsSidebar extends Vue {
     width: 30px;
   }
   position: fixed;
-  right: 0 !important;
+  right: 30px !important;
   bottom: 60px;
   width: 35px;
   // text-align: center;

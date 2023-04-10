@@ -298,6 +298,7 @@ export default class InsWatchConfiguration extends Vue {
     .imgbox{
       text-align: center;
       position: relative;
+      min-height: 850px;
       .mobileImageBox{
         position: absolute;
         top: 0;
