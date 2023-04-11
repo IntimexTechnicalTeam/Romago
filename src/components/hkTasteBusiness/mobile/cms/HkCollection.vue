@@ -42,7 +42,7 @@ export default class HkCollection extends Vue {
     return this.$route.params.id ? this.$route.params.id : '';
   }
   getContent () {
-    this.$Api.cms.getContentByDevice({ Key: this.id, ContentId: this.id, IsMobile: false }).then(result => {
+    this.$Api.cms.getContentByDevice({ Key: this.id, ContentId: this.id, IsMobile: true }).then(result => {
       this.content = result.CMS;
       this.catId = result.CMS.SeoKeyword;
       if (result.CMS.SeoKeyword) {
@@ -133,7 +133,6 @@ export default class HkCollection extends Vue {
           width: 100%;
           position: fixed;
           height: 100vh;
-          z-index: -1;
           background:url('/images/pc/A1/A1_01.jpg') no-repeat center center;
           background-size: cover;
          }
@@ -148,7 +147,6 @@ export default class HkCollection extends Vue {
           width: 100%;
           position: fixed;
           height: 100vh;
-          z-index: -1;
           background:url('/images/pc/A2/A2_01.jpg') no-repeat center center;
           background-size: cover;
          }
@@ -158,7 +156,6 @@ export default class HkCollection extends Vue {
           width: 100%;
           position: fixed;
           height: 100vh;
-          z-index: -1;
           background:url('/images/pc/A3/A3_01.jpg') no-repeat center center;
           background-size: cover;
          }
@@ -168,7 +165,6 @@ export default class HkCollection extends Vue {
           width: 100%;
           position: fixed;
           height: 100vh;
-          z-index: -1;
           background:url('/images/pc/A4/A4_01.jpg') no-repeat center center;
           background-size: cover;
          }
@@ -190,7 +186,6 @@ export default class HkCollection extends Vue {
           width: 100%;
           position: fixed;
           height: 100vh;
-          z-index: -1;
           background:url('/images/pc/A5/A5_01.jpg') no-repeat center center;
           background-size: cover;
          }
@@ -212,7 +207,6 @@ export default class HkCollection extends Vue {
           width: 100%;
           position: fixed;
           height: 100vh;
-          z-index: -1;
           background:url('/images/pc/B1/B1_05.jpg') no-repeat center center;
           background-size: cover;
          }
@@ -227,7 +221,6 @@ export default class HkCollection extends Vue {
           width: 100%;
           position: fixed;
           height: 100vh;
-          z-index: -1;
           background:url('/images/pc/C1/C1_01.jpg') no-repeat center center;
           background-size: cover;
          }
@@ -248,7 +241,7 @@ export default class HkCollection extends Vue {
               height: 100%;
               .InnerText {
                 position: absolute;
-                width: 1200px;
+                width: 90%;
                 left: 50%;
                 transform: translate(-50%);
                 bottom: 10%;
@@ -256,12 +249,13 @@ export default class HkCollection extends Vue {
                 .headTitle {
                   display: inline-block;
                   color: #fff;
-                  font-size: 32px;
-                  letter-spacing: 5px;
+                  font-size: 2.5rem;
+                  letter-spacing: 2px;
+                  line-height: 3rem;
                   &::after {
                     content: '';
                     width: 100px;
-                    height: 5px;
+                    height: 4px;
                     background: #c6b17b;
                     display: block;
                     margin: 0 auto;
@@ -270,7 +264,7 @@ export default class HkCollection extends Vue {
                 }
                 .content {
                   color: #fff;
-                  font-size: 16px;
+                  font-size: 1.3rem;
                   width: 80%;
                   margin: 0 auto;
                   margin-top: 30px;
@@ -281,6 +275,7 @@ export default class HkCollection extends Vue {
         .mainT {
           z-index: 1;
           padding-top: 100vh;
+          position: relative;
           .tpA {
             background: #fff;
           }
@@ -293,25 +288,29 @@ export default class HkCollection extends Vue {
             .textTitle {
               display: inline-block;
               color: #c6b17b;
-              font-size: 32px;
-              letter-spacing: 5px;
-              padding-top: 80px;
+              font-size: 2.5rem;
+              letter-spacing: 2px;
+              padding-top: 3rem;
+              width: 100%;
+              text-align: center;
+              line-height: 3rem;
               &::before {
                 content: '';
                 width: 100px;
-                height: 5px;
+                height: 4px;
                 background: #c6b17b;
                 display: block;
-                margin-bottom: 10px;
+                margin: 0 auto;
+                margin-bottom: 1.5rem;
               }
             }
             .textcontent {
               color: #999;
-              font-size: 16px;
+              font-size: 1.3rem;
               margin-top: 30px;
             }
             .TopA {
-              width: 800px;
+              width: 90%;
               margin: 0 auto;
               text-align: center;
               padding-top: 50px;
@@ -322,13 +321,13 @@ export default class HkCollection extends Vue {
               .headTitle {
                 display: inline-block;
                 color: #333;
-                font-size: 32px;
-                letter-spacing: 5px;
-                width: 80%;
+                font-size: 2.5rem;
+                line-height: 3rem;
+                letter-spacing: 2px;
                 &::after {
                   content: '';
                   width: 100px;
-                  height: 5px;
+                  height: 4px;
                   background: #c6b17b;
                   display: block;
                   margin: 0 auto;
@@ -337,37 +336,43 @@ export default class HkCollection extends Vue {
               }
               .content {
                 color: #999;
-                font-size: 16px;
+                font-size: 1.3rem;
                 margin-top: 30px;
               }
             }
             .TopB {
-              width: 1200px;
-              display: flex;
+              width: 90%;
               margin: 0 auto;
-              justify-content: space-between;
               padding-top: 50px;
               padding-bottom: 50px;
               .left {
-                width: 48%;
+                width: 100%;
+                display: inline-block;
                 img {
                   width: 100%;
                 }
               }
               .right {
-                width: 48%;
+                width: 100%;
+                display: inline-block;
+                img {
+                  width: 100%;
+                }
               }
             }
            .TopC {
-              width: 1200px;
-              display: flex;
+              width: 90%;
               margin: 0 auto;
-              justify-content: space-between;
               .left {
-                width: 48%;
+                width: 100%;
+                display: inline-block;
+                img {
+                  width: 100%;
+                }
               }
               .right {
-                width: 48%;
+                width: 100%;
+                display: inline-block;
                 img {
                   width: 100%;
                 }
@@ -382,10 +387,11 @@ export default class HkCollection extends Vue {
     width: 100%;
     display: inline-block;
     background: #fff;
-    padding-top: 50px;
-    padding-bottom: 150px;
+    padding-top:5rem;
+    padding-bottom: 8rem;
+    position: relative;
     .Inner {
-      width: 1200px;
+      width: 90%;
       margin: 0 auto;
       .titleMain {
         width: 100%;
@@ -393,10 +399,11 @@ export default class HkCollection extends Vue {
         justify-content:center;
         .title {
           display: inline-block;
-          font-size: 32px;
-          letter-spacing: 5px;
-          padding-top: 80px;
+          font-size: 2.5rem;
+          letter-spacing: 2px;
+          line-height: 3rem;
           text-align: center;
+          width: 100%;
           &::before {
             content: '';
             width: 100%;
@@ -411,10 +418,14 @@ export default class HkCollection extends Vue {
         width: 100%;
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-between;
         margin-top: 20px;
         .perProcut {
-          width: 23%;
+          width: 48%;
+          float: left;
+          margin-right: 4%;
+          &:nth-child(2n) {
+            margin-right: 0px!important;
+          }
           cursor: pointer;
           &:hover {
             .title{
@@ -431,7 +442,7 @@ export default class HkCollection extends Vue {
           .title {
             width: 90%;
             margin: 0 auto;
-            font-size: 16px;
+            font-size: 1.3rem;
             text-align: center;
             transition: all .5s;
             color: #999;
@@ -453,6 +464,7 @@ export default class HkCollection extends Vue {
           align-items: center;
           justify-content: center;
           transition: all .5s;
+          font-size: 1.4rem;
           &:hover {
             background: #333;
             color: #fff;

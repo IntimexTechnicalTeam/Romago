@@ -46,7 +46,7 @@
         <div class="contentText">{{SlectName}}</div>
         <div class="SelectVet">
             <p class="Reset"><a class="resetBtn"  @click="ResetAct"><i></i>{{$t('Message.Reset')}}</a><a class="to_left" @click="BackB"><i></i>{{$t('Message.Previous')}}</a></p>
-            <p class="selectAct"><a class="to_right" @click="save()">{{$t('Message.DownLoad')}}</a></p>
+            <p class="selectAct"><a class="to_right" @click="productSearch()">{{$t('Message.Discovery')}}</a></p>
             <a id="link"></a>
         </div>
     </div>
@@ -121,6 +121,12 @@ export default class InsWatchConfiguration extends Vue {
       this.SelectDialName = e[this.activeIndexA].Name;
       this.SelectDialImg = e[this.activeIndexA].Image;
       this.TypeName = e[this.activeIndexA].Code.split('*')[0];
+      this.SelectDialId = {
+        Id: e[this.activeIndexA].AttrId,
+        Vals: [
+          e[this.activeIndexA].Id
+        ]
+      };
   }
   // 初始化數據，默認選中第一個
   getReadyDataA (e) {
@@ -133,6 +139,12 @@ export default class InsWatchConfiguration extends Vue {
     this.activeIndexB = (this.$refs.mySwiperB as any).swiper.activeIndex;
     this.SelectStrapName = e[this.activeIndexB].Name;
     this.SelectStrapImg = e[this.activeIndexB].Image;
+    this.SelectStrapId = {
+        Id: e[this.activeIndexB].AttrId,
+        Vals: [
+          e[this.activeIndexB].Id
+        ]
+      };
   }
   getReadyDataB (e) {
     this.$nextTick(() => {
@@ -149,24 +161,27 @@ export default class InsWatchConfiguration extends Vue {
     this.IsDial = false;
     this.IsStrap = true;
     this.SlectName = this.SelectDialName;
+     this.AttsId.push(this.SelectDialId);
   }
   SelectItemsB () {
     this.SlectName = this.SelectDialName + '/' + this.SelectStrapName;
     this.IsDial = false;
     this.IsStrap = false;
     this.IsBeltWatch = true;
-    // this.AttsId.push(this.SelectClaspId);
+    this.AttsId.push(this.SelectStrapId);
   }
   // 返回上一步點擊事件
   BackA () {
     this.IsDial = true;
     this.IsStrap = false;
     this.IsBeltWatch = false;
+    this.AttsId = this.AttsId.slice(0, this.AttsId.length - 1);
   }
   BackB () {
     this.IsDial = false;
     this.IsStrap = true;
     this.IsBeltWatch = false;
+    this.AttsId = this.AttsId.slice(0, this.AttsId.length - 1);
   }
  save() {
    html2Canvas(this.$refs.print as any, {
@@ -198,6 +213,29 @@ export default class InsWatchConfiguration extends Vue {
       console.log(this.Dial, 'result');
       console.log(this.Strap, 'result');
     });
+  }
+  productSearch() {
+    console.log(this.AttsId, 'AttrsAttrs');
+      this.$Api.product
+        .search({
+          Key: this.searchKey,
+          PageInfo: {
+            Page: this.currentPage,
+            PageSize: this.pageSize
+          },
+          CatIdS: this.searchCatalogs,
+          Attrs: this.AttsId,
+          Type: 1
+        })
+        .then(result => {
+          console.log(result.YouWouldLike.length, result.YouWouldLike[0]);
+          if (result.YouWouldLike.length) {
+            this.productSku = result.YouWouldLike[0].Sku;
+              window.location.href = '/product/detail/' + this.productSku;
+          } else {
+              window.location.href = '/product/search/-';
+          }
+        });
   }
   mounted() {
     this.getAttrList();

@@ -676,6 +676,14 @@ export const mRoutes = [
           )
       },
       {
+        path: '/cms/collection/:id',
+        name: 'collection',
+        component: () =>
+          import(
+            /* webpackChunkName: "cms" */ './components/hkTasteBusiness/mobile/cms/HkCollection.vue'
+          )
+      },
+      {
         path: '/cms/contentN/:id',
         name: 'cmsContent',
         component: () =>

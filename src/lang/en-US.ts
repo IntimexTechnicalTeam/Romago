@@ -73,7 +73,9 @@ export default {
     Limitedproduction: 'Limited production',
     DownLoad: 'DownLoad',
     Menu: 'Menu',
-    DISCOVERTHECOLLECTION: 'DISCOVER THE COLLECTION'
+    DISCOVERTHECOLLECTION: 'DISCOVER THE COLLECTION',
+    SEEALLWATCHES: 'SEE ALL WATCHES',
+    Discovery: 'Discovery'
   },
   RegNPay: {
     BackText: 'Back',

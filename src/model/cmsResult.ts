@@ -184,12 +184,12 @@ export default class CMS {
     this._SeoDesc = v;
   }
 
-  private _SeoKeyWord : string;
-  public get SeoKeyWord () : string {
-    return this._SeoKeyWord;
+  private _SeoKeyword : string;
+  public get SeoKeyword () : string {
+    return this._SeoKeyword;
   }
-  public set SeoKeyWord (v : string) {
-    this._SeoKeyWord = v;
+  public set SeoKeyword (v : string) {
+    this._SeoKeyword = v;
   }
 
   private _Status : number;
@@ -245,7 +245,7 @@ export default class CMS {
     this._ImagePath = _ImgPath;
     this._Key = _Key;
     this._SeoDesc = _SeoDesc;
-    this._SeoKeyWord = _SeoKeyword;
+    this._SeoKeyword = _SeoKeyword;
     this._Status = _Status;
     this._Title = _Title;
     this._UpdateDate = _UpdateDate;

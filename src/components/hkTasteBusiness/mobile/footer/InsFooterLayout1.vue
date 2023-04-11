@@ -165,6 +165,7 @@ export default class InsFooter extends Vue {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+  position: relative;
   .BottomBg {
     width: 100%;
     display: flex;

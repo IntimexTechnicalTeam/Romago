@@ -73,7 +73,9 @@ export default {
     Limitedproduction: '限量生產',
     DownLoad: '下載',
     Menu: '列表',
-    DISCOVERTHECOLLECTION: '系列產品'
+    DISCOVERTHECOLLECTION: '系列產品',
+    SEEALLWATCHES: '查看全部',
+    Discovery: '探索'
   },
   Account: {
     MemberCenter: '會員中心',
