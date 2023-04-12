@@ -423,6 +423,7 @@ export default class HkCollection extends Vue {
           width: 48%;
           float: left;
           margin-right: 4%;
+          margin-bottom: 4%;
           &:nth-child(2n) {
             margin-right: 0px!important;
           }

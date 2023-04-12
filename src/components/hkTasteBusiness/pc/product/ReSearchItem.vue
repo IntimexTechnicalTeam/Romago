@@ -3,8 +3,8 @@
         <div class="category" :class="{'titleBg': !isOpen}">
           <div class="InnerBox">
             {{searchGroup.Name}}
-              <i class="el-icon-minus"  @click="isOpen = !isOpen" v-if="!isOpen"></i>
-              <i class="el-icon-plus" @click="isOpen = !isOpen" v-else></i>
+              <i class="el-icon-minus topA"  @click="isOpen = !isOpen" v-if="!isOpen"></i>
+              <i class="el-icon-plus topA" @click="isOpen = !isOpen" v-else></i>
           </div>
         </div>
           <transition name="fade">
@@ -13,12 +13,17 @@
                 <input type="checkbox" :id="searchGroup.Name+'-All'" v-model="isAll" @click="checkAll($event,searchGroup)"  style="display:none;">
                 <label :for="searchGroup.Name+'-All'" >{{$t('Message.All')}}</label>
             </li>
-            <li v-for="(child, index2) in (searchType === 1 ? searchGroup.AttrValues : searchType === 2 ? searchGroup.Children : [])" :key="index2">
+            <li v-for="(child, index2) in (searchType === 1 ? searchGroup.AttrValues : searchType === 2 ? searchGroup.Children : [])" :key="index2" class="prentLi">
                 <input type="checkbox" :id="child.Name+index2" :value="child.Id" v-model="checkedValue" @click="selectAttr(searchGroup)"  style="display:none;">
                 <label :for="child.Name+index2">{{child.Name}}</label>
+                 <i class="el-icon-plus clickBtn" v-if="child.Children.length > 0"></i>
+                <ul v-if="child.Children.length > 0" class="childUl">
+                  <li v-for="(child2,index3) in  (searchType === 1 ? child.AttrValues : searchType === 2 ? child.Children : [])" :key="index3">
+                        <input type="checkbox" :id="child2.Name+index3" :value="child2.Id" v-model="checkedValue" @click="selectAttr(searchGroup)" style="display:none;">
+                        <label :for="child2.Name+index3">{{child2.Name}}</label>
+                  </li>
+                </ul>
             </li>
-            <!-- <i class="el-icon-plus" @click="isOpen = !isOpen" v-if="!isOpen"></i>
-            <i class="el-icon-minus" @click="isOpen = !isOpen" v-else></i> -->
         </ul>
         </transition>
     </li>
@@ -39,7 +44,7 @@ export default class InsAdvancedSearch extends Vue {
     isAll: boolean = false; // 是否全选
     checkedValue: number[] = []; // 选中的产品属性值
     selectedAttrs: attrItem[] = []; // 选中的产品属性值
-
+    childIsOpen:boolean = false;
     //  全选（产品属性）
     checkAll (e, attr) {
       console.log('checkAll');
@@ -88,6 +93,10 @@ export default class InsAdvancedSearch extends Vue {
     }
 
     created () {
+      $('.clickBtn').on('click', function() {
+        $(this).parents('.prentLi').find('.childUl').toggle();
+        $(this).toggleClass('el-icon-minus');
+      });
       if (this.defaultSelected.length) {
         if (this.searchType === 1) {
           if (this.defaultSelected.length === this.searchGroup.AttrValues.length) {
@@ -157,11 +166,37 @@ export default class InsAdvancedSearch extends Vue {
      >ul {
        transition: all 3s;
         >li {
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
+            width: 90%;
+            padding-left: 5%;
+            padding-right: 5%;
+            padding-top: 10px;
+            padding-bottom: 10px;
             border-bottom: 1px solid #2c2d31;
+            position: relative;
+            >ul{
+                display:none;
+                margin-top: 10px;
+              >li{
+                padding-top: 10px;
+                padding-bottom: 10px;
+                input[type="checkbox"]:checked {
+                    border: 1px solid #fefefe;
+                    background-image: url('/images/mobile/checked.png'); /*复选框的背景图*/
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    background-size: auto;
+
+                    &+label {
+                        text-decoration: underline;
+                        color: #c6b17b;
+                    }
+                }
+              }
+            }
+            & .childIsOpen {
+                display: none;
+                transition: all 3s;
+            }
             input[type="checkbox"] {
                 width: 18px;
                 height: 18px;
@@ -180,6 +215,7 @@ export default class InsAdvancedSearch extends Vue {
 
                 &+label {
                     text-decoration: underline;
+                    color: #c6b17b;
                 }
             }
 
@@ -197,13 +233,20 @@ export default class InsAdvancedSearch extends Vue {
             }
         }
 
-        i {
+        .topA {
             position: absolute;
             font-size: 26px;
             right: 18px;
             top: 18px;
+            cursor: pointer;
         }
-
+        .clickBtn {
+            position: absolute;
+            font-size: 26px;
+            right: 10px;
+            top: 10px;
+            cursor: pointer;
+        }
         &.open {
                 display: none;
                 transition: all 3s;

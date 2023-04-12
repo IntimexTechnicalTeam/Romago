@@ -2,7 +2,7 @@
   <transition name="fade">
       <div v-if="show" id="level1Layer" @scroll.prevent @mousewheel.prevent>
         <div v-if="userAgent==='pc' && !pcBuilding"></div>
-        <div ref="layerbody" class="layer_body animate__animated animate__bounce" :class="{'layer_body_mobile':userAgent==='mobile'}"> </div>
+        <div ref="layerbody" class="layer_body animate__animated animate__zoomIn" :class="{'layer_body_mobile':userAgent==='mobile'}"> </div>
       </div>
   </transition>
 </template>
