@@ -259,7 +259,7 @@ export default class InsDeliveryAddress extends Vue {
   getCountry () {
     let _this = this;
     this.$Api.delivery.getCountry().then((result) => {
-      _this.countryList = result.data;
+      _this.countryList = result;
     });
   }
 
@@ -269,7 +269,7 @@ export default class InsDeliveryAddress extends Vue {
     var cid = num;
     if (cid && cid !== '') {
       this.$Api.delivery.getProvince(cid).then((result) => {
-        _this.provinceList = result.data;
+        _this.provinceList = result;
       });
     } else {
       _this.AddForm.Province = '';
@@ -290,15 +290,16 @@ export default class InsDeliveryAddress extends Vue {
   // 加载地址列表
   getAddress () {
     let _this = this;
-    this.$Api.delivery.getAddress().then((result) => {
-      _this.addressList = result.data;
+    this.$Api.address.getAddress().then((result) => {
+      _this.addressList = result;
+      console.log(result,'_this.addressList_this.addressList');
     });
   }
   // 删除对应的地址
   removeAddr (cid) {
     let _this = this;
     var addId = cid;
-    this.$Api.delivery.removeAddress(addId).then((result) => {
+    this.$Api.address.removeAddress(addId).then((result) => {
       _this.$message({
         message: this.$t('MyFavorite.RemoveSuccess') as string,
         type: 'success',
@@ -327,7 +328,7 @@ export default class InsDeliveryAddress extends Vue {
     });
     this.AddForm['DeliveryId'] = this.addressList[index].DeliveryId;
     this.$Api.delivery.getProvince(this.addressList[index].CountryId).then((result) => {
-      _this.provinceList = result.data;
+      _this.provinceList = result;
     });
   }
   //   保存地址
@@ -339,7 +340,7 @@ export default class InsDeliveryAddress extends Vue {
     }
     (this.$refs.AddForm as ElForm).validate(valid => {
       if (valid) {
-        this.$Api.delivery.saveAddress(this.AddForm).then((result) => {
+        this.$Api.address.saveAddress(this.AddForm).then((result) => {
           (this.$refs['AddForm'] as ElForm).resetFields();
           this.getAddress();
           this.AddForm = {
