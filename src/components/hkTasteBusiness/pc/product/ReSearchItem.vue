@@ -16,8 +16,8 @@
             <li v-for="(child, index2) in (searchType === 1 ? searchGroup.AttrValues : searchType === 2 ? searchGroup.Children : [])" :key="index2" class="prentLi">
                 <input type="checkbox" :id="child.Name+index2" :value="child.Id" v-model="checkedValue" @click="selectAttr(searchGroup)"  style="display:none;">
                 <label :for="child.Name+index2">{{child.Name}}</label>
-                 <i class="el-icon-plus clickBtn" v-if="child.Children.length > 0"></i>
-                <ul v-if="child.Children.length > 0" class="childUl">
+                 <i class="el-icon-plus clickBtn" v-if="child.Children"></i>
+                <ul v-if="child.Children" class="childUl">
                   <li v-for="(child2,index3) in  (searchType === 1 ? child.AttrValues : searchType === 2 ? child.Children : [])" :key="index3">
                         <input type="checkbox" :id="child2.Name+index3" :value="child2.Id" v-model="checkedValue" @click="selectAttr(searchGroup)" style="display:none;">
                         <label :for="child2.Name+index3">{{child2.Name}}</label>

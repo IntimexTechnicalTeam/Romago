@@ -2,7 +2,7 @@
   <div class="InsCmsContentN">
     <div class="CmsContent">
       <p v-html="content.Body" class="Main"></p>
-      <div class="DISCOVERTHECOLLECTION">
+      <div class="DISCOVERTHECOLLECTION" :class="{'bgblack':id==='40318'}">
         <div class="Inner">
           <div class="titleMain">
                <p class="title">{{$t('Message.DISCOVERTHECOLLECTION')}}</p>
@@ -127,6 +127,9 @@ export default class HkCollection extends Vue {
     width: 100%;
     display: inline-block;
     overflow: hidden;
+    .bgblack {
+      background: #000;
+    }
     .Main {
       /deep/ .A1 {
          .welcomeFix {
@@ -285,6 +288,12 @@ export default class HkCollection extends Vue {
           .bgWhite {
             width: 100%;
             display: inline-block;
+          }
+          .bgBlack {
+            width: 100%;
+            display: inline-block;
+            background: #000!important;
+          }
             .textTitle {
               display: inline-block;
               color: #c6b17b;
@@ -378,7 +387,6 @@ export default class HkCollection extends Vue {
                 }
               }
             }
-          }
         }
       }
     }
@@ -404,11 +412,12 @@ export default class HkCollection extends Vue {
           line-height: 3rem;
           text-align: center;
           width: 100%;
+          color: #c6b17b;
           &::before {
             content: '';
             width: 100%;
             height: 1px;
-            background: #999;
+            background: #c6b17b;
             display: block;
             margin-bottom: 20px;
           }
@@ -460,14 +469,15 @@ export default class HkCollection extends Vue {
           display: flex;
           height: 40px;
           line-height: 40px;
-          color:#333;
-          border: 1px solid #333;
+          color:#c6b17b;;
+          border: 1px solid #c6b17b;
           align-items: center;
           justify-content: center;
           transition: all .5s;
           font-size: 1.4rem;
           &:hover {
             background: #333;
+            border: 1px solid #333;
             color: #fff;
           }
         }

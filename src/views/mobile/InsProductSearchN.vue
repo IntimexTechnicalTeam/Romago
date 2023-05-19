@@ -332,7 +332,7 @@ export default class InsProductSearch extends Vue {
     color: #fff;
     text-transform: uppercase;
       option{
-        color: #000;
+        color: #333333;
       }
     }
     &:last-child{

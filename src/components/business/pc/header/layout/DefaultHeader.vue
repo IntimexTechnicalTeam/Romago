@@ -6,6 +6,7 @@
             <span @click="showSlideMenu" class="slide-menu"><b class="MeunImg"></b><i>{{$t('Message.Menu')}}</i></span>
             <ins-logo />
             <div class="rightSide">
+                <span class="lang" @click="showSlideLang()"></span>
                 <span class="code" @click="showSlideCode()"></span>
                 <ins-login />
                 <shopcart class="shoppingcart" />
@@ -18,6 +19,7 @@
             <span @click="showSlideMenu" class="slide-menu"><b class="MeunImg"></b><i>{{$t('Message.Menu')}}</i></span>
             <ins-logo />
             <div class="rightSide">
+                <span class="lang" @click="showSlideLang()"></span>
                 <span class="code" @click="showSlideCode()"></span>
                 <ins-login />
                 <shopcart class="shoppingcart" />
@@ -52,6 +54,12 @@ export default class DefaultHeader extends Vue {
     this.$store.dispatch('isShowCodeSelect', true);
     this.$store.dispatch('isShowMenu', false);
     this.$store.dispatch('isShowLangSwitch', false);
+    this.$store.dispatch('isShowSearch', false);
+  }
+  showSlideLang () {
+    this.$store.dispatch('isShowLangSwitch', true);
+    this.$store.dispatch('isShowMenu', false);
+    this.$store.dispatch('isShowCodeSelect', false);
     this.$store.dispatch('isShowSearch', false);
   }
   get showHomePage () {
@@ -178,6 +186,22 @@ export default class DefaultHeader extends Vue {
         width: 2rem;
         height: 2rem;
         background: url('/images/mobile/mpic_22_hover.png') no-repeat center center!important;
+        background-size: contain;
+      }
+    }
+    .lang {
+      width: 2rem;
+      height: 2rem;
+      background: url('/images/mobile/mpic_23.png') no-repeat center center;
+      display: inline-block;
+      background-size: contain;
+      cursor: pointer;
+      margin-right: 1rem;
+      transition: all .3s;
+      &:hover {
+        width: 2rem;
+        height: 2rem;
+        background: url('/images/mobile/mpic_23_hover.png') no-repeat center center!important;
         background-size: contain;
       }
     }

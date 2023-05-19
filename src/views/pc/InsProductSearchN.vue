@@ -383,6 +383,9 @@ export default class InsProductSearch extends Vue {
       outline: none;
       cursor: pointer;
       color: #fff;
+      option {
+        color: #333333;
+      }
     }
   }
 }

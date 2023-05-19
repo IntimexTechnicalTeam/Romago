@@ -370,7 +370,9 @@ export default class InsCmsContent extends Vue {
     display: flex;
     flex-wrap: wrap;
     .contents {
-      margin-top: 2rem;
+      width: 90%;
+      margin: 0 auto;
+      padding-top: 2rem;
       /deep/ .AboutMain {
         width: 100%;
         display: flex;
@@ -406,7 +408,6 @@ export default class InsCmsContent extends Vue {
           width: 100%;
           display: flex;
           flex-wrap: wrap;
-          padding-top: 1rem;
           padding-bottom: 3rem;
         }
         .P2 {
@@ -427,6 +428,20 @@ export default class InsCmsContent extends Vue {
           padding-top: 1rem;
           padding-bottom: 3rem;
         }
+      }
+      /deep/ p {
+        color: #fff;
+        font-size: 1.4rem!important;
+      }
+      /deep/ a {
+        color: #fff;
+        font-size: 1.4rem!important;
+      }
+      /deep/ strong {
+        font-size: 1.4rem!important;
+      }
+      /deep/ span {
+        font-size: 1.4rem!important;
       }
     }
   }

@@ -91,6 +91,14 @@ export const pRoutes = [
           )
       },
       {
+        path: '/cms/Retailers',
+        name: 'collection',
+        component: () =>
+          import(
+            /* webpackChunkName: "cms" */ './components/hkTasteBusiness/pc/cms/Retailers.vue'
+          )
+      },
+      {
         path: '/cms/contentN/:id',
         name: 'cmsContent',
         component: () =>
@@ -681,6 +689,14 @@ export const mRoutes = [
         component: () =>
           import(
             /* webpackChunkName: "cms" */ './components/hkTasteBusiness/mobile/cms/HkCollection.vue'
+          )
+      },
+      {
+        path: '/cms/Retailers',
+        name: 'collection',
+        component: () =>
+          import(
+            /* webpackChunkName: "cms" */ './components/hkTasteBusiness/mobile/cms/Retailers.vue'
           )
       },
       {

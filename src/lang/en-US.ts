@@ -75,7 +75,8 @@ export default {
     Menu: 'Menu',
     DISCOVERTHECOLLECTION: 'DISCOVER THE COLLECTION',
     SEEALLWATCHES: 'SEE ALL WATCHES',
-    Discovery: 'Discovery'
+    Discovery: 'Discovery',
+    Retailers: 'Select Retailers'
   },
   RegNPay: {
     BackText: 'Back',

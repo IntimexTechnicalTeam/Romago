@@ -69,13 +69,14 @@ export default {
     robotTips: '我不是機器人',
     Select: '選擇',
     Reset: '重置',
-    Previous: '上一個',
+    Previous: '上一步',
     Limitedproduction: '限量生產',
     DownLoad: '下載',
     Menu: '列表',
     DISCOVERTHECOLLECTION: '系列產品',
     SEEALLWATCHES: '查看全部',
-    Discovery: '探索'
+    Discovery: '探索',
+    Retailers: '選擇銷售點'
   },
   Account: {
     MemberCenter: '會員中心',

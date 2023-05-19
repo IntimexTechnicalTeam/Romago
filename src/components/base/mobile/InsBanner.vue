@@ -6,7 +6,7 @@
                   <div class="qhbox">
                     <div class="vrteacher" style="height:100vh;">
                       <div class="Innerlayer"></div>
-                      <div class="Inner">
+                      <div class="Inner" @click="goUrl(item.Url)">
                         <div class="ptitle">{{item.Title}}</div>
                         <div class="pdesc">{{item.Desc}}</div>
                         <div class="next"><i class="down"></i></div>
@@ -76,6 +76,13 @@ export default class Banner extends Vue {
   }
   get isActive () {
     return this.$store.state.isActive;
+  }
+  goUrl (val) {
+    if (val) {
+      window.location.href = val;
+    } else {
+      return false;
+    }
   }
   slideChange() {
         var videos = document.getElementsByClassName('myVideo') as any;
