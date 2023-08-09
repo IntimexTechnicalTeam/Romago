@@ -140,14 +140,10 @@ export default class ProductDetail extends Vue {
 }
 </script>
 <style  lang="less">
-.product_detail p,.product_detail h3{
-  padding:2rem;
-  color: #cccccc;
-}
 .product_detail h3{
   font-size:1.4rem;
   font-weight:100;
-  color: #cccccc;
+  color: #fff;
 }
 .el-rate__decimal {
     display: inline-block;
@@ -261,19 +257,26 @@ export default class ProductDetail extends Vue {
       }
     }
     .product_detail{
-      width: 100%;
+      width: 90%;
       margin:0 auto;
       min-height: 20rem;
       margin-top: 1rem;
       margin-bottom: 1rem;
       /deep/ p {
         font-size: 1.2rem;
-        color: #cccccc;
+        color: #fff;
         line-height: 2rem;
       }
-      p{
+      /deep/ strong {
         font-size: 1.2rem;
-     }
+        color: #fff;
+        line-height: 2rem;
+      }
+      /deep/ td {
+        font-size: 1.2rem;
+        color: #fff;
+        line-height: 2rem;
+      }
     }
   }
 }

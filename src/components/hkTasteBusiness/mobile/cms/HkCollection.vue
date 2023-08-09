@@ -46,22 +46,19 @@ export default class HkCollection extends Vue {
       this.content = result.CMS;
       this.catId = result.CMS.SeoKeyword;
       if (result.CMS.SeoKeyword) {
-        this.getCatProduct(result.CMS.SeoKeyword);
+        this.getCatProduct(result.CMS.SeoDesc);
       }
       if (result.CMS.Title) document.title = result.CMS.Title;
     });
   }
-  getCatProduct(CatId) {
-    this.$Api.product.getCatProduct(
-        {
-          CatId: CatId,
-          Page: this.CurrentPage,
-          PageSize: this.PageSize
-        }).then((result) => {
-          this.ProductList = result.YouWouldLike;
-          console.log(this.ProductList, 'this.ProductList');
+  getCatProduct (Pos) {
+      var page = 'Home';
+      this.$Api.promotion.getPromotion('Home', Pos).then((result) => {
+        if (result.Promotion.PrmtProductList.length > 0) {
+          this.ProductList = result.Promotion.PrmtProductList.slice(0, 4);
+        }
       });
-  }
+    }
   get lang () {
     return this.$Storage.get('locale');
   }

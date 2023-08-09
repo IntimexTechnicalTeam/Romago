@@ -152,9 +152,6 @@ export default class InsProductDetail extends Vue {
 }
 </script>
 <style  lang="less">
-.PcVersion .product_detail p,.product_detail h3{
-  padding:2rem;
-}
 .PcVersion .product_detail h3{
   font-size:1.4rem;
   font-weight:100;
@@ -243,7 +240,7 @@ export default class InsProductDetail extends Vue {
     text-align: center;
     padding: 60px 0;
     min-height: 400px;
-        font-size: 20px;
+    font-size: 20px;
   }
 }
 .commentsLine{

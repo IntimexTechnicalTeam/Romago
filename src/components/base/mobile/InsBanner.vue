@@ -168,20 +168,21 @@ export default class Banner extends Vue {
           .ptitle {
             color: #c6b17b;
             font-size: 2rem;
-            margin-bottom: 1rem;
+            margin-bottom: .5rem;
           }
           .pdesc {
             color: #fff;
             font-size: 3rem;
+            line-height: 3.4rem;
             font-family: 'PoppinsBold', 'Microsoft YaHei';
           }
           .next {
-            margin-top: 2rem;
+            margin-top: .5rem;
             .down {
-              width: 20px;
-              height: 20px;
+              width: 30px;
+              height: 30px;
               background: url('/images/mobile/arrowhead-down.png') no-repeat center center;
-              background-size: 15px;
+              background-size: contain;
               display: inline-block;
             }
           }

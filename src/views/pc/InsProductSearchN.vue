@@ -83,7 +83,7 @@ export default class InsProductSearch extends Vue {
   searchCatalogs: number[] = []; // 选中的产品目录数组
   searchType: number = 1; // 搜索类型（0 => 叠加，1 => 筛选）
   isAdvanced: boolean = true;
-  PriceItem: string = '';
+  PriceItem: string = 'desc';
   private waiting: boolean = true;
   // 搜索关键词
   get searchKey() {
